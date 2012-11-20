@@ -28,21 +28,6 @@ public class MainActivity extends Activity {
         tv.setText("Lookup error codes.");
         ll.addView(tv);
         
-        
-        et = new EditText(this);
-        et.setHint("Enter Trouble Code.");
-        
-        Button b = new Button(this);
-        b.setText("Look Up");
-        
-        b.setOnClickListener(new View.OnClickListener() {
-    		@Override
-			public void onClick(View v) {	
-        	
-        	
-        	
-			}
-		});
 	}
 
 	@Override

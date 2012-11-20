@@ -34,15 +34,6 @@ public class MainActivity extends Activity {
         
         Button b = new Button(this);
         b.setText("Look Up");
-        
-        b.setOnClickListener(new View.OnClickListener() {
-    		@Override
-			public void onClick(View v) {	
-        	
-        	
-        	
-			}
-		});
 	}
 
 	@Override
