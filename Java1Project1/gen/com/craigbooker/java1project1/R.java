@@ -14,15 +14,26 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int menu_settings=0x7f060000;
+        public static final int menu_settings=0x7f070000;
+    }
+    public static final class integer {
+        public static final int dime=0x7f030001;
+        public static final int nickel=0x7f030002;
+        public static final int penny=0x7f030003;
+        public static final int quarter=0x7f030000;
     }
     public static final class menu {
-        public static final int activity_main=0x7f050000;
+        public static final int activity_main=0x7f060000;
     }
     public static final class string {
-        public static final int app_name=0x7f030000;
-        public static final int hello_world=0x7f030001;
-        public static final int menu_settings=0x7f030002;
+        public static final int app_name=0x7f040000;
+        public static final int dime=0x7f040005;
+        public static final int hello_world=0x7f040001;
+        public static final int menu_settings=0x7f040002;
+        public static final int moneyamts=0x7f040003;
+        public static final int nickel=0x7f040006;
+        public static final int penny=0x7f040007;
+        public static final int quarter=0x7f040004;
     }
     public static final class style {
         /** 
@@ -46,10 +57,10 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f040000;
+        public static final int AppBaseTheme=0x7f050000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f040001;
+        public static final int AppTheme=0x7f050001;
     }
 }
