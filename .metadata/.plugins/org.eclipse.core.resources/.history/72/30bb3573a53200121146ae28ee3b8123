@@ -22,8 +22,6 @@ public class MainActivity extends Activity {
         tv.setText("This is an example TextView.");
         
         ll.addView(tv);
-        
-        setContentView(ll);
     }
 
     @Override
