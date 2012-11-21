@@ -1,0 +1,37 @@
+<resources>
+	<array name="pid_string_array">
+		<item>11</item>
+		<item>0C</item>
+		<item>0D</item>
+		<item>04</item>
+		<item>0E</item>
+		<item>0B</item>
+		<item>10</item>
+		<item>03</item>
+		<item>06</item> 
+		<item>07</item> 
+		<item>08</item> 
+		<item>09</item> 
+		<item>0F</item> 
+		<item>05</item> 
+		<item>0A</item> 
+		<item>14</item> 
+		<item>15</item> 
+		<item>16</item> 
+		<item>17</item> 
+		<item>18</item> 
+		<item>19</item> 
+		<item>1A</item> 
+		<item>1B</item> 
+		<item>1F</item> 
+		<item>2F</item> 
+		<item>33</item> 
+		<item>3C</item> 
+		<item>3D</item> 
+		<item>3E</item>
+		<item>3F</item>
+		<item>42</item>
+		<item>43</item>
+		<item>46</item>
+	</array>
+</resources>
