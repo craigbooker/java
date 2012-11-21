@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Java1ProjectWk1 - Trouble Code Lookup</string>
+    <string name="menu_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+	
+    
+    
+    <string-array name="sensor_array">
+		<item>Absolute Throttle Position</item>
+		<item>Engine RPM</item>
+		<item>Vehicle Speed</item>
+		<item>Calculated Load Value</item>
+		<item>Timing Advance (Cyl#1)</item>
+		<item>Intake Manifold Pressure</item> 
+		<item>Air Flow Rate (MAF Sensor)</item> 
+		<item>Fuel System Status</item> 
+		<item>Short Term Fuel Trim (Bank 1)</item> 
+		<item>Long Term Fuel Trim (Bank 1)</item> 
+		<item>Short Term Fuel Trim (Bank 2)</item> 
+		<item>Long Term Fuel Trim (Bank 2)</item> 
+		<item>Intake Air Temperature</item> 
+		<item>Coolant Temperature</item> 
+		<item>Fuel Pressure (guage)</item> 
+		<item>O2 Sensor 1, Bank 1</item> 
+		<item>O2 Sensor 2, Bank 1</item> 
+		<item>O2 Sensor 3, Bank 1</item> 
+		<item>O2 Sensor 4, Bank 1</item> 
+		<item>O2 Sensor 1, Bank 2</item> 
+		<item>O2 Sensor 2, Bank 2</item> 
+		<item>O2 Sensor 3, Bank 2</item> 
+		<item>O2 Sensor 4, Bank 2</item> 
+		<item>Time Since Engine Start</item> 
+		<item>Fuel Level Input</item> 
+		<item>Barometric Pressure (Absolute)</item> 
+		<item>Catalytic Converter Temp B1S1</item> 
+		<item>Catalytic Converter Temp B2S1</item> 
+		<item>Catalytic Converter Temp B1S2</item> 
+		<item>Catalytic Converter Temp B2S2</item> 
+		<item>ECU Voltage</item> 
+		<item>Absolute Engine Load</item> 
+		<item>Ambient Air Temperature</item>            
+ 	</string-array>   
+</resources>

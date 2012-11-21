@@ -16,8 +16,8 @@ public class MainActivity extends Activity {
 	LinearLayout ll;
 	LinearLayout.LayoutParams lp;
 	EditText et;
-	TextView result;
-	//Spinner spinner;
+	TextView selection;
+	Spinner spinner;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +31,20 @@ public class MainActivity extends Activity {
         tv.setText("Lookup error codes.");
         ll.addView(tv);
         
-        Spinner spin = (Spinner) findViewById(R.id.spinner);
+        
+        Spinner spin = new Spinner(this);
+        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        spin.setLayoutParams(lp);
+        
+        
+        ArrayAdapter<String> adapter = ArrayAdapter.createFromResource(this, R.array.pid_string_array)
+        
+        
+        
 		spin.setOnItemSelectedListener(this);
         
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-        		  this, R.array.pid_array, android.R.layout.simple_spinner_item );
+        		  this, R.array.	, android.R.layout.simple_spinner_item );
         		adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
      
      
@@ -64,7 +73,7 @@ public class MainActivity extends Activity {
         b.setOnClickListener(new View.OnClickListener() {
     		@Override
     		public void onClick(View v) {
-				int quarter = getResources().getStringArray(R.array.pid_array);
+				int quarter = getResources().getStringArray(this, R.array.);
 				
 				int entry = Integer.parseInt(et.getText().toString());
 				
@@ -78,14 +87,6 @@ public class MainActivity extends Activity {
 						);
 			}
 		});
-	}
-	public void onItemSelected(AdapterView<?> parent, View v, int position,
-			long id) {
-		selection.setText(items[position]);
-	}
-
-	public void onNothingSelected(AdapterView<?> parent) {
-		selection.setText("");
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
