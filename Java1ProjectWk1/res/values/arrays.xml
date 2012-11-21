@@ -70,4 +70,39 @@
 		<item>Absolute Engine Load</item> 
 		<item>Ambient Air Temperature</item>            
  	</string-array> 
+ 	<string-array name="solution_string_array">
+		<item>Get to the grease monkey stat!</item>
+		<item>Engine RPM could be bad. Check manual.</item>
+		<item>Slow it down, you are going a bit fast.</item>
+		<item>No idea, see your mechanic.</item>
+		<item>Probably she take it in.</item>
+		<item>Use google for the best resource.</item> 
+		<item>Check your grill. It might be covered.</item> 
+		<item>Might need fuel.</item> 
+		<item>Try again.</item> 
+		<item>You are asking me?!</item> 
+		<item>Really, asking me?</item> 
+		<item>Time to take her in!</item> 
+		<item>Getting a bit hot!</item> 
+		<item>Might want to check your coolant.</item> 
+		<item>We have a leak.</item> 
+		<item>Oh, my! a sensor is bad.</item> 
+		<item>Oh, my! a sensor is bad. Or something.</item> 
+		<item>Oh, my! a sensor is bad. Or we are low on oxygen.</item> 
+		<item>Better get your mask!</item> 
+		<item>Oh, my O2 Sensor!</item> 
+		<item>Leave my sensor alone.</item> 
+		<item>O2 Sensor 3, Bank 2</item> 
+		<item>O2 Sensor 4, Bank 2</item> 
+		<item>Time Since Engine Start</item> 
+		<item>Fuel Level Input</item> 
+		<item>The Pressure is too much</item> 
+		<item>Look it up!</item> 
+		<item>Phone a friend.</item> 
+		<item>You need a mechanic.</item> 
+		<item>Time to get out the manual.</item> 
+		<item>I need more power captain!</item> 
+		<item>Overload!</item> 
+		<item>I need an ice pack.</item>            
+ 	</string-array>
 </resources>

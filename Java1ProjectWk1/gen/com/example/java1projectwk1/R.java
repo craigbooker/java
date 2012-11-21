@@ -11,6 +11,7 @@ public final class R {
     public static final class array {
         public static final int pid_string_array=0x7f030000;
         public static final int sensor_string_array=0x7f030001;
+        public static final int solution_string_array=0x7f030002;
     }
     public static final class attr {
     }
