@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string-array name="pid_string_array">
+		<item>00</item>	    
 		<item>11</item>
 		<item>0C</item>
 		<item>0D</item>
@@ -36,7 +37,8 @@
 		<item>46</item>
 	</string-array>
     <string-array name="sensor_string_array">
-		<item>Absolute Throttle Position</item>
+		<item>NONE SELECTED</item>
+        <item>Absolute Throttle Position</item>
 		<item>Engine RPM</item>
 		<item>Vehicle Speed</item>
 		<item>Calculated Load Value</item>
@@ -71,6 +73,7 @@
 		<item>Ambient Air Temperature</item>            
  	</string-array> 
  	<string-array name="solution_string_array">
+ 		<item>NONE SELECTED</item>
 		<item>Get to the grease monkey stat!</item>
 		<item>Engine RPM could be bad. Check manual.</item>
 		<item>Slow it down, you are going a bit fast.</item>

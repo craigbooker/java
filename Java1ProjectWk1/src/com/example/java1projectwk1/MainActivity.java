@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,13 +18,18 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 	LinearLayout ll;
 	LinearLayout.LayoutParams lp;
-	EditText et;
 	TextView spinnerLabel;
 	TextView result;
 	Spinner main_spinner;
+	String[ ] pidArray;
 	String[ ] sensorsArray;
 	String[ ] solutionsArray;
+	String[ ] listSolutionsArray;
 	int clickCounter;
+	int selectedIndex;
+	String selectedTroubleCode;
+	String selectedSensor;
+	String correspondingSolution;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,28 +38,40 @@ public class MainActivity extends Activity {
         ll.setOrientation(LinearLayout.VERTICAL);
         lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         ll.setLayoutParams(lp);
+        pidArray = getResources().getStringArray(R.array.pid_string_array);
         sensorsArray = getResources().getStringArray(R.array.sensor_string_array);
-        solutionsArray = getResources().getStringArray(R.array.solution_string_array);
+ 
+		if(listSolutionsArray.length == 0) {
+			Toast.makeText(getBaseContext(),
+                    "You needto fill your solutionsArray",
+                    Toast.LENGTH_LONG).show();
+			// This will fill the solutions array using a for loop to print out later.
+			for (int i=0; i < solutionsArray.length; i++) {
+				listSolutionsArray[i] = solutionsArray[i];
+			}
+		}
+		
+		
         Button b = new Button(this);
         b.setText("Lookup Possible Problem");
         b.setOnClickListener(new View.OnClickListener() {
-			
+	
  			@Override
  			public void onClick(View v) {
- 				if(clickCounter > -1) {
- 					for(int i = 0; i < solutionsArray.length; i++) {
- 						Toast.makeText(getBaseContext(),
- 		                        "You might need to: " + solutionsArray[i],
- 		                        Toast.LENGTH_LONG).show();
- 		            }	
- 	
- 				}
+ 				//getSolutions();
+ 				solutionsArray = getResources().getStringArray(R.array.solution_string_array);	
+ 				if(listSolutionsArray.length != 0){
+
+ 				result.setText("Trouble Code: " + selectedTroubleCode + "\r\n" + 
+						"Sensor Type: " + selectedSensor + "\r\n" + 
+						"Possible solution: " + correspondingSolution + "\r\n"
+						);
+
+	 			}
  			}
  		});
         
         TextView tv = new TextView(this);
-        //TextView result = null;
-        //tv.setText(getString(R.string.quarter)+","+getString(R.string.dime)+","+getString(R.string.nickel)+","+getString(R.string.penny));
         tv.setText("Translate trouble code to something useful.");
         tv.setTextSize(14);
         
@@ -74,6 +90,9 @@ public class MainActivity extends Activity {
         	@Override
         	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
         		int index = arg0.getSelectedItemPosition();
+        		selectedIndex = index;
+        		selectedTroubleCode = pidArray[selectedIndex];
+        		correspondingSolution = solutionsArray[selectedIndex];
             	Toast.makeText(getBaseContext(),
                         "You have selected item : " + sensorsArray[index],
                         Toast.LENGTH_LONG).show();
@@ -94,17 +113,6 @@ public class MainActivity extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         
         
-        
-        et = new EditText(this);
-        et.setHint("Enter Code.");
-        //ll.addView(et);
-        
-
-        
-        
-        
- 
-        
         LinearLayout form = new LinearLayout(this);
         form.setOrientation(LinearLayout.HORIZONTAL);
         lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -115,7 +123,6 @@ public class MainActivity extends Activity {
         
         
         ll.addView(form);
-
         ll.addView(b);
         
         result = new TextView(this);
@@ -123,12 +130,16 @@ public class MainActivity extends Activity {
         
         setContentView(ll);
     }
-
+	public void getSolutions(){
+	    solutionsArray = getResources().getStringArray(R.array.solution_string_array);		
+		
+	}  
+ 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }
-    
-	}
+ 
+}
