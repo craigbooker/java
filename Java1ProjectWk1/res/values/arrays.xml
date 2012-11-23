@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string-array name="pid_string_array">
-		<item>00</item>	    
+		<item>00</item>
 		<item>11</item>
 		<item>0C</item>
 		<item>0D</item>
@@ -70,7 +70,7 @@
 		<item>Catalytic Converter Temp B2S2</item> 
 		<item>ECU Voltage</item> 
 		<item>Absolute Engine Load</item> 
-		<item>Ambient Air Temperature</item>            
+		<item>Ambient Air Temperature</item>
  	</string-array> 
  	<string-array name="solution_string_array">
  		<item>NONE SELECTED</item>
@@ -106,6 +106,6 @@
 		<item>Time to get out the manual.</item> 
 		<item>I need more power captain!</item> 
 		<item>Overload!</item> 
-		<item>I need an ice pack.</item>            
+		<item>I need an ice pack.</item>
  	</string-array>
 </resources>

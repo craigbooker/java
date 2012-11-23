@@ -2,8 +2,9 @@ package com.example.java1projectwk1;
 
 
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,24 +17,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
+	public static final String TAG = MainActivity.class.getSimpleName();
 	LinearLayout ll;
 	LinearLayout.LayoutParams lp;
 	TextView spinnerLabel;
 	TextView result;
 	Spinner main_spinner;
-	String[ ] pidArray;
-	String[ ] sensorsArray;
-	String[ ] solutionsArray;
-	String[ ] listSolutionsArray;
-	int clickCounter;
-	int selectedIndex;
 	String selectedTroubleCode;
 	String selectedSensor;
 	String correspondingSolution;
+	String[ ] pidArray = null;
+	String[ ] sensorsArray = null;
+	String[ ] solutionsArray = null;
+	String[ ] listSolutionsArray = null;
+	int selectedIndex;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+    	
         ll = new LinearLayout(this);
         ll.setOrientation(LinearLayout.VERTICAL);
         lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
@@ -51,14 +56,11 @@ public class MainActivity extends Activity {
 			}
 		}
 		
-		
         Button b = new Button(this);
         b.setText("Lookup Possible Problem");
         b.setOnClickListener(new View.OnClickListener() {
-	
- 			@Override
+	 			@Override
  			public void onClick(View v) {
- 				//getSolutions();
  				solutionsArray = getResources().getStringArray(R.array.solution_string_array);	
  				if(listSolutionsArray.length != 0){
 
@@ -79,6 +81,11 @@ public class MainActivity extends Activity {
         spinnerLabel.setText("Select a trouble code.");
         
         ll.addView(tv);
+        LinearLayout form = new LinearLayout(this);
+        form.setOrientation(LinearLayout.HORIZONTAL);
+        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        form.setLayoutParams(lp);
+        form.addView(spinnerLabel);
         main_spinner = new Spinner(this);
       
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.pid_string_array, android.R.layout.simple_spinner_item);
@@ -96,32 +103,21 @@ public class MainActivity extends Activity {
             	Toast.makeText(getBaseContext(),
                         "You have selected item : " + sensorsArray[index],
                         Toast.LENGTH_LONG).show();
-                  }
+            }
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
 				Toast.makeText(getBaseContext(),
                         "You need to select an item. ",
                         Toast.LENGTH_LONG).show();
-                  }
+            }
 	
         });
         
+
         
-        ArrayAdapter<CharSequence> sensorAdapter = ArrayAdapter.createFromResource(this, R.array.sensor_string_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        
-        
-        LinearLayout form = new LinearLayout(this);
-        form.setOrientation(LinearLayout.HORIZONTAL);
-        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        form.setLayoutParams(lp);
-        
-        form.addView(spinnerLabel);
+
         form.addView(main_spinner);
-        
-        
         ll.addView(form);
         ll.addView(b);
         
@@ -129,12 +125,8 @@ public class MainActivity extends Activity {
         ll.addView(result);
         
         setContentView(ll);
+        Log.d(TAG, "We are logging from the onCreate() mehtod.");
     }
-	public void getSolutions(){
-	    solutionsArray = getResources().getStringArray(R.array.solution_string_array);		
-		
-	}  
- 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
