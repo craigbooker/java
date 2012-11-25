@@ -113,7 +113,8 @@ public class MainActivity extends Activity {
             }
 	
         });
- 
+        
+
         form.addView(main_spinner);
         ll.addView(form);
         ll.addView(b);
