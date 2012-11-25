@@ -26,42 +26,43 @@ public class MainActivity extends Activity {
 	String selectedTroubleCode;
 	String selectedSensor;
 	String correspondingSolution;
-	String[ ] pidArray;
-	String[ ] sensorsArray;
-	String[ ] solutionsArray;
-	//String[ ] listSolutionsArray;  This was added in to show the use of a for loop to fill an empty array.
+	String[ ] pidArray = null;
+	String[ ] sensorsArray = null;
+	String[ ] solutionsArray = null;
+	String[ ] listSolutionsArray = null;
 	int selectedIndex;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
+    	
         ll = new LinearLayout(this);
         ll.setOrientation(LinearLayout.VERTICAL);
         lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         ll.setLayoutParams(lp);
         pidArray = getResources().getStringArray(R.array.pid_string_array);
         sensorsArray = getResources().getStringArray(R.array.sensor_string_array);
-        solutionsArray = getResources().getStringArray(R.array.solution_string_array); 
- /*
-		if((listSolutionsArray.length == 0) || (listSolutionsArray == null)) {
+ 
+		if(listSolutionsArray.length == 0) {
 			Toast.makeText(getBaseContext(),
                     "You needto fill your solutionsArray",
                     Toast.LENGTH_LONG).show();
 			// This will fill the solutions array using a for loop to print out later.
 			for (int i=0; i < solutionsArray.length; i++) {
 				listSolutionsArray[i] = solutionsArray[i];
-				Log.d("I am in the fillarray", correspondingSolution);
 			}
 		}
-	*/	
+		
         Button b = new Button(this);
         b.setText("Lookup Possible Problem");
         b.setOnClickListener(new View.OnClickListener() {
 	 			@Override
  			public void onClick(View v) {
- 				//solutionsArray = getResources().getStringArray(R.array.solution_string_array);	
- 				if(selectedTroubleCode != null){
+ 				solutionsArray = getResources().getStringArray(R.array.solution_string_array);	
+ 				if(listSolutionsArray.length != 0){
 
  				result.setText("Trouble Code: " + selectedTroubleCode + "\r\n" + 
 						"Sensor Type: " + selectedSensor + "\r\n" + 
@@ -98,7 +99,6 @@ public class MainActivity extends Activity {
         		int index = arg0.getSelectedItemPosition();
         		selectedIndex = index;
         		selectedTroubleCode = pidArray[selectedIndex];
-        		selectedSensor = sensorsArray[selectedIndex];
         		correspondingSolution = solutionsArray[selectedIndex];
             	Toast.makeText(getBaseContext(),
                         "You have selected item : " + sensorsArray[index],

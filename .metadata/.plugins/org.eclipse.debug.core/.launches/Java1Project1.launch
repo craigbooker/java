@@ -8,13 +8,13 @@
 <stringAttribute key="com.android.ide.eclipse.adt.target" value="MANUAL"/>
 <booleanAttribute key="com.android.ide.eclipse.adt.wipedata" value="false"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/Java1Project1"/>
-<listEntry value="/Java1Project1/AndroidManifest.xml"/>
+<listEntry value="/Java1ProjectWk1"/>
+<listEntry value="/Java1ProjectWk1/AndroidManifest.xml"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="4"/>
 <listEntry value="1"/>
 </listAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.ALLOW_TERMINATE" value="true"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Java1Project1"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Java1ProjectWk1"/>
 </launchConfiguration>
