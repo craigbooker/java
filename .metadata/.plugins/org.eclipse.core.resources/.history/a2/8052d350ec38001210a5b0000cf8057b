@@ -1,0 +1,12 @@
+package com.craigbooker.lib;
+
+import android.widget.LinearLayout;
+
+public class FormThings {
+	public static LinearLayout singleEntryWithButton(Context context){
+		LinearLayout ll = new LinearLayout(context);
+		LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		
+		return ll;
+	}
+} 
