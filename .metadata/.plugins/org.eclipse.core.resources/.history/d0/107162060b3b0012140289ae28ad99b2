@@ -39,9 +39,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         LinearLayout entryBox = FormThings.singleEntryWithButton(this, "Enter Miles", "Go");
-        ll.addView(entryBox);
-        
-        
         ll = new LinearLayout(this);
         ll.setOrientation(LinearLayout.VERTICAL);
         lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);

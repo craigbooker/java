@@ -1,5 +1,5 @@
 Java Week 2:
-JAVA 1 Week 1
+JAVA 1 Week 2
 
 
 Project Overview:
@@ -15,10 +15,19 @@ Spinner main_spinner
 Function onClick, onItemSelected, onNothingSelected 
 Condition if(selectedTroubleCode != null) 
 Resource - sensors, pid, and solutions.
-Button - Lookup Solution
- 
+Button - Lookup Repair location - no functionality now.
+
+Submission Requirements
+User defined package(s) for application code
+Java class(es) with Methods and Fields
+Java Enum(s) with Methods and Fields
+Java Interface(s) to define data structure
+3+ Java Data Types (int/float,Array,String)
+Java Condition(s)
+Data structure defined as Android resource
+Android Layout and UI elements 
 GitHub Link:
-https://github.com/craigbooker/java/tree/master/Java1ProjectWk1
+https://github.com/craigbooker/java/tree/master/Java1ProjectWk2
 
 	
 ACTION ITEMS @actionItems
