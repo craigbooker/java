@@ -1,4 +1,25 @@
 Java Week 2:
+JAVA 1 Week 1
+
+
+Project Overview:
+My project this week is a tool to look up trouble codes (OBDII) for your vehicle and to find out the sensor each trouble code belongs to along with a solution.  The app will then allow the user to find a nearby mechanic using the Google Maps/Places API. 
+
+
+Project Requirements:
+ 
+CODE
+int var is the selectedIndex.
+String Vars selectedTroubleCode, selectedSensor, correspondingSolution.
+Spinner main_spinner
+Function onClick, onItemSelected, onNothingSelected 
+Condition if(selectedTroubleCode != null) 
+Resource - sensors, pid, and solutions.
+Button - Lookup Solution
+ 
+GitHub Link:
+https://github.com/craigbooker/java/tree/master/Java1ProjectWk1
+
 	
 ACTION ITEMS @actionItems
 
