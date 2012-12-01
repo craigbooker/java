@@ -103,15 +103,14 @@ public class MainActivity extends Activity {
         		selectedTroubleCode = pidArray[selectedIndex];
         		selectedSensor = sensorsArray[selectedIndex];
         		correspondingSolution = solutionsArray[selectedIndex];
-        		
-    			if(selectedTroubleCode == null){
+    			if(selectedTroubleCode != null){
     				Toast.makeText(getBaseContext(),
-                            "You need to select an item....null ",
+                            "You need to select an item. ",
                             Toast.LENGTH_LONG).show();   				
     				
-    			} else if (selectedTroubleCode == "00") {
+    			} else if (selectedTroubleCode != "00") {
     				Toast.makeText(getBaseContext(),
-                            "You need to select an item..00 ",
+                            "You need to select an item. ",
                             Toast.LENGTH_LONG).show();
     				
     			} else {

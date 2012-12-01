@@ -56,7 +56,6 @@ public class MainActivity extends Activity {
 			}
 		}
 	*/	
-        /*
         Button b = new Button(this);
         b.setText("Lookup Possible Problem");
         b.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +72,6 @@ public class MainActivity extends Activity {
 	 			}
  			}
  		});
- 		*/
         TextView tv = new TextView(this);
         tv.setText("Translate trouble code to something useful.");
         tv.setTextSize(14);
@@ -97,21 +95,15 @@ public class MainActivity extends Activity {
         main_spinner.setOnItemSelectedListener (new OnItemSelectedListener() {
         	@Override
         	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-        		Log.i("I made it to:", " Start of onItemSelected.");
         		int index = arg0.getSelectedItemPosition();
         		selectedIndex = index;
         		selectedTroubleCode = pidArray[selectedIndex];
         		selectedSensor = sensorsArray[selectedIndex];
         		correspondingSolution = solutionsArray[selectedIndex];
-        		
-    			if(selectedTroubleCode == null){
+    			if(selectedTroubleCode != null){
+    			} else if (selectedTroubleCode != "00") {
     				Toast.makeText(getBaseContext(),
-                            "You need to select an item....null ",
-                            Toast.LENGTH_LONG).show();   				
-    				
-    			} else if (selectedTroubleCode == "00") {
-    				Toast.makeText(getBaseContext(),
-                            "You need to select an item..00 ",
+                            "You need to select an item. ",
                             Toast.LENGTH_LONG).show();
     				
     			} else {

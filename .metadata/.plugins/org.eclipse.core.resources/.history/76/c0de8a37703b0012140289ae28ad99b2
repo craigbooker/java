@@ -109,7 +109,7 @@ public class MainActivity extends Activity {
                             "You need to select an item....null ",
                             Toast.LENGTH_LONG).show();   				
     				
-    			} else if (selectedTroubleCode == "00") {
+    			} else if (selectedTroubleCode != "00") {
     				Toast.makeText(getBaseContext(),
                             "You need to select an item..00 ",
                             Toast.LENGTH_LONG).show();
