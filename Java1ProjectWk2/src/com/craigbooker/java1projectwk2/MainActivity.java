@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
 	public static final String TAG = MainActivity.class.getSimpleName();
 	LinearLayout ll;
 	LinearLayout.LayoutParams lp;
-	TextView spinnerLabel;
+
 	TextView radiusLabel;
 	EditText etRadius;
 	TextView result;
@@ -38,14 +38,61 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        LinearLayout entryBox = FormThings.singleEntryWithButton(this, "Enter Miles", "Go");
-        ll.addView(entryBox);
+        /*
+        LinearLayout ll = new LinearLayout(this);
+        
+        LinearLayout milesEntryBox = FormThings.singleEntryWithButton(this, "Enter Miles", "Go");
+        //EditText miles = (EditText) milesEntryBox.findViewById(1);
+        Button milesButton = (Button) milesEntryBox.findViewById(2);
         
         
+        milesButton.setOnClickListener(new View.OnClickListener() {
+        	@Override
+        	public void onClick(View v){
+        		
+        		EditText milesText = (EditText) v.getTag();
+        		Log.i("BUTTON CLICKED: ", milesText.getText().toString());
+        	} 
+        	
+        });
+        
+        
+        ll.addView(milesEntryBox);
+        ll.setOrientation(LinearLayout.VERTICAL);
+        */
+    	Log.i("I made it to: ", "troubleCodeSpinner start");
+        LinearLayout troubleCodeSpinner = FormThings.singleSpinnerWithLabel(this, "Select a Trouble Code");
+    	Log.i("I made it to: ", "troubleCodeSpinner end.");
+        TextView troubleCodeLabel = (TextView) troubleCodeSpinner.findViewById(3);
+        
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.pid_string_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
+        Spinner codeSpinner = (Spinner) troubleCodeSpinner.findViewById(4);
+        		
+        codeSpinner.setOnItemSelectedListener (new OnItemSelectedListener() {
+        	@Override
+        	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+        		int index = arg0.getSelectedItemPosition();
+        		selectedIndex = index;
+        		selectedTroubleCode = pidArray[selectedIndex];
+        		selectedSensor = sensorsArray[selectedIndex];
+        		correspondingSolution = solutionsArray[selectedIndex];
+            }
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				Toast.makeText(getBaseContext(),
+                        "You need to select an item. ",
+                        Toast.LENGTH_LONG).show();
+            }
+	
+        });
+        /*
         ll = new LinearLayout(this);
         ll.setOrientation(LinearLayout.VERTICAL);
         lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         ll.setLayoutParams(lp);
+        */
         pidArray = getResources().getStringArray(R.array.pid_string_array);
         sensorsArray = getResources().getStringArray(R.array.sensor_string_array);
         solutionsArray = getResources().getStringArray(R.array.solution_string_array); 
@@ -72,56 +119,15 @@ public class MainActivity extends Activity {
         tv.setText("Translate trouble code to something useful.");
         tv.setTextSize(14);
         
-        spinnerLabel = new TextView(this);
-        spinnerLabel.setText("Select trouble code");
+        //spinnerLabel = new TextView(this);
+        //spinnerLabel.setText("Select trouble code");
         
         ll.addView(tv);
         
-        LinearLayout form = new LinearLayout(this);
-        form.setOrientation(LinearLayout.HORIZONTAL);
-        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        form.setLayoutParams(lp);
-        form.addView(spinnerLabel);
-        main_spinner = new Spinner(this);
-   
-        
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.pid_string_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        
-        
-        main_spinner.setAdapter(adapter);
-        main_spinner.setOnItemSelectedListener (new OnItemSelectedListener() {
-        	@Override
-        	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-        		int index = arg0.getSelectedItemPosition();
-        		selectedIndex = index;
-        		selectedTroubleCode = pidArray[selectedIndex];
-        		selectedSensor = sensorsArray[selectedIndex];
-        		correspondingSolution = solutionsArray[selectedIndex];
-            	Toast.makeText(getBaseContext(),
-                        "You have selected item : " + sensorsArray[index],
-                        Toast.LENGTH_LONG).show();
- 				if(selectedTroubleCode != null){
 
- 				result.setText("Trouble Code: " + selectedTroubleCode + "\r\n" + 
-						"Sensor Type: " + selectedSensor + "\r\n" + 
-						"Possible solution: " + correspondingSolution + "\r\n"
-						);
-
-	 			}
-            }
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				Toast.makeText(getBaseContext(),
-                        "You need to select an item. ",
-                        Toast.LENGTH_LONG).show();
-            }
-	
-        });
  
-        form.addView(main_spinner);
-        ll.addView(form);
+        //form.addView(main_spinner);
+        //ll.addView(form);
         //ll.addView(b);
  
         result = new TextView(this);

@@ -1,0 +1,10 @@
+package com.craigbooker.lib;
+
+public class ResourceData {
+	
+	public String getResourceData() {
+		
+		
+	}
+	
+}
