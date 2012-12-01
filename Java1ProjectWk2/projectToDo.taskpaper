@@ -17,37 +17,21 @@ Condition if(selectedTroubleCode != null)
 Resource - sensors, pid, and solutions.
 Button - Lookup Repair location - no functionality now.
 
-Submission Requirements
-User defined package(s) for application code
-Java class(es) with Methods and Fields
-Java Enum(s) with Methods and Fields
-Java Interface(s) to define data structure
-3+ Java Data Types (int/float,Array,String)
-Java Condition(s)
-Data structure defined as Android resource
-Android Layout and UI elements 
+ 
 GitHub Link:
 https://github.com/craigbooker/java/tree/master/Java1ProjectWk2
 
 	
 ACTION ITEMS @actionItems
 
-Outline Application Functionality:
-	
-
-Define Package, Interface, and Class Structure:
-
-Create Android Resources to Simulate Remote Data:
-
-
-Build UI to Support Functionality:
+- Outline Application Functionality @done(2012-12-01)
+- Define Package, Interface, and Class Structure @done(2012-12-01)
+- Create Android Resources to Simulate Remote Data @done(2012-12-01)
+- Build UI to Support Functionality @done(2012-12-01)
 - Add map view
+- Build Data Manipulation and Display Methods @done(2012-12-01)
+- Build User Interaction Methods @done(2012-12-01)
+- Use Android Resource Data to Simulate Data Manipulation and Display Functionality @done(2012-12-01)
 
-Build Data Manipulation and Display Methods:
-
-
-Build User Interaction Methods:
-
-Use Android Resource Data to Simulate Data Manipulation and Display Functionality:
 
 

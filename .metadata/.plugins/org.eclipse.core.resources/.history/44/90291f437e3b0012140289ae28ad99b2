@@ -172,6 +172,13 @@ public class MainActivity extends Activity {
         milesEntryLl.setOrientation(LinearLayout.VERTICAL);
         ll.addView(milesEntryLl);
         
+        
+        
+        
+
+        
+
+        
         setContentView(ll);
         Log.d(TAG, "We are logging from the onCreate() mehtod.");
     }
