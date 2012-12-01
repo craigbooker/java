@@ -166,8 +166,7 @@ public class MainActivity extends Activity {
 			locationNames[i] = locations.get(i).getName();
 		}
         
-		RadioGroup locationOptions = FormThings.getOptions(this, locationNames);
-		ll.addView(locationOptions);
+		RadioGroup locationOptions = FormThings.getOptions(this, locationNames)
         milesEntryLl.addView(milesEntryBox);
         milesEntryLl.setOrientation(LinearLayout.VERTICAL);
         ll.addView(milesEntryLl);

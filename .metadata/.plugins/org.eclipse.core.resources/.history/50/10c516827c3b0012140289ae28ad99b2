@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.craigbooker.diags.Location;
 import com.craigbooker.diags.MaintenanceRepair;
+import com.craigbooker.ecom.Phone;
+import com.craigbooker.ecom.Product;
 import com.craigbooker.lib.FormThings;
 
 import android.app.Activity;
@@ -17,7 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,7 +50,18 @@ public class MainActivity extends Activity {
         pidArray = getResources().getStringArray(R.array.pid_string_array);
         sensorsArray = getResources().getStringArray(R.array.sensor_string_array);
         solutionsArray = getResources().getStringArray(R.array.solution_string_array); 
-
+ /*
+		if((listSolutionsArray.length == 0) || (listSolutionsArray == null)) {
+			Toast.makeText(getBaseContext(),
+                    "You needto fill your solutionsArray",
+                    Toast.LENGTH_LONG).show();
+			// This will fill the solutions array using a for loop to print out later.
+			for (int i=0; i < solutionsArray.length; i++) {
+				listSolutionsArray[i] = solutionsArray[i];
+				Log.d("I am in the fillarray", correspondingSolution);
+			}
+		}
+	*/	
         /*
         Button b = new Button(this);
         b.setText("Lookup Possible Problem");
@@ -147,27 +159,25 @@ public class MainActivity extends Activity {
         
         milesButton.setOnClickListener(new View.OnClickListener() {
         	@Override
-        	public void onClick(View v){ 
+        	public void onClick(View v){
         		
         		EditText milesText = (EditText) v.getTag();
         		Log.i("BUTTON CLICKED: ", milesText.getText().toString());
         	} 
         	
         });
-        ArrayList<Location> locations = new ArrayList<Location>();
+        locations = new ArrayList<Location>();
         locations.add(new MaintenanceRepair("John's Autobody", "-120", "45"));
         locations.add(new MaintenanceRepair("Midas", "-120", "45"));
         locations.add(new MaintenanceRepair("George's Garage", "-120", "45"));
         locations.add(new MaintenanceRepair("Christian Brothers Automotive", "-120", "45"));
         locations.add(new MaintenanceRepair("Kwik Kar", "-120", "45"));
 		
-		String[] locationNames = new String[locations.size()];
+		String[] productNames = new String[locations.size()];
 		for(int i=0; i<locations.size(); i++){
 			locationNames[i] = locations.get(i).getName();
 		}
         
-		RadioGroup locationOptions = FormThings.getOptions(this, locationNames);
-		ll.addView(locationOptions);
         milesEntryLl.addView(milesEntryBox);
         milesEntryLl.setOrientation(LinearLayout.VERTICAL);
         ll.addView(milesEntryLl);

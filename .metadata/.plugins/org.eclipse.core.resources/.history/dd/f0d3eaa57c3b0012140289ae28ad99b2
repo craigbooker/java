@@ -6,8 +6,6 @@ import android.content.Context;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 //import android.widget.Spinner;
 //import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
@@ -36,21 +34,6 @@ public class FormThings {
 	
 	return ll;
 	}
-	public static RadioGroup getOptions(Context context, String[] options){
-		RadioGroup boxes = new RadioGroup(context);
-		
-		for(int i=0; i<options.length; i++){
-			RadioButton rb = new RadioButton(context);
-			rb.setText(options[i]);
-			rb.setId(i+1);
-			boxes.addView(rb);
-				
-		}
-		return boxes;
-		
-	}
-} 
-
 	/*
 	public static LinearLayout singleSpinnerWithLabel(Context context, String labelText) {
     	Log.i("I made it to: ", "singleSpinnerWithLabel start");
@@ -73,4 +56,4 @@ public class FormThings {
         return spinnerLl;
 	}
 	*/
-
+}

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.craigbooker.diags.Location;
 import com.craigbooker.diags.MaintenanceRepair;
+import com.craigbooker.ecom.Phone;
+import com.craigbooker.ecom.Product;
 import com.craigbooker.lib.FormThings;
 
 import android.app.Activity;
@@ -17,7 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -166,8 +167,6 @@ public class MainActivity extends Activity {
 			locationNames[i] = locations.get(i).getName();
 		}
         
-		RadioGroup locationOptions = FormThings.getOptions(this, locationNames);
-		ll.addView(locationOptions);
         milesEntryLl.addView(milesEntryBox);
         milesEntryLl.setOrientation(LinearLayout.VERTICAL);
         ll.addView(milesEntryLl);
