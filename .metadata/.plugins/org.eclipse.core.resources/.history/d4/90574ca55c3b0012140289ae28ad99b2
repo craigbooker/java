@@ -119,6 +119,7 @@ public class MainActivity extends Activity {
         
         
         
+        /*
         LinearLayout milesEntryLl = new LinearLayout(this);
         
         LinearLayout milesEntryBox = FormThings.singleEntryWithButton(this, "Enter Miles", "Go");
@@ -140,7 +141,7 @@ public class MainActivity extends Activity {
         milesEntryLl.addView(milesEntryBox);
         milesEntryLl.setOrientation(LinearLayout.VERTICAL);
         ll.addView(milesEntryLl);
-        
+        */
         
         
         

@@ -36,7 +36,28 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        /*
+        LinearLayout ll = new LinearLayout(this);
+        
+        LinearLayout milesEntryBox = FormThings.singleEntryWithButton(this, "Enter Miles", "Go");
+        //EditText miles = (EditText) milesEntryBox.findViewById(1);
+        Button milesButton = (Button) milesEntryBox.findViewById(2);
+        
+        
+        milesButton.setOnClickListener(new View.OnClickListener() {
+        	@Override
+        	public void onClick(View v){
+        		
+        		EditText milesText = (EditText) v.getTag();
+        		Log.i("BUTTON CLICKED: ", milesText.getText().toString());
+        	} 
+        	
+        });
+        
+        
+        ll.addView(milesEntryBox);
+        ll.setOrientation(LinearLayout.VERTICAL);
+        */
         ll = new LinearLayout(this);
         ll.setOrientation(LinearLayout.VERTICAL);
         lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
@@ -116,35 +137,6 @@ public class MainActivity extends Activity {
  
         form.addView(main_spinner);
         ll.addView(form);
-        
-        
-        
-        LinearLayout milesEntryLl = new LinearLayout(this);
-        
-        LinearLayout milesEntryBox = FormThings.singleEntryWithButton(this, "Enter Miles", "Go");
-        //EditText miles = (EditText) milesEntryBox.findViewById(1);
-        Button milesButton = (Button) milesEntryBox.findViewById(2);
-        
-        
-        milesButton.setOnClickListener(new View.OnClickListener() {
-        	@Override
-        	public void onClick(View v){
-        		
-        		EditText milesText = (EditText) v.getTag();
-        		Log.i("BUTTON CLICKED: ", milesText.getText().toString());
-        	} 
-        	
-        });
-        
-        
-        milesEntryLl.addView(milesEntryBox);
-        milesEntryLl.setOrientation(LinearLayout.VERTICAL);
-        ll.addView(milesEntryLl);
-        
-        
-        
-        
-        
         ll.addView(b);
         
         result = new TextView(this);
