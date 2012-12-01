@@ -1,0 +1,5 @@
+package com.craigbooker.diags;
+
+public interface Location {
+
+}
