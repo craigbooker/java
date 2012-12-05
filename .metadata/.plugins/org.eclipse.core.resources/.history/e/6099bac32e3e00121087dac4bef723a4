@@ -1,0 +1,54 @@
+package com.craigbooker.java1week3demo;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.content.Context;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+
+public class Main extends Activity {
+
+	Context _context;
+	LinearLayout _appLayout;
+	SearchForm _search;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		_context = this;
+		_appLayout = new LinearLayout(this);
+		
+		SearchForm search = new SearchForm(_context, "Enter Text Symbol", "GO");
+		
+		// Add search handler
+		EditText searchField = search.getField();
+		Button searchButton = search.getButton();
+		
+		searchButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Log.i("CLICK HANDLER",_search.getField().getText().toString());
+			}
+		});
+		
+		
+		
+		_appLayout.addView(_search);
+		
+		setContentView(_appLayout);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_main, menu);
+		return true;
+	}
+
+}
