@@ -1,5 +1,0 @@
-package com.craigbooker.ecom;
-
-public enum Money {
-
-}

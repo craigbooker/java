@@ -1,0 +1,41 @@
+package com.craigbooker.java1week3demo;
+
+import java.util.ArrayList;
+
+import android.content.Context;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+
+public class FavDisplay extends LinearLayout {
+
+	Button _add;
+	Button _remove;
+	Spinner _list;
+	Context _context;
+	ArrayList<String> _stocks;
+	
+	public FavDisplay(Context context){
+		super(context);
+		_context = context;
+		
+		LayoutParams lp;
+		
+		_list = new Spinner(context);
+		lp = new LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f);
+		_list.setLayoutParams(lp);
+		ArrayAdapter<String> listAdapter = new ArrayAdapter<T>(context, textViewResourceId, objects)
+		
+		_add = new Button(_context);
+		_add.setText("+");
+		_remove = new Button(_context);
+		_remove.setText("-");
+		
+		this.addView(_list);
+		this.addView(_add);
+		this.addView(_remove);
+		
+		lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		this.setLayoutParams(lp);
+	}
+}

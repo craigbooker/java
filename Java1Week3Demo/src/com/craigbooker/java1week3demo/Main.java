@@ -1,5 +1,7 @@
 package com.craigbooker.java1week3demo;
 
+import com.craigbooker.lib.WebStuff;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -16,6 +18,8 @@ public class Main extends Activity {
 	LinearLayout _appLayout;
 	SearchForm _search;
 	StockDisplay _stock;
+	FavDisplay _favorites;
+	Boolean connected = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +40,24 @@ public class Main extends Activity {
 			}
 		});
 		
+		// Detect Network Connection
+		connected = WebStuff.getConnectionStatus(_context);
+		if(connected){
+			Log.i("NETWORK CONNECTION", WebStuff.getConnectionType(_context));
+			
+			
+		}
+		
 		// Add stock display
 		_stock = new StockDisplay(_context);
+		
+		// Add Favorites display
+		_favorites = new FavDisplay(_context);
 		
 		//Add views to main layout
 		_appLayout.addView(_search);
 		_appLayout.addView(_stock);
+		_appLayout.addView(_favorites);
 		
 		_appLayout.setOrientation(LinearLayout.VERTICAL);
 		

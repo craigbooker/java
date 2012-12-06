@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Java1Week3Demo</string>
+    <string name="title_activity_main">Main</string>
+    <string name="menu_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>
