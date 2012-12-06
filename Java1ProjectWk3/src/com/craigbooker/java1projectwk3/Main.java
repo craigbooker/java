@@ -1,5 +1,7 @@
 package com.craigbooker.java1projectwk3;
 
+import com.craigbooker.lib.WebStuff;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -64,7 +66,7 @@ public class Main extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_main, menu);
+		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
