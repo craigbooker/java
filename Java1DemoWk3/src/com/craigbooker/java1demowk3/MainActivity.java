@@ -1,5 +1,6 @@
 package com.craigbooker.java1demowk3;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -77,10 +78,11 @@ public class MainActivity extends Activity {
 	private void getQuote(String symbol){
 		Log.i("CLICK", symbol);
 		String baseURL = "http://query.yahooapis.com/public/yql";
-		String yql = "select * from csv where url='http://download.finance.yahoo.com/d/quotes.csv?s=" + symbol + "&f=sl1d1t1c1ohgv&e=.csv' and  col
+		//String yql = "select * from csv where url='http://download.finance.yahoo.com/d/quotes.csv?s=" + symbol + "&f=sl1d1t1c1ohgv&e=.csv' and  col
+		String yql = "http://query.yahooapis.com";
 		String qs;
 		try{
-			qs = URLEncoder.encode(yql, "UTF-8")
+			qs = URLEncoder.encode(yql, "UTF-8");
 			
 		} catch (Exception e){
 			Log.e("BAD URL", "ENCODING PROBLEM");

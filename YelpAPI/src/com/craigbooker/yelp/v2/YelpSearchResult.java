@@ -1,5 +1,4 @@
-package com.yelp.v2;
-
+package com.craigbooker.yelp.v2;
 import java.util.List;
 
 public class YelpSearchResult {

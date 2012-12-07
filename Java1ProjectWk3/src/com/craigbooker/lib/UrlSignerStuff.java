@@ -68,7 +68,7 @@ public class UrlSignerStuff {
 	   keyString = keyString.replace('-', '+');
 	   keyString = keyString.replace('_', '/');
 	   System.out.println("Key: " + keyString);
-	   this.key = Base64.decode(keyString);
+	   //this.key = Base64.decode(keyString);
 	 }
 
 	 public String signRequest(String path, String query) throws NoSuchAlgorithmException,
@@ -88,11 +88,12 @@ public class UrlSignerStuff {
 	   byte[] sigBytes = mac.doFinal(resource.getBytes());
 
 	   // base 64 encode the binary signature
-	   String signature = Base64.encodeBytes(sigBytes);
-
+	   //String signature = Base64.encodeBytes(sigBytes);
+		String signature = "";
 	   // convert the signature to 'web safe' base 64
 	   signature = signature.replace('+', '-');
 	   signature = signature.replace('/', '_');
 
 	   return resource + "&signature=" + signature;
 	 }
+}

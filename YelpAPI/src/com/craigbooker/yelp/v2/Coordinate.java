@@ -1,4 +1,4 @@
-package com.yelp.v2;
+package com.craigbooker.yelp.v2;
 
 public class Coordinate {
 	private double latitude;

@@ -7,8 +7,8 @@ import org.scribe.oauth.OAuthService;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.yelp.v2.Business;
-import com.yelp.v2.YelpSearchResult;
+import com.craigbooker.yelp.v2.Business;
+import com.craigbooker.yelp.v2.YelpSearchResult;
 
 public class RunMe {
 
