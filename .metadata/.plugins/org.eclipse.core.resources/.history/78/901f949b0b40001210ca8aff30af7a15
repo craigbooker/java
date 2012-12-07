@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
 	SearchForm _search;
 	StockDisplay _stock;
 	FavDisplay _favorites;
-	Boolean _connected = false;	
+	Boolean connected = false;	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +41,8 @@ public class MainActivity extends Activity {
 		});
 		
 		// Detect Network Connection
-		_connected = WebStuff.getConnectionStatus(_context);
-		if(_connected){
+		connected = WebStuff.getConnectionStatus(_context);
+		if(connected){
 			Log.i("NETWORK CONNECTION", WebStuff.getConnectionType(_context));
 			
 			
@@ -69,7 +69,5 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
-	private void getQuote(String symbol){
-		
-	}
+
 }
