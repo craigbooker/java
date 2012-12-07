@@ -1,5 +1,7 @@
 package com.craigbooker.java1demowk3;
 
+import java.net.URLEncoder;
+
 import com.craigbooker.lib.WebStuff;
 
 import android.os.Bundle;
@@ -36,7 +38,8 @@ public class MainActivity extends Activity {
 		searchButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.i("CLICK HANDLER",_search.getField().getText().toString());
+				//Log.i("CLICK HANDLER",_search.getField().getText().toString());
+				getQuote(_search.getField().getText().toString());
 			}
 		});
 		
@@ -70,6 +73,16 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	private void getQuote(String symbol){
-		
+		Log.i("CLICK", symbol);
+		String baseURL = "http://query.yahooapis.com/public/yql";
+		String yql = "select * from csv where url='http://download.finance.yahoo.com/d/quotes.csv?s=" + symbol + "&f=sl1d1t1c1ohgv&e=.csv' and  col
+		String qs;
+		try{
+			qs = URLEncoder.encode(yql, "UTF-8")
+			
+		} catch (Exception e){
+			Log.i("BAD URL", "ENCODING PROBLEM");
+			
+		}
 	}
 }
