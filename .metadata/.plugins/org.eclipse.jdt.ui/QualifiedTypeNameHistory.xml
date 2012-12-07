@@ -28,9 +28,21 @@
 <fullyQualifiedTypeName name="android.widget.ArrayAdapter"/>
 <fullyQualifiedTypeName name="android.R"/>
 <fullyQualifiedTypeName name="android.R.layout"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="android.net.ConnectivityManager"/>
 <fullyQualifiedTypeName name="android.net.NetworkInfo"/>
 <fullyQualifiedTypeName name="com.craigbooker.lib.WebStuff"/>
+<fullyQualifiedTypeName name="java.net.URLConnection"/>
+<fullyQualifiedTypeName name="java.io.BufferedInputStream"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="java.net.URLEncoder"/>
+<fullyQualifiedTypeName name="android.os.AsyncTask"/>
+<fullyQualifiedTypeName name="java.net.URL"/>
+<fullyQualifiedTypeName name="android.location.LocationManager"/>
+<fullyQualifiedTypeName name="android.location.LocationListener"/>
+<fullyQualifiedTypeName name="android.location.Location"/>
+<fullyQualifiedTypeName name="com.craigbooker.lib.LocationStuff.LocationResult"/>
+<fullyQualifiedTypeName name="com.craigbooker.lib.LocationStuff"/>
+<fullyQualifiedTypeName name="android.util.Base64"/>
+<fullyQualifiedTypeName name="java.net.MalformedURLException"/>
 </qualifiedTypeNameHistroy>
