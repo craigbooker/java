@@ -1,9 +1,11 @@
 package com.craigbooker.java1demowk3;
 
+import java.net.URL;
 import java.net.URLEncoder;
 
 import com.craigbooker.lib.WebStuff;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -81,8 +83,34 @@ public class MainActivity extends Activity {
 			qs = URLEncoder.encode(yql, "UTF-8")
 			
 		} catch (Exception e){
-			Log.i("BAD URL", "ENCODING PROBLEM");
-			
+			Log.e("BAD URL", "ENCODING PROBLEM");
+			qs = "";
+		}
+		URL finalURL;
+		try{
+			finalURL = new URL(baseURL + "?g=" + qs + "&format=json");
+			QuoteRequest qr = new QuoteRequest();
+			qr.execute(finalURL);
+		} catch (MalformedURLException e){
+			Log.e("BAD URL", "MALFORMED URL");
+			finalURL = null;
+		}
+	}
+	
+	private class QuoteRequest extends AsyncTask<URL, Void, String>{
+		@Override
+		protected String doInBackground(URL... urls){
+			String response = "";
+			for(URL url: urls){
+				response = WebStuff.getURLStringResponse(url);
+			}
+			return response;
+		}
+		
+		@Override
+		protected void onPostExecute(String result){
+			Log.i("URL RESPONSE", result);
+			 
 		}
 	}
 }

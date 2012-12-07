@@ -4,7 +4,6 @@ INDEX VERSION 1.126+/Users/Craig/Desktop/TmpWork/java/.metadata/.plugins/org.ecl
 2481753493.index
 2380110597.index
 349489855.index
-4208634771.index
 2044167753.index
 3705662757.index
 931360587.index
