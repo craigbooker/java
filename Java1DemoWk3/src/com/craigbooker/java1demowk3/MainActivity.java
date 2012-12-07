@@ -1,5 +1,7 @@
 package com.craigbooker.java1demowk3;
 
+import com.craigbooker.lib.WebStuff;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -22,9 +24,45 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		
+		_context = this;
+		_appLayout = new LinearLayout(this);
+		
+		_search = new SearchForm(_context, "Enter Text Symbol", "GO");
+		
+		// Add search handler
+		Button searchButton = _search.getButton();
+		
+		searchButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.i("CLICK HANDLER",_search.getField().getText().toString());
+			}
+		});
+		
+		// Detect Network Connection
+		connected = WebStuff.getConnectionStatus(_context);
+		if(connected){
+			Log.i("NETWORK CONNECTION", WebStuff.getConnectionType(_context));
+			
+			
+		}
+		
+		// Add stock display
+		_stock = new StockDisplay(_context);
+		
+		// Add Favorites display
+		_favorites = new FavDisplay(_context);
+		
+		//Add views to main layout
+		_appLayout.addView(_search);
+		_appLayout.addView(_stock);
+		_appLayout.addView(_favorites);
+		
+		_appLayout.setOrientation(LinearLayout.VERTICAL);
+		
+		setContentView(_appLayout);
 	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
