@@ -3,13 +3,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import com.craigbooker.lib.LocationStuff;
-import com.craigbooker.lib.LocationStuff.LocationResult;
-import com.craigbooker.lib.WebStuff;
 
+import com.craigbooker.lib.MyLocation;
+import com.craigbooker.lib.MyLocation.LocationResult;
+import com.craigbooker.lib.WebStuff;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -29,25 +27,17 @@ public class MainActivity extends Activity {
 	PlacesDisplay _places; // Was the stock display.
 	FavDisplay _favorites;
 	Boolean _connected = false;	
+	MyLocation myLocation = new MyLocation();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		findCurrentLocation();
 		_context = this;
 		_appLayout = new LinearLayout(this);
 		
 		_search = new SearchForm(_context, "Enter Radius", "GO");
 		
-		LocationResult locationResult = new LocationResult(){
-		    @Override
-		    public void gotLocation(Location location){
-		        //Got the location!
-		    	Log.d("LOCATION:", location.toString());
-		    }
-		};
-		LocationStuff myLocation = new LocationStuff();
-		myLocation.getLocation(this, locationResult);
 		
 		// Add search handler
 		Button searchButton = _search.getButton();
@@ -134,4 +124,20 @@ public class MainActivity extends Activity {
 			 
 		}
 	}
+	private void findCurrentLocation() {
+        myLocation.getLocation(this, locationResult);
+    }
+
+	public LocationResult locationResult = new LocationResult() {
+
+        @Override
+        public void gotLocation(Location location) {
+            // TODO Auto-generated method stub
+            if (location != null) {
+                String strloc  = location.getLatitude() + ","
+                        + location.getLongitude();
+                Log.i("MY LOCATION", strloc);
+            }
+        }
+    };
 }
