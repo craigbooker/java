@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
 		    @Override
 		    public void gotLocation(Location location){
 		        //Got the location!
-		    	Log.d("LOCATION:", location.toString());
+		    	Log.i("LOCATION:", location);
 		    }
 		};
 		LocationStuff myLocation = new LocationStuff();

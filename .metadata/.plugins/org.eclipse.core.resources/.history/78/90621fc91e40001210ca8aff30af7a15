@@ -1,5 +1,4 @@
 package com.craigbooker.java1projectwk3;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -43,7 +42,6 @@ public class MainActivity extends Activity {
 		    @Override
 		    public void gotLocation(Location location){
 		        //Got the location!
-		    	Log.d("LOCATION:", location.toString());
 		    }
 		};
 		LocationStuff myLocation = new LocationStuff();
@@ -92,16 +90,11 @@ public class MainActivity extends Activity {
 	private void getPlaces(String radius){
 		
 		Log.i("CLICK", radius);
-		//String baseURL = "http://query.yahooapis.com/public/yql";
-		String baseURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
-		//String yql = "select * from csv where url='http://download.finance.yahoo.com/d/quotes.csv?s=" + symbol + "&f=sl1d1t1c1ohgv&e=.csv' and  col
-		
-		String gql = "";
-		//https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&types=car_repair&sensor=false&key=AddYourOwnKeyHere
-				
+		String baseURL = "http://query.yahooapis.com/public/yql";
+		String yql = "select * from csv where url='http://download.finance.yahoo.com/d/quotes.csv?s=" + symbol + "&f=sl1d1t1c1ohgv&e=.csv' and  col
 		String qs;
 		try{
-			qs = URLEncoder.encode(gql, "UTF-8");
+			qs = URLEncoder.encode(yql, "UTF-8")
 			
 		} catch (Exception e){
 			Log.e("BAD URL", "ENCODING PROBLEM");
@@ -109,9 +102,9 @@ public class MainActivity extends Activity {
 		}
 		URL finalURL;
 		try{
-			finalURL = new URL(baseURL + "?location=" + qs + "&format=json");
+			finalURL = new URL(baseURL + "?g=" + qs + "&format=json");
 			PlacesRequest pr = new PlacesRequest();
-			pr.execute(finalURL);
+			qr.execute(finalURL);
 		} catch (MalformedURLException e){
 			Log.e("BAD URL", "MALFORMED URL");
 			finalURL = null;
