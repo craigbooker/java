@@ -116,13 +116,10 @@ public class MainActivity extends Activity {
 		service.signRequest(accessToken, request);
 		Response response = request.send();
 		String rawData = response.getBody();
-		final String TAG = "MyActivity";
 		
 		try {
 			YelpSearchResult places = new Gson().fromJson(rawData, YelpSearchResult.class);
-			int totalPlaces = places.getTotal();
-			//String ttlPlacesString = totalPlaces;
-			Log.v(TAG, "TOTAL PLACES" + totalPlaces);
+			
 			System.out.println("Your search found " + places.getTotal() + " results.");
 			System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
 			System.out.println();
@@ -137,15 +134,10 @@ public class MainActivity extends Activity {
 				System.out.println();
 			}
 			
-		/*	What yelp code suggested.
+			
 		} catch(Exception e) {
 			System.out.println("Error, could not parse returned data!");
 			System.out.println(rawData);			
-		}
-		*/
-		} catch(MalformedURLException e){
-			Log.e("BAD URL", "MALFORMED URL");
-			finalURL = null;
 		}
 	}
 	

@@ -3,6 +3,7 @@ package com.craigbooker.yelp;
 import java.util.List;
 import java.util.Map;
 
+import android.location.Location;
 
 public class Business {
 	private String id;
