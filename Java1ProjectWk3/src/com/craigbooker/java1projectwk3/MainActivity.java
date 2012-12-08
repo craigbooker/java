@@ -30,6 +30,7 @@ import org.scribe.oauth.OAuthService;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.craigbooker.yelp.Business;
+import com.craigbooker.yelp.Yelp;
 import com.craigbooker.yelp.YelpSearchResult;
 
 public class MainActivity extends Activity {
@@ -41,12 +42,13 @@ public class MainActivity extends Activity {
 	FavDisplay _favorites;
 	Boolean _connected = false;	
 	MyLocation myLocation = new MyLocation();
-	
-	// Define your keys, tokens and secrets.  These are available from the Yelp website.  
-	String CONSUMER_KEY = "8hYTZBUuiTxOwmTjQtFnTw";
-	String CONSUMER_SECRET = "2mTa_1uggZVU2aWoIWQ8VViSC6s";
-	String TOKEN = "BAr8f7RjszQjh3_4A8VrCI1TjDLw5uMt";
-	String TOKEN_SECRET = "mPgSRUOXlheC1c5Zr8I7-I3dVj0";
+	OAuthService service;
+	Token accessToken;
+	 String consumerKey = "8hYTZBUuiTxOwmTjQtFnTw";
+	 String consumerSecret = "2mTa_1uggZVU2aWoIWQ8VViSC6s";
+	 String token = "BAr8f7RjszQjh3_4A8VrCI1TjDLw5uMt";
+	 String tokenSecret = "mPgSRUOXlheC1c5Zr8I7-I3dVj0";
+	  
 	
 	// Some example values to pass into the Yelp search service.
 	String lat = "35.667196";
@@ -82,6 +84,10 @@ public class MainActivity extends Activity {
 			
 		}
 		
+		// Sign Yelp URL
+		Yelp yelp = new Yelp(consumerKey, consumerSecret, token, tokenSecret);
+		
+		
 		// Add places display
 		_places = new PlacesDisplay(_context);
 		
@@ -106,43 +112,11 @@ public class MainActivity extends Activity {
 	private void getPlaces(String radius){
 		
 		Log.i("CLICK", radius);
+		String baseURL = 
 		
-		// Execute a signed call to the Yelp service.  
-		OAuthService service = new ServiceBuilder().provider(YelpV2API.class).apiKey(CONSUMER_KEY).apiSecret(CONSUMER_SECRET).build();
-		Token accessToken = new Token(TOKEN, TOKEN_SECRET);
-		OAuthRequest request = new OAuthRequest(Verb.GET, "http://api.yelp.com/v2/search");
-		request.addQuerystringParameter("ll", lat + "," + lng);
-		request.addQuerystringParameter("category", category);
-		service.signRequest(accessToken, request);
-		Response response = request.send();
-		String rawData = response.getBody();
-		final String TAG = "MyActivity";
-		
-		try {
-			YelpSearchResult places = new Gson().fromJson(rawData, YelpSearchResult.class);
-			int totalPlaces = places.getTotal();
-			//String ttlPlacesString = totalPlaces;
-			Log.v(TAG, "TOTAL PLACES" + totalPlaces);
-			System.out.println("Your search found " + places.getTotal() + " results.");
-			System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
-			System.out.println();
-			
-			for(Business biz : places.getBusinesses()) {
-				System.out.println(biz.getName());
-				for(String address : biz.getLocation().getAddress()) {					
-					System.out.println("  " + address);
-				}
-				System.out.print("  " + biz.getLocation().getCity());
-				System.out.println(biz.getUrl());
-				System.out.println();
-			}
-			
-		/*	What yelp code suggested.
-		} catch(Exception e) {
-			System.out.println("Error, could not parse returned data!");
-			System.out.println(rawData);			
-		}
-		*/
+		URL finalURL;
+		try{
+			finalURL = new URL();
 		} catch(MalformedURLException e){
 			Log.e("BAD URL", "MALFORMED URL");
 			finalURL = null;
@@ -155,6 +129,7 @@ public class MainActivity extends Activity {
 			String response = "";
 			for(URL url: urls){
 				response = WebStuff.getURLStringResponse(url);
+				String response = yelp.search("burritos", 30.361471, -87.164326);
 			}
 			return response;
 		}

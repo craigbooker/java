@@ -1,10 +1,5 @@
 package com.craigbooker.yelp;
  
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import com.craigbooker.yelp.YelpV2API;
 
 import org.scribe.builder.ServiceBuilder;
@@ -22,10 +17,7 @@ public class Yelp {
  OAuthService service;
  Token accessToken;
  // Update tokens here from Yelp developers site, Manage API access.
- String consumerKey = "8hYTZBUuiTxOwmTjQtFnTw";
- String consumerSecret = "2mTa_1uggZVU2aWoIWQ8VViSC6s";
- String token = "BAr8f7RjszQjh3_4A8VrCI1TjDLw5uMt";
- String tokenSecret = "mPgSRUOXlheC1c5Zr8I7-I3dVj0";
+
  
  /**
   * Setup the Yelp API OAuth credentials.
