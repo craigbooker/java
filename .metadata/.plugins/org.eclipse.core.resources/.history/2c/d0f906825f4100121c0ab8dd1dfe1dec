@@ -13,9 +13,8 @@ public enum YelpInfo {
 	YelpInfo(String value){
 		this.value = value;
 	} 
-	/*
+	
 	public static HashMap<K,V> getChange(double amount){
 		
 	}
-	*/
 }

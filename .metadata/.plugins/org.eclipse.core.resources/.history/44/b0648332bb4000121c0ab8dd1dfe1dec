@@ -18,7 +18,7 @@ public class FavDisplay extends LinearLayout {
 	Button _remove;
 	Spinner _list;
 	Context _context;
-	ArrayList<String> _locations = new ArrayList<String>();
+	ArrayList<String> _stocks = new ArrayList<String>();
 	
 	public FavDisplay(Context context){
 		super(context);
@@ -26,11 +26,11 @@ public class FavDisplay extends LinearLayout {
 		
 		LayoutParams lp;
 		
-		_locations.add("Select Saved Location");
+		_stocks.add("Select Saved Location");
 		_list = new Spinner(context);
 		lp = new LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f);
 		_list.setLayoutParams(lp);
-		ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(_context, android.R.layout.simple_spinner_item, _locations);
+		ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(_context, android.R.layout.simple_spinner_item, _stocks);
 		listAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		_list.setAdapter(listAdapter);
 		_list.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -62,9 +62,9 @@ public class FavDisplay extends LinearLayout {
 	}
 	
 	private void updateFavorites(){
-		_locations.add("AAPL");
-		_locations.add("GOOG");
-		_locations.add("MSFT");
+		_stocks.add("AAPL");
+		_stocks.add("GOOG");
+		_stocks.add("MSFT");
 		
 		
 	}
