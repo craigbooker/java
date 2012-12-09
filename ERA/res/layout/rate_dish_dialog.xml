@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/RateDish_LayoutRoot"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:padding="10dp">        
+        <RadioGroup android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical" android:id="@+id/RateDish_RadioGroup">
+	        <RadioButton android:text="I recommend it!" android:id="@+id/RateDish_LikeRadio" android:layout_width="wrap_content" android:layout_height="wrap_content"></RadioButton>
+	        <RadioButton android:text="Did not like it." android:id="@+id/RateDish_DislikeRadio" android:layout_width="wrap_content" android:layout_height="wrap_content"></RadioButton>
+	    </RadioGroup>
+        <LinearLayout android:id="@+id/RateDish_LayoutBtns" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <Button android:text="Save" android:id="@+id/RateDish_SaveBtn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="0.5"></Button>
+            <Button android:text="Cancel" android:id="@+id/RateDish_CancelBtn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="0.5"></Button>
+        </LinearLayout>
+    </LinearLayout>

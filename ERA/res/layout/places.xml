@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical">	
+	
+	<LinearLayout android:id="@+id/LinearLayout01" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dip">
+		<EditText android:id="@+id/query" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:singleLine="true" android:inputType="textCapWords|textAutoCorrect|textAutoComplete" android:imeOptions="actionSearch" android:layout_gravity="center_vertical"></EditText>
+		<Button android:text="@string/searchPlacesButton" android:id="@+id/SearchBtn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical"></Button>
+	</LinearLayout>
+	
+	<ListView android:id="@+id/placesListView" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1"></ListView>
+
+	<LinearLayout android:id="@+id/placesListNoResultsLayout" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1" android:orientation="horizontal" android:layout_margin="4dip">
+		<TextView android:id="@android:id/empty" android:layout_width="fill_parent" android:layout_height="fill_parent" android:text="@string/searchPlacesEmptyResults" android:gravity="center"/>
+	</LinearLayout>	
+	
+	<Button android:text="@string/locationButton" android:id="@+id/LocationButton" android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
+	
+</LinearLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/Dish_Layout" android:orientation="vertical" android:paddingTop="8px" android:paddingBottom="8px" android_paddingLeft="4px" android:paddingRight="4px">
+    <TextView android:layout_height="wrap_content" android:id="@+id/Dish_Title" android:text="Title of Dish"  android:textStyle="bold" android:textSize="20px" android:layout_width="wrap_content" ></TextView>
+    <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/Dish_linearLayout1" android:orientation="horizontal">
+	    <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/Dish_linearLayout2" android:orientation="vertical">
+	        <TextView android:layout_height="wrap_content" android:id="@+id/Dish_Description" android:layout_width="fill_parent" android:text="Description of this dish, including ordering instructions." android:textSize="14px"></TextView>
+	        <TextView android:layout_height="wrap_content" android:id="@+id/Dish_Nutrients" android:layout_width="wrap_content" android:text="Calories, Fat, Protein, etc."  android:textStyle="italic" android:textSize="12px"></TextView>
+			<TextView android:text="Flag" android:id="@+id/Dish_FlagLnk" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+		</LinearLayout>
+        <ImageView android:layout_height="wrap_content" android:id="@+id/Dish_Image" android:layout_width="wrap_content" android:src="@drawable/stub"></ImageView>
+    </LinearLayout>
+    <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/Dish_linearLayout3" android:orientation="horizontal">
+		<RatingBar android:id="@+id/Dish_RatingBar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:numStars="5" android:stepSize="0.5" style="?android:attr/ratingBarStyleSmall" android:layout_gravity="center_vertical" />
+		<TextView android:layout_height="wrap_content" android:id="@+id/Dish_HowManyLikes" android:layout_width="wrap_content" android:text="X % recommended"  android:textStyle="italic" android:textSize="14px" android:layout_gravity="center_vertical" android:layout_weight=".75"></TextView>
+	    <Button android:text="Rate It" android:id="@+id/Dish_RateBtn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:layout_weight=".25"></Button>
+	</LinearLayout>
+</LinearLayout>

@@ -4,6 +4,10 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 
+import com.craigbooker.external.yelp.YelpV2API;
+import com.craigbooker.external.yelp.v2.Business;
+import com.craigbooker.external.yelp.v2.YelpSearchResult;
+import com.craigbooker.external.yelp.Yelp;
 import com.craigbooker.lib.MyLocation;
 import com.craigbooker.lib.MyLocation.LocationResult;
 import com.craigbooker.lib.WebStuff;
@@ -21,8 +25,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
@@ -32,10 +39,6 @@ import org.scribe.oauth.OAuthService;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.craigbooker.yelp.Business;
-import com.craigbooker.yelp.Yelp;
-import com.craigbooker.yelp.YelpSearchResult;
-import com.craigbooker.yelp.YelpV2API;
 
 public class MainActivity extends Activity {
 
@@ -149,14 +152,35 @@ public class MainActivity extends Activity {
 	   Response response = request.send();
 	   return response.getBody();
 	 }
-	private void SearchForPlaces(String radius){
+	 
+	 private class YelpQuery {
+         public Location location;
+         public String term;
+         public String categoryFilter;
+	 }
+	private void SearchForPlaces(String term, double latitude, double longitude){
+		String baseURL ="http://api.yelp.com/v2/search";
+		String qs = "";
+		
+		try {
+			qs = URLEncoder.encode(baseURL 
+			
+			
+		}
+		OAuthRequest request = new OAuthRequest(Verb.GET, baseURL);
+		request.addQuerystringParameter("term", term);
+		request.addQuerystringParameter("ll", latitude + "," + longitude);
+		Response response = request.send();
+		String rawData = response.getBody();
 		
 		Log.i("CLICK", radius);
 		String baseURL = 
 		
 		URL finalURL;
 		try{
-			finalURL = new URL();
+			finalURL = new URL(baseURL + "" + "");
+			SearchPlacesRequest spr = new SearchPlacesRequest();
+			spr.execute(finalURL);
 		} catch(MalformedURLException e){
 			Log.e("BAD URL", "MALFORMED URL");
 			finalURL = null;
@@ -169,7 +193,7 @@ public class MainActivity extends Activity {
 			String response = "";
 			for(URL url: urls){
 				response = WebStuff.getURLStringResponse(url);
-				response = yelp.search("burritos", 30.361471, -87.164326);
+				//response = yelp.search("burritos", 30.361471, -87.164326);
 			}
 			return response;
 		}
@@ -177,6 +201,20 @@ public class MainActivity extends Activity {
 		@Override
 		protected void onPostExecute(String result){
 			Log.i("URL RESPONSE", result);
+			try{
+				JSONObject json = new JSONObject(result);
+				JSONObject results = json.getJSONObject("query").getJSONObject("results").getJSONObject("row");
+				if(results.getString("col1").compareTo("N/A")==0){
+					Toast toast = Toast.makeText(_context, "Invalid SOMETHING", Toast.LENGTH_SHORT);
+					toast.show();
+				} else {
+					Toast toast = Toast.makeText(_context, "Valid SOMETHING" + results.getString("symbol"), Toast.LENGTH_SHORT);
+					toast.show();	
+				}
+			} catch (JSONException e){
+				Log.e("JSON", "JSON OBJECT EXCEPTION");
+			}
+			// Need to show the results.
 			 
 		}
 	}

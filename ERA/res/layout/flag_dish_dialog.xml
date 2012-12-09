@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/FlagDish_LayoutRoot"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:padding="10dp">        
+        <RadioGroup android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical" android:id="@+id/FlagDish_RadioGroup">
+	        <RadioButton android:text="Spam" android:id="@+id/FlagDish_SpamRadio" android:layout_width="wrap_content" android:layout_height="wrap_content"></RadioButton>
+	        <RadioButton android:text="Not available at restaurant" android:id="@+id/FlagDish_NotAvailRadio" android:layout_width="wrap_content" android:layout_height="wrap_content"></RadioButton>
+	        <RadioButton android:text="Nutritional data inaccurate" android:id="@+id/FlagDish_BadNutritionRadio" android:layout_width="wrap_content" android:layout_height="wrap_content"></RadioButton>
+	        <RadioButton android:text="Innappropriate" android:id="@+id/FlagDish_InnappropriateRadio" android:layout_width="wrap_content" android:layout_height="wrap_content"></RadioButton>	        
+	    </RadioGroup>
+        <LinearLayout android:id="@+id/FlagDish_LayoutBtns" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <Button android:text="Save" android:id="@+id/FlagDish_SaveBtn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="0.5"></Button>
+            <Button android:text="Cancel" android:id="@+id/FlagDish_CancelBtn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="0.5"></Button>
+        </LinearLayout>
+    </LinearLayout>

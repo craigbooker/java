@@ -1,0 +1,39 @@
+package com.eatrightapp.external.yelp;
+import org.scribe.builder.api.DefaultApi10a;
+import org.scribe.model.Token;
+
+
+public class YelpV2API extends DefaultApi10a {
+
+        @Override
+        public String getAccessTokenEndpoint() {
+                // TODO Auto-generated method stub
+                return null;
+        }
+
+        @Override
+        public String getAuthorizationUrl(Token arg0) {
+                // TODO Auto-generated method stub
+                return null;
+        }
+
+        @Override
+        public String getRequestTokenEndpoint() {
+                // TODO Auto-generated method stub
+                return null;
+        }
+
+}
+Hide details
+Change log
+r47 by nick.smith on Feb 16, 2011   Diff
+Initial import.
+Go to: 	
+Older revisions
+All revisions of this file
+File info
+Size: 502 bytes, 26 lines
+View raw file
+File properties
+svn:mime-type
+text/plain

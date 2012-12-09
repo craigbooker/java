@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/Restaurant_Scroller"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:fillViewport="true"
+    android:layout_gravity="top"> 
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical" android:id="@+id/LinearLayout01">
+		<TextView android:text="@+id/Restaurant_RestaurantName" android:id="@+id/Restaurant_RestaurantName" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textStyle="bold" android:textSize="20px"></TextView>
+		<LinearLayout android:id="@+id/Restaurant_LinearLayout02" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+			<LinearLayout android:id="@+id/Restaurant_LinearLayout03" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_weight="1">
+				<LinearLayout android:id="@+id/Restaurant_LinearLayout04" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+					<TextView android:text="@+id/Restaurant_Address" android:id="@+id/Restaurant_Address" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+				</LinearLayout>
+				<TextView android:text="@+id/Restaurant_Phone" android:id="@+id/Restaurant_Phone" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			</LinearLayout>
+			<ImageView android:id="@+id/Restaurant_Image" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="right" android:layout_weight="0"></ImageView>
+		</LinearLayout> 
+		<!--  View android:layout_width="fill_parent" android:layout_height="2dip" android:background="#FF00FF00"></View -->
+		<LinearLayout android:id="@+id/Restaurant_LinearLayout05" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+			<ImageButton android:id="@+id/Restaurant_MapButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_menu_directions"></ImageButton>
+			<ImageButton android:id="@+id/Restaurant_DialButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_menu_call"></ImageButton>
+		</LinearLayout>
+		<!--  View android:layout_width="fill_parent" android:layout_height="24dip"></View> -->
+		<LinearLayout android:id="@+id/Restaurant_LinearLayout04" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+			<ImageView android:id="@+id/Restaurant_RatingImage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical"></ImageView>
+			<View android:layout_width="8dip" android:layout_height="8dip"></View>
+			<TextView android:text="@+id/Restaurant_ReviewsQty" android:id="@+id/Restaurant_ReviewsQty" android:layout_width="wrap_content" android:layout_height="wrap_content" android:clickable="true" android:layout_gravity="center_vertical"></TextView>
+		</LinearLayout>
+		<LinearLayout android:id="@+id/Restaurant_NoChainDataExistsPannel" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+			<TextView android:text="National chain? " android:id="@+id/Restaurant_ChainSpinnerLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical"></TextView>
+			<Spinner android:layout_height="wrap_content" android:id="@+id/Restaurant_ChainSpinner" android:layout_width="fill_parent"></Spinner>
+		</LinearLayout>
+		<LinearLayout android:id="@+id/Restaurant_ChainDataExistsPannel" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+			<TextView android:text="This is/not a chain restaurant." android:id="@+id/Restaurant_ChainDataLabel" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			<TextView android:text="Flag as inaccurate." android:id="@+id/Restaurant_ChainDataWrongLink" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>		
+		</LinearLayout>
+		<!-- Dish -->
+		<Button android:text="Create a Dish" android:id="@+id/Restaurant_CreateDishBtn" android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
+		<LinearLayout android:id="@+id/Restaurant_DishesLayout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical"></LinearLayout>				 
+	</LinearLayout>
+</ScrollView>

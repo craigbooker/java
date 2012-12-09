@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/CreateDish_Scroller"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:fillViewport="true"
+    android:layout_gravity="top">
+	<LinearLayout android:layout_width="fill_parent" android:orientation="vertical" android:layout_height="fill_parent" android:id="@+id/CreateDish_VerticalMasterLayout" android:padding="8dip">
+		<TextView android:layout_width="wrap_content" android:id="@+id/CreateDish_HeaderLbl" android:text="Create a Dish" android:layout_height="wrap_content" android:textStyle="bold" android:textSize="20px"></TextView>
+		<TextView android:layout_width="wrap_content" android:id="@+id/CreateDish_TitleLbl" android:text="Title" android:layout_height="wrap_content"></TextView>
+		<EditText android:text="" android:layout_width="fill_parent" android:id="@+id/CreateDish_Title" android:layout_height="wrap_content" android:capitalize="words"></EditText>
+		<TextView android:layout_width="wrap_content" android:id="@+id/CreateDish_DescLbl" android:text="Description / Ordering Info" android:layout_height="wrap_content"></TextView>
+		<EditText android:text="" android:layout_width="fill_parent" android:lines="5" android:id="@+id/CreateDish_Description" android:singleLine="false" android:layout_height="wrap_content" android:capitalize="sentences" android:gravity="top"></EditText>
+		<TextView android:layout_width="wrap_content" android:id="@+id/CreateDish_NutritionLbl" android:text="Nutritional Data (Guesstimates are OK!)" android:layout_height="wrap_content"></TextView>
+		<TextView android:layout_width="wrap_content" android:id="@+id/CreateDish_CalsLbl" android:text="Calories" android:layout_height="wrap_content"></TextView>
+		<EditText android:layout_width="fill_parent" android:text="" android:id="@+id/CreateDish_Cals" android:layout_height="wrap_content" android:inputType="numberDecimal"></EditText>
+		<TextView android:layout_width="wrap_content" android:id="@+id/CreateDish_ProtLbl" android:text="Protein (grams)" android:layout_height="wrap_content"></TextView>
+		<EditText android:layout_width="fill_parent" android:text="" android:id="@+id/CreateDish_Prot" android:layout_height="wrap_content" android:inputType="numberDecimal"></EditText>
+		<TextView android:layout_width="wrap_content" android:id="@+id/CrateDish_FatLbl" android:text="Total Fat (grams)" android:layout_height="wrap_content"></TextView>
+		<EditText android:layout_width="fill_parent" android:text="" android:id="@+id/CreateDish_Fat" android:layout_height="wrap_content" android:inputType="numberDecimal"></EditText>
+		<TextView android:layout_width="wrap_content" android:id="@+id/CreateDish_CarbsLbl" android:text="Carbs (grams)" android:layout_height="wrap_content"></TextView>
+		<EditText android:layout_width="fill_parent" android:text="" android:id="@+id/CreateDish_Carbs" android:layout_height="wrap_content" android:inputType="numberDecimal"></EditText>
+		<Button android:id="@+id/CreateDish_SaveBtn" android:layout_width="fill_parent" android:text="Save" android:layout_height="wrap_content"></Button>
+	</LinearLayout>
+</ScrollView>
