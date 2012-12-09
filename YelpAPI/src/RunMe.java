@@ -7,6 +7,7 @@ import org.scribe.oauth.OAuthService;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.craigbooker.java1ProjectWeek3.YelpV2API;
 import com.craigbooker.yelp.v2.Business;
 import com.craigbooker.yelp.v2.YelpSearchResult;
 

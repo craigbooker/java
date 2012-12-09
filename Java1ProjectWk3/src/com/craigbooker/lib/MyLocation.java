@@ -97,6 +97,6 @@ public class MyLocation {
     }
 
     public static abstract class LocationResult{
-        public abstract void gotLocation(Location location);
+        public abstract String gotLocation(Location location);
     }
 }

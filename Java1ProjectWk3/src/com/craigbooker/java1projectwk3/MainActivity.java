@@ -1,17 +1,9 @@
 package com.craigbooker.java1projectwk3;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-
-
-import com.craigbooker.external.yelp.YelpV2API;
-import com.craigbooker.external.yelp.v2.Business;
-import com.craigbooker.external.yelp.v2.YelpSearchResult;
-import com.craigbooker.external.yelp.Yelp;
-import com.craigbooker.lib.MyLocation;
-import com.craigbooker.lib.MyLocation.LocationResult;
-import com.craigbooker.lib.WebStuff;
-
+import java.util.HashMap;
 
 
 import android.os.AsyncTask;
@@ -26,6 +18,20 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.craigbooker.external.yelp.YelpV2API;
+import com.craigbooker.external.yelp.v2.Business;
+import com.craigbooker.external.yelp.v2.YelpSearchResult;
+import com.craigbooker.external.yelp.Yelp;
+import com.craigbooker.java1demowk3.MainActivity.QuoteRequest;
+import com.craigbooker.lib.FileStuff;
+import com.craigbooker.lib.MyLocation;
+import com.craigbooker.lib.MyLocation.LocationResult;
+import com.craigbooker.lib.WebStuff;
+
+
+
+
 
 
 import org.json.JSONException;
@@ -49,6 +55,8 @@ public class MainActivity extends Activity {
 	PlacesDisplay _places; // Was the stock display.
 	FavDisplay _favorites;
 	Boolean _connected = false;	
+	HashMap<String, String> _history; 
+	String strloc = "";
 	MyLocation myLocation = new MyLocation();
 	OAuthService service;
 	Token accessToken;
@@ -63,6 +71,8 @@ public class MainActivity extends Activity {
 	String lng = "-97.407243";
 	String category = "auto";
 	
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,9 +84,10 @@ public class MainActivity extends Activity {
 		// Setup main app layout
 		_appLayout = new LinearLayout(this);
 		_appLayout.setOrientation(LinearLayout.VERTICAL);
+		_history = new HashMap<String, String>();
 		
 		// Add a search form
-		_search = new SearchForm(_context, "Search", "Go");
+		_search = new SearchForm(_context, "Enter Category", "Go");
 		_appLayout.addView(_search);
 		
 		// Add search handler
@@ -86,16 +97,15 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				//Log.i("CLICK HANDLER",_search.getField().getText().toString());
-				getPlaces(_search.getField().getText().toString());
+				//getPlaces(_search.getField().getText().toString());
+				SearchForPlaces(_search.getField().getText().toString());
 			}
 		});
 		
 		// Detect Network Connection
 		_connected = WebStuff.getConnectionStatus(_context);
 		if(_connected){
-			Log.i("NETWORK CONNECTION", WebStuff.getConnectionType(_context));
-			
-			
+			Log.i("NETWORK CONNECTION", WebStuff.getConnectionType(_context));	
 		}
 		
 		// Sign Yelp URL
@@ -121,21 +131,23 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
-	
-	 /**
-	  * Setup the Yelp API OAuth credentials.
-	  *
-	  * OAuth credentials are available from the developer site, under Manage API access (version 2 API).
-	  *
-	  * @param consumerKey Consumer key
-	  * @param consumerSecret Consumer secret
-	  * @param token Token
-	  * @param tokenSecret Token secret
-	  */
-	 public Yelp(String consumerKey, String consumerSecret, String token, String tokenSecret) {
-	   this.service = new ServiceBuilder().provider(YelpV2API.class).apiKey(consumerKey).apiSecret(consumerSecret).build();
-	   this.accessToken = new Token(token, tokenSecret);
-	 }
+	private void findCurrentLocation() {
+        myLocation.getLocation(this, locationResult);
+    }
+
+	public LocationResult locationResult = new LocationResult() {
+
+        @Override
+        public String gotLocation(Location location) {
+            if (location != null) {
+                strloc  = location.getLatitude() + ","
+                        + location.getLongitude();
+                Log.i("MY LOCATION", strloc);
+                return strloc;
+            }
+        }
+    };
+
 	 /**
 	  * Search with term and location.
 	  *
@@ -158,46 +170,39 @@ public class MainActivity extends Activity {
          public String term;
          public String categoryFilter;
 	 }
-	private void SearchForPlaces(String term, double latitude, double longitude){
-		String baseURL ="http://api.yelp.com/v2/search";
-		String qs = "";
-		
-		try {
-			qs = URLEncoder.encode(baseURL 
-			
-			
-		}
-		OAuthRequest request = new OAuthRequest(Verb.GET, baseURL);
-		request.addQuerystringParameter("term", term);
-		request.addQuerystringParameter("ll", latitude + "," + longitude);
-		Response response = request.send();
-		String rawData = response.getBody();
-		
-		Log.i("CLICK", radius);
-		String baseURL = 
-		
-		URL finalURL;
-		try{
-			finalURL = new URL(baseURL + "" + "");
-			SearchPlacesRequest spr = new SearchPlacesRequest();
-			spr.execute(finalURL);
-		} catch(MalformedURLException e){
-			Log.e("BAD URL", "MALFORMED URL");
-			finalURL = null;
-		}
-	}
+		private void getCategory(String term){
+			Log.i("CLICK", term);
+			String baseURL = "http://api.yelp.com/v2/search";
+			String qs = "";
 	
-	private class SearchPlacesRequest extends AsyncTask<URL, Void, String>{
-		@Override
-		protected String doInBackground(URL... urls){
-			String response = "";
-			for(URL url: urls){
-				response = WebStuff.getURLStringResponse(url);
-				//response = yelp.search("burritos", 30.361471, -87.164326);
+			try{
+				qs = URLEncoder.encode(term, "UTF-8");
+				
+			} catch (Exception e){
+				Log.e("BAD URL", "ENCODING PROBLEM");
+				//qs = "";
 			}
-			return response;
+			URL finalURL;
+			try{
+				finalURL = new URL(baseURL + "?term" + qs + "&ll=" + strloc);
+				SearchRequest sr = new SearchRequest();
+				sr.execute(finalURL);
+			} catch (MalformedURLException e){
+				Log.e("BAD URL", "MALFORMED URL");
+				finalURL = null;
+			}
 		}
-		
+
+		private class SearchRequest extends AsyncTask<URL, Void, String>{
+			@Override
+			protected String doInBackground(URL... urls){
+				String response = "";
+				for(URL url: urls){
+					response = WebStuff.getURLStringResponse(url);
+				}
+				return response;
+		}
+			
 		@Override
 		protected void onPostExecute(String result){
 			Log.i("URL RESPONSE", result);
@@ -209,28 +214,16 @@ public class MainActivity extends Activity {
 					toast.show();
 				} else {
 					Toast toast = Toast.makeText(_context, "Valid SOMETHING" + results.getString("symbol"), Toast.LENGTH_SHORT);
-					toast.show();	
+					toast.show();
+					_history.put(results.getString("symbol"), results.toString());
+					FileStuff.storeObjectFile(_context,  "history", _history, false);
+					FileStuff.storeStringFile(_context,  "temp",  results.toString(), true);
 				}
 			} catch (JSONException e){
 				Log.e("JSON", "JSON OBJECT EXCEPTION");
 			}
-			// Need to show the results.
-			 
+			// Need to show the results.	 
 		}
-	}
-	private void findCurrentLocation() {
-        myLocation.getLocation(this, locationResult);
-    }
+		}
 
-	public LocationResult locationResult = new LocationResult() {
-
-        @Override
-        public void gotLocation(Location location) {
-            if (location != null) {
-                String strloc  = location.getLatitude() + ","
-                        + location.getLongitude();
-                Log.i("MY LOCATION", strloc);
-            }
-        }
-    };
 }

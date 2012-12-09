@@ -1,0 +1,21 @@
+package com.craigbooker.lib;
+
+public class FileStuff {
+	public static Boolean storeStringFile(Context context, String filename, String content, Boolean external) {
+		try {
+			File file;
+			FileOutputStream fos;
+			if(external) {
+				file = new File(context.getExternalFilesDir(null), filename);
+				fos = new FileOutputStream(file);
+			} else {
+				fos = context.openFileOutput(filename, Context.MODE_PRIVATE);
+			}
+			fos.write(content.getBytes());
+			fos.close();
+		} catch (IOException e) {
+			Log.e("WRITE ERROR", filename);
+		}
+		return true;
+	}
+}
