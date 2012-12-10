@@ -224,8 +224,8 @@ public class MainActivity extends Activity {
 					
 				}else{
 					// Clear Out the results
-					//_results.reset();
-					getRadiusListing(searchTerm, radius, strloc);
+					_results.reset();
+					getRadiusListing(searchTerm, radius );
 				}
 			}
 		});
@@ -308,8 +308,7 @@ public class MainActivity extends Activity {
 		// Need to add function to convert miles to meters.
 		double radiusInMeters = Convert.metersToMiles(radiusDouble);
 		String baseURL = "http://api.yelp.com/v2/search";
-		String builtURL = (baseURL + "?term=" + term + "&ll=" + strloc + "&radius_filter=" + radiusInMeters);
-		Log.i("BUILT URL:", builtURL);
+		String builtURL = (baseURL + "?term" + term + "&ll=" + strloc + "&radius_filter" + radiusInMeters);
 		String qs = "";
 
 		try{
