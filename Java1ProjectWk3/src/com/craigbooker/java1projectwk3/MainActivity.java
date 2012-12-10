@@ -5,24 +5,34 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 
-
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.app.Activity;
-import android.content.Context;
-import android.location.Location;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.os.AsyncTask;
+
+import android.content.Context;
+import android.location.Location;
+import android.view.Gravity;
+
+
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.craigbooker.java1projectwk2.R;
 import com.craigbooker.lib.FileStuff;
 
 import com.craigbooker.external.yelp.YelpV2API;
@@ -30,6 +40,7 @@ import com.craigbooker.external.yelp.v2.Business;
 import com.craigbooker.external.yelp.v2.YelpSearchResult;
 import com.craigbooker.external.yelp.Yelp;
 
+import com.craigbooker.lib.Convert;
 import com.craigbooker.lib.MyLocation;
 import com.craigbooker.lib.MyLocation.LocationResult;
 import com.craigbooker.lib.WebStuff;
@@ -48,13 +59,29 @@ import org.scribe.oauth.OAuthService;
 public class MainActivity extends Activity {
 
 	Context _context;
+	ScrollView _sv;
 	LinearLayout _appLayout;
+	LinearLayout.LayoutParams _lp;
+	TextView _txtView;
+	TextView _spinnerLabel;
+	Spinner _main_spinner;
 	SearchForm _search;
+	TextView _tcResult;
 	SearchResults _results;
 	PlacesDisplay _places; // Was the stock display.
 	FavDisplay _favorites;
 	Boolean _connected = false;	
 	HashMap<String, String> _history; 
+	
+	String selectedTroubleCode;
+	String selectedSensor;
+	String correspondingSolution;
+	String[ ] pidArray;
+	String[ ] sensorsArray;
+	String[ ] solutionsArray;
+	int selectedIndex;
+	
+	
 	
 	String strloc = "";
 	MyLocation myLocation = new MyLocation();
@@ -81,15 +108,108 @@ public class MainActivity extends Activity {
 		// Call function to find current location
 		findCurrentLocation();
 		
+		// Read in resources data
+		 pidArray = getResources().getStringArray(R.array.pid_string_array);
+	     sensorsArray = getResources().getStringArray(R.array.sensor_string_array);
+	     solutionsArray = getResources().getStringArray(R.array.solution_string_array); 
+		
+		
+		
 		// Setup main app layout
-		_appLayout = new LinearLayout(this);
+		_sv = new ScrollView(_context);
+		_appLayout = new LinearLayout(_context);
 		_appLayout.setOrientation(LinearLayout.VERTICAL);
-		_history = new HashMap<String, String>();
 		
-		// Add a search form
-		_search = new SearchForm(_context, "Enter search term", "Go");
-		_appLayout.addView(_search);
+		_history = getHistory();
+		Log.i("HISTORY READ", _history.toString());
+		_lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+		_appLayout.setLayoutParams(_lp);
 		
+		_txtView = new TextView(_context);
+		_txtView.setText("AutoMetrx : Find Help");
+		_txtView.setTextSize(20);
+		_txtView.setGravity(Gravity.CENTER_HORIZONTAL);
+		
+		
+		
+		// Detect Network Connection
+		_connected = WebStuff.getConnectionStatus(_context);
+		if(_connected == true){
+			Log.i("NETWORK CONNECTION:", "WE ARE CONNECTED TO THE WEB.");
+			Log.i("NETWORK CONNECTION:", WebStuff.getConnectionType(_context));
+			
+		       TextView tv = new TextView(this);
+		        tv.setText("Translate trouble code to something useful.");
+		        tv.setTextSize(14);
+		        
+		        _spinnerLabel = new TextView(this);
+		        _spinnerLabel.setText("Select a trouble code.");
+		        
+		        _appLayout.addView(tv);
+		        LinearLayout form = new LinearLayout(this);
+		        form.setOrientation(LinearLayout.HORIZONTAL);
+		        _lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+		        form.setLayoutParams(_lp);
+		        form.addView(_spinnerLabel);
+		        _main_spinner = new Spinner(this);
+		      
+		        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.pid_string_array, android.R.layout.simple_spinner_item);
+		        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		        
+		        
+		        _main_spinner.setAdapter(adapter);
+		        _main_spinner.setOnItemSelectedListener (new OnItemSelectedListener() {
+		        	@Override
+		        	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		        		Log.i("I made it to:", " Start of onItemSelected.");
+		        		int index = arg0.getSelectedItemPosition();
+		        		selectedIndex = index;
+		        		selectedTroubleCode = pidArray[selectedIndex];
+		        		selectedSensor = sensorsArray[selectedIndex];
+		        		correspondingSolution = solutionsArray[selectedIndex];
+		        		
+		    			if(selectedTroubleCode == null){
+		    				Toast.makeText(getBaseContext(),
+		                            "You need to select an item....null ",
+		                            Toast.LENGTH_LONG).show();   				
+		    				
+		    			} else if (selectedTroubleCode == "00") {
+		    				Toast.makeText(getBaseContext(),
+		                            "You need to select an item..00 ",
+		                            Toast.LENGTH_LONG).show();
+		    				
+		    			} else {
+		     				_tcResult.setText("Trouble Code: " + selectedTroubleCode + "\r\n" + 
+		    						"Sensor Type: " + selectedSensor + "\r\n" + 
+		    						"Possible solution: " + correspondingSolution + "\r\n"
+		    						);
+
+		    	 		}
+		        		/*
+		            	Toast.makeText(getBaseContext(),
+		                        "You have selected item : " + sensorsArray[index],
+		                        Toast.LENGTH_LONG).show();
+		                        */
+		            }
+
+					@Override
+					public void onNothingSelected(AdapterView<?> arg0) {
+						Toast.makeText(getBaseContext(),
+		                        "You need to select an item. ",
+		                        Toast.LENGTH_LONG).show();
+		            }
+			
+		        });
+		 
+		        form.addView(_main_spinner);
+		        _appLayout.addView(form);
+		        _tcResult = new TextView(_context);
+		        _appLayout.addView(_tcResult);
+		        
+				// Add a search form
+				_search = new SearchForm(_context, "Enter search radius", "Go");
+				_appLayout.addView(_search);
+				
 		// Add search handler
 		Button searchButton = _search.getButton();
 		
@@ -97,20 +217,28 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				//Log.i("CLICK HANDLER",_search.getField().getText().toString());
-				//getPlaces(_search.getField().getText().toString());
 				String searchTerm = _search.getField().getText().toString();
 				if (searchTerm.length() == 0) {
 					Toast toast = Toast.makeText(_context,  "Please enter something", Toast.LENGTH_SHORT);
 					toast.show();
 					
+				}else{
+					Toast toast = Toast.makeText(_context,  "Please enter something", Toast.LENGTH_SHORT);
+					toast.show();
 				}
 			}
 		});
 		
-		// Detect Network Connection
-		_connected = WebStuff.getConnectionStatus(_context);
-		if(_connected){
-			Log.i("NETWORK CONNECTION", WebStuff.getConnectionType(_context));	
+		
+			
+			
+			
+			
+		// If No Internet connection found.	
+		}else{
+			Log.i("NETWORK CONNECTION:", "NO INTERNET CONNECTION FOUND! LOOKING THROUGH HISTORY");
+			
+			
 		}
 		
 		// Sign Yelp URL
@@ -153,36 +281,24 @@ public class MainActivity extends Activity {
         }
     };
 
-	 /**
-	  * Search with term and location.
-	  *
-	  * @param term Search term
-	  * @param latitude Latitude
-	  * @param longitude Longitude
-	  * @return JSON string response
-	  */
-	 public String search(String term, double latitude, double longitude) {
-	   OAuthRequest request = new OAuthRequest(Verb.GET, "http://api.yelp.com/v2/search");
-	   request.addQuerystringParameter("term", term);
-	   request.addQuerystringParameter("ll", latitude + "," + longitude);
-	   this.service.signRequest(this.accessToken, request);
-	   Response response = request.send();
-	   return response.getBody();
-	 }
 	 
 	 private class YelpQuery {
          public Location location;
          public String term;
-         public String categoryFilter;
+         //public String categoryFilter;
 	 }
 	 
-	private void getCategory(String term, String strloc){
-		Log.i("CLICK", term);
+	private void getRadiusListing(String term, String radius, String strloc){
+		Log.i("CLICK", radius);
+		double radiusDouble = Double.parseDouble(radius);
+		// Need to add function to convert miles to meters.
+		double radiusInMeters = Convert.metersToMiles(radiusDouble);
 		String baseURL = "http://api.yelp.com/v2/search";
+		String builtURL = (baseURL + "?term" + term + "&ll=" + strloc + "&radius_filter" + radiusInMeters);
 		String qs = "";
 
 		try{
-			qs = URLEncoder.encode(term, "UTF-8");
+			qs = URLEncoder.encode(builtURL, "UTF-8");
 			
 		} catch (Exception e){
 			Log.e("BAD URL", "ENCODING PROBLEM");
@@ -190,7 +306,7 @@ public class MainActivity extends Activity {
 		}
 		URL finalURL;
 		try{
-			finalURL = new URL(baseURL + "?term" + qs + "&ll=" + strloc);
+			finalURL = new URL(builtURL);
 			SearchRequest sr = new SearchRequest();
 			sr.execute(finalURL);
 		} catch (MalformedURLException e){
@@ -214,12 +330,8 @@ public class MainActivity extends Activity {
 		Log.i("URL RESPONSE", result);
 		try{
 			
-			// Need to show the results.	
-			
-			
-			// Pull the 
-			
 			JSONObject json = new JSONObject(result);
+			//Log.i("JSON DATA", json);
 			JSONObject results = json.getJSONObject("query").getJSONObject("results").getJSONObject("row");
 			if(results.getString("col1").compareTo("N/A")==0){
 				Toast toast = Toast.makeText(_context, "Invalid SOMETHING", Toast.LENGTH_SHORT);
@@ -227,7 +339,7 @@ public class MainActivity extends Activity {
 			} else {
 				Toast toast = Toast.makeText(_context, "Valid SOMETHING" + results.getString("symbol"), Toast.LENGTH_SHORT);
 				toast.show();
-				_history.put(results.getString("symbol"), results.toString());
+				_history.put(results.getString("radius"), results.toString());
 				FileStuff.storeObjectFile(_context,  "history", _history, false);
 				FileStuff.storeStringFile(_context,  "temp",  results.toString(), true);
 			}
@@ -238,20 +350,18 @@ public class MainActivity extends Activity {
 	}
 		}
 	
-	private void displayResults(){
-		try {
-			
-			
-		} catch () {
-			
-		}
-		
-	}
-
 	
-	
+	@SuppressWarnings("unchecked")
 	private HashMap<String, String> getHistory() {
 		Object stored = FileStuff.readObjectFile(_context, "history", false);
 		
+		HashMap<String, String> history;
+		if(stored == null){
+			Log.i("HISTORY", "NO HISTORY FILE FOUND");
+			history = new HashMap<String, String>();
+		} else {
+			history = (HashMap<String, String>) stored;
+		}
+		return history;
 	}
 }
