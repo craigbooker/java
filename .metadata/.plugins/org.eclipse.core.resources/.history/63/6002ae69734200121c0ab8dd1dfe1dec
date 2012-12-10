@@ -250,8 +250,8 @@ public class MainActivity extends Activity {
 
 	
 	
-	private HashMap<String, String> getHistory() {
-		Object stored = FileStuff.readObjectFile(_context, "history", false);
+	private HashMap<String, String> loadSearchHistory() {
+		
 		
 	}
 }
