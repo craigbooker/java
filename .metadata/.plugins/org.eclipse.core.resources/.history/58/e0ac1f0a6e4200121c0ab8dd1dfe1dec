@@ -176,7 +176,7 @@ public class MainActivity extends Activity {
          public String categoryFilter;
 	 }
 	 
-	private void getCategory(String term, String strloc){
+	private void getCategory(String term){
 		Log.i("CLICK", term);
 		String baseURL = "http://api.yelp.com/v2/search";
 		String qs = "";
@@ -213,12 +213,6 @@ public class MainActivity extends Activity {
 	protected void onPostExecute(String result){
 		Log.i("URL RESPONSE", result);
 		try{
-			
-			// Need to show the results.	
-			
-			
-			// Pull the 
-			
 			JSONObject json = new JSONObject(result);
 			JSONObject results = json.getJSONObject("query").getJSONObject("results").getJSONObject("row");
 			if(results.getString("col1").compareTo("N/A")==0){
@@ -234,24 +228,8 @@ public class MainActivity extends Activity {
 		} catch (JSONException e){
 			Log.e("JSON", "JSON OBJECT EXCEPTION");
 		}
-		 
+		// Need to show the results.	 
 	}
 		}
-	
-	private void displayResults(){
-		try {
-			
-			
-		} catch () {
-			
-		}
-		
-	}
 
-	
-	
-	private HashMap<String, String> loadSearchHistory() {
-		
-		
-	}
 }
