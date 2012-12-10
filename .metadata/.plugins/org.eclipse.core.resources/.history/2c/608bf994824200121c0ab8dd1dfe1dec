@@ -245,13 +245,13 @@ public class MainActivity extends Activity {
 		
 		
 		// Add places display
-		//_places = new PlacesDisplay(_context);
+		_places = new PlacesDisplay(_context);
 		
 		// Add Favorites display
 		_favorites = new FavDisplay(_context);
 		
 		//Add views to main layout
-		//_appLayout.addView(_places);
+		_appLayout.addView(_places);
 		_appLayout.addView(_favorites);
 		
 		

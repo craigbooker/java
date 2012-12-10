@@ -251,7 +251,7 @@ public class MainActivity extends Activity {
 		_favorites = new FavDisplay(_context);
 		
 		//Add views to main layout
-		//_appLayout.addView(_places);
+		_appLayout.addView(_places);
 		_appLayout.addView(_favorites);
 		
 		
