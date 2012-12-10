@@ -24,7 +24,7 @@ public class SearchResults extends LinearLayout {
 		_listView.setLayoutParams(lp);
 		
 		ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(_context, android.R.layout.simple_list_item_1, _results);
-		listAdapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+		listAdapter.setDropDownViewResource(android.R.layout.simple_list_item1);
 		_listView.setAdapter(listAdapter);
 		
 		this.addView(_listView);

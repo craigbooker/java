@@ -16,18 +16,15 @@ public class SearchResults extends LinearLayout {
 	
 	public SearchResults(Context context) {
 		super(context);
-		_context = context;
 		
 		LayoutParams lp;
-		lp = new LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f);
+		lp = new LayoutParams();
 		_listView = new ListView(_context);
 		_listView.setLayoutParams(lp);
 		
 		ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(_context, android.R.layout.simple_list_item_1, _results);
-		listAdapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+		listAdapter.setDropDownViewResource(android.R.layout.simple_list_item1);
 		_listView.setAdapter(listAdapter);
-		
-		this.addView(_listView);
 	}
 	
 	public ListView getResultList() {
