@@ -86,7 +86,6 @@ public class MainActivity extends Activity {
 	
 	
 	String strloc = "";
-	Location loc;
 	MyLocation myLocation = new MyLocation();
 	OAuthService service;
 	Token accessToken;
@@ -280,7 +279,7 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	private void findCurrentLocation() {
-        myLocation.getLocation(_context, locationResult);
+        myLocation.getLocation(this, locationResult);
     }
 
 	public LocationResult locationResult = new LocationResult() {
@@ -289,13 +288,10 @@ public class MainActivity extends Activity {
         public String gotLocation(Location location) {
             if (location != null) {
                 strloc  = location.getLatitude() + ","
-                        + location.getLongitude() + "," + location.getTime();
-                loc = location;
+                        + location.getLongitude();
                 Log.i("MY LOCATION", strloc);
-                //Log.e("Loc VAR", loc);
             }
             return strloc;
-            //return loc;
         }
     };
 
@@ -335,20 +331,17 @@ public class MainActivity extends Activity {
 	}
 
 	private class SearchRequest extends AsyncTask<URL, Void, String>{
-		URL url = URL;
 		@Override
 		protected String doInBackground(URL... urls){
 	
 			// Execute a signed call to the Yelp service.  
-			OAuthService service = new ServiceBuilder().provider(YelpV2API.class).apiKey(consumerKey).apiSecret(consumerSecret).build();
-			Token accessToken = new Token(token, tokenSecret);
-			OAuthRequest oaRequest = new OAuthRequest(Verb.GET, );
-			//OAuthRequest oaRequest = new OAuthRequest(Verb.GET, "http://api.yelp.com/v2/search");
-			//oaRequest.addQuerystringParameter("ll", lat + "," + lng);
-			//oaRequest.addQuerystringParameter("category", category);
-			service.signRequest(accessToken, oaRequest)
-			//service.signRequest(accessToken, oaRequest);
-			Response response = oaRequest.send();
+			OAuthService service = new ServiceBuilder().provider(YelpV2API.class).apiKey(CONSUMER_KEY).apiSecret(CONSUMER_SECRET).build();
+			Token accessToken = new Token(TOKEN, TOKEN_SECRET);
+			OAuthRequest request = new OAuthRequest(Verb.GET, "http://api.yelp.com/v2/search");
+			request.addQuerystringParameter("ll", lat + "," + lng);
+			request.addQuerystringParameter("category", category);
+			service.signRequest(accessToken, request);
+			Response response = request.send();
 			String rawData = response.getBody();
 			
 			

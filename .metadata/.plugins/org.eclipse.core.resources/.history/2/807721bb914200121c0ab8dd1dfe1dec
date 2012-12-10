@@ -86,7 +86,6 @@ public class MainActivity extends Activity {
 	
 	
 	String strloc = "";
-	Location loc;
 	MyLocation myLocation = new MyLocation();
 	OAuthService service;
 	Token accessToken;
@@ -289,13 +288,10 @@ public class MainActivity extends Activity {
         public String gotLocation(Location location) {
             if (location != null) {
                 strloc  = location.getLatitude() + ","
-                        + location.getLongitude() + "," + location.getTime();
-                loc = location;
+                        + location.getLongitude();
                 Log.i("MY LOCATION", strloc);
-                //Log.e("Loc VAR", loc);
             }
             return strloc;
-            //return loc;
         }
     };
 
