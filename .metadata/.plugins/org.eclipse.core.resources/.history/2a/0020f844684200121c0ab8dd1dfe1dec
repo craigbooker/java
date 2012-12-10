@@ -148,8 +148,8 @@ public class MainActivity extends Activity {
                 strloc  = location.getLatitude() + ","
                         + location.getLongitude();
                 Log.i("MY LOCATION", strloc);
+                return strloc;
             }
-            return strloc;
         }
     };
 
@@ -175,61 +175,60 @@ public class MainActivity extends Activity {
          public String term;
          public String categoryFilter;
 	 }
-	 
-	private void getCategory(String term){
-		Log.i("CLICK", term);
-		String baseURL = "http://api.yelp.com/v2/search";
-		String qs = "";
+		private void getCategory(String term){
+			Log.i("CLICK", term);
+			String baseURL = "http://api.yelp.com/v2/search";
+			String qs = "";
+	
+			try{
+				qs = URLEncoder.encode(term, "UTF-8");
+				
+			} catch (Exception e){
+				Log.e("BAD URL", "ENCODING PROBLEM");
+				//qs = "";
+			}
+			URL finalURL;
+			try{
+				finalURL = new URL(baseURL + "?term" + qs + "&ll=" + strloc);
+				SearchRequest sr = new SearchRequest();
+				sr.execute(finalURL);
+			} catch (MalformedURLException e){
+				Log.e("BAD URL", "MALFORMED URL");
+				finalURL = null;
+			}
+		}
 
-		try{
-			qs = URLEncoder.encode(term, "UTF-8");
+		private class SearchRequest extends AsyncTask<URL, Void, String>{
+			@Override
+			protected String doInBackground(URL... urls){
+				String response = "";
+				for(URL url: urls){
+					response = WebStuff.getURLStringResponse(url);
+				}
+				return response;
+		}
 			
-		} catch (Exception e){
-			Log.e("BAD URL", "ENCODING PROBLEM");
-			//qs = "";
-		}
-		URL finalURL;
-		try{
-			finalURL = new URL(baseURL + "?term" + qs + "&ll=" + strloc);
-			SearchRequest sr = new SearchRequest();
-			sr.execute(finalURL);
-		} catch (MalformedURLException e){
-			Log.e("BAD URL", "MALFORMED URL");
-			finalURL = null;
-		}
-	}
-
-	private class SearchRequest extends AsyncTask<URL, Void, String>{
 		@Override
-		protected String doInBackground(URL... urls){
-			String response = "";
-			for(URL url: urls){
-				response = WebStuff.getURLStringResponse(url);
+		protected void onPostExecute(String result){
+			Log.i("URL RESPONSE", result);
+			try{
+				JSONObject json = new JSONObject(result);
+				JSONObject results = json.getJSONObject("query").getJSONObject("results").getJSONObject("row");
+				if(results.getString("col1").compareTo("N/A")==0){
+					Toast toast = Toast.makeText(_context, "Invalid SOMETHING", Toast.LENGTH_SHORT);
+					toast.show();
+				} else {
+					Toast toast = Toast.makeText(_context, "Valid SOMETHING" + results.getString("symbol"), Toast.LENGTH_SHORT);
+					toast.show();
+					_history.put(results.getString("symbol"), results.toString());
+					FileStuff.storeObjectFile(_context,  "history", _history, false);
+					FileStuff.storeStringFile(_context,  "temp",  results.toString(), true);
+				}
+			} catch (JSONException e){
+				Log.e("JSON", "JSON OBJECT EXCEPTION");
 			}
-			return response;
-	}
-			
-	@Override
-	protected void onPostExecute(String result){
-		Log.i("URL RESPONSE", result);
-		try{
-			JSONObject json = new JSONObject(result);
-			JSONObject results = json.getJSONObject("query").getJSONObject("results").getJSONObject("row");
-			if(results.getString("col1").compareTo("N/A")==0){
-				Toast toast = Toast.makeText(_context, "Invalid SOMETHING", Toast.LENGTH_SHORT);
-				toast.show();
-			} else {
-				Toast toast = Toast.makeText(_context, "Valid SOMETHING" + results.getString("symbol"), Toast.LENGTH_SHORT);
-				toast.show();
-				_history.put(results.getString("symbol"), results.toString());
-				FileStuff.storeObjectFile(_context,  "history", _history, false);
-				FileStuff.storeStringFile(_context,  "temp",  results.toString(), true);
-			}
-		} catch (JSONException e){
-			Log.e("JSON", "JSON OBJECT EXCEPTION");
+			// Need to show the results.	 
 		}
-		// Need to show the results.	 
-	}
 		}
 
 }

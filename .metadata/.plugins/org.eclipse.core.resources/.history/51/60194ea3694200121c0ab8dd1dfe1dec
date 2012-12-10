@@ -175,7 +175,6 @@ public class MainActivity extends Activity {
          public String term;
          public String categoryFilter;
 	 }
-	 
 	private void getCategory(String term){
 		Log.i("CLICK", term);
 		String baseURL = "http://api.yelp.com/v2/search";
