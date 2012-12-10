@@ -34,8 +34,8 @@ public class SearchResults extends LinearLayout {
 		return _listView;
 	}
 	
-	public void addRow(String txt){
-		_results.add(txt);
+	public void addRow(String ){
+		_results.add(object);
 		_listView.invalidateViews();
 	}
 	
