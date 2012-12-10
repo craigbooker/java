@@ -32,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.craigbooker.java1projectwk2.R;
 import com.craigbooker.lib.FileStuff;
 
 import com.craigbooker.external.yelp.YelpV2API;
