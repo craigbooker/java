@@ -282,8 +282,7 @@ public class MainActivity extends Activity {
         public String gotLocation(Location location) {
             if (location != null) {
                 strloc  = location.getLatitude() + ","
-                		+ location.getLongitude();
-                        //+ location.getLongitude() + "," + location.getTime();
+                        + location.getLongitude() + "," + location.getTime();
                 loc = location;
                 Log.i("MY LOCATION", strloc);
                 //Log.e("Loc VAR", loc);
@@ -300,7 +299,6 @@ public class MainActivity extends Activity {
 		// Need to add function to convert miles to meters.
 		double radiusInMeters = Convert.metersToMiles(radiusDouble);
 		String baseURL = "http://api.yelp.com/v2/search";
-		Log.i("STRLOC VALUE:", strloc);
 		String builtURL = (baseURL + "?term=" + term + "&ll=" + strloc + "&radius_filter=" + radiusInMeters);
 		Log.i("BUILT URL:", builtURL);
 		String qs = "";
@@ -314,7 +312,7 @@ public class MainActivity extends Activity {
 		}
 		URL finalURL;
 		try{
-			finalURL = new URL(qs);
+			finalURL = new URL(builtURL);
 			SearchRequest sr = new SearchRequest();
 			sr.execute(finalURL);
 		} catch (MalformedURLException e){
@@ -322,20 +320,7 @@ public class MainActivity extends Activity {
 			finalURL = null;
 		}
 	}
-	@SuppressWarnings({ "unchecked" })
-	private HashMap<String, String> getHistory() {
-		Object stored = FileStuff.readObjectFile(_context, "history", false);
-		
-		HashMap<String, String> history;
-		if(stored == null){
-			Log.i("HISTORY", "NO HISTORY FILE FOUND");
-			history = new HashMap<String, String>();
-		} else {
-			history = (HashMap<String, String>) stored;
-		}
-		return history;
-	}
-	
+
 	private class SearchRequest extends AsyncTask<URL, Void, String>{	
 		@Override
 		protected String doInBackground(URL... urls){
@@ -353,16 +338,24 @@ public class MainActivity extends Activity {
 			Response response = oaRequest.send();
 			rawData = response.getBody();
 			}
-			Log.i("RAW DATA:", rawData);
 			return rawData;
-
 	}
 		
 	
-
+	@SuppressWarnings({ "unchecked", "unused" })
+	private HashMap<String, String> getHistory() {
+		Object stored = FileStuff.readObjectFile(_context, "history", false);
+		
+		HashMap<String, String> history;
+		if(stored == null){
+			Log.i("HISTORY", "NO HISTORY FILE FOUND");
+			history = new HashMap<String, String>();
+		} else {
+			history = (HashMap<String, String>) stored;
+		}
+		return history;
+	}
 	
-}
-}	
 		/*	
 	@Override
 	protected void onPostExecute(String result){
@@ -387,6 +380,9 @@ public class MainActivity extends Activity {
 		}
 		 
 	}
+		}
+	
 	*/
 
-
+}
+}
