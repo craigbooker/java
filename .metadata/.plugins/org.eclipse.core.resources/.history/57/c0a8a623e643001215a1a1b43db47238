@@ -1,7 +1,6 @@
 package com.craigbooker.lib;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -21,10 +20,8 @@ public class FormBasic {
 		ll.setLayoutParams(lp);
 		
 		_searchField = new EditText(context);
-		_searchField.setRawInputType(Configuration.KEYBOARD_12KEY);
 		lp = new LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f);
 		_searchField.setLayoutParams(lp);
-
 		_searchField.setHint(hint);
 		_searchField.setId(Form_Field);
 		

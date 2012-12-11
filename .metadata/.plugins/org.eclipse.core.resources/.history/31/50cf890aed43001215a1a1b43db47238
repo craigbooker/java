@@ -306,16 +306,8 @@ public class MainActivity extends Activity {
 			
 		}
 		
+		// Need to add function to convert miles to meters.
 		double radiusInMeters = Convert.milesToMeters(radiusDouble);
-		
-		try{
-			qs = URLEncoder.encode(radiusDouble, "UTF-8");
-			Log.i("Try QS URL:", qs);
-		} catch (Exception e){
-			Log.e("BAD URL", "ENCODING PROBLEM");
-			qs = "";
-		}
-		
 		//String baseURL = "http://api.yelp.com/v2/search";
 		String _strLoc = loc.getLatitude() + ","
         		+ loc.getLongitude();
@@ -323,7 +315,18 @@ public class MainActivity extends Activity {
 		String builtURL = (baseURL + "?term=" + term + "&ll=" + strloc + "&radius_filter=" + radiusInMeters);
 		Log.i("BUILT URL:", builtURL);
 		String qs = "";
+
 		
+		
+		
+		
+		try{
+			qs = URLEncoder.encode(builtURL, "UTF-8");
+			Log.i("Try QS URL:", qs);
+		} catch (Exception e){
+			Log.e("BAD URL", "ENCODING PROBLEM");
+			qs = "";
+		}
 		URL finalURL;
 		try{
 			finalURL = new URL(qs);

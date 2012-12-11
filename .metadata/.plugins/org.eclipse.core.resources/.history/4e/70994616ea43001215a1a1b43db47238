@@ -295,27 +295,17 @@ public class MainActivity extends Activity {
 	 
 	private void getRadiusListing(String term, String radius, Location loc, String baseURL){
 		Log.i("CLICK", radius);
-		//int myInt;
-		double radiusDouble = 0.0;
-		
+		int myInt;
+		//double radiusDouble = Double.parseDouble(radius);
 		try{
-			radiusDouble = Double.parseDouble(radius);
+			myInt = Integer.parseInt(radius); 
 			//Log.i("Parse Int results:", myInt);
 		} catch (Exception e){
 			Log.e("BAD INPUT", "PLEASE ENTER AN INTEGER");
 			
 		}
-		
-		double radiusInMeters = Convert.milesToMeters(radiusDouble);
-		
-		try{
-			qs = URLEncoder.encode(radiusDouble, "UTF-8");
-			Log.i("Try QS URL:", qs);
-		} catch (Exception e){
-			Log.e("BAD URL", "ENCODING PROBLEM");
-			qs = "";
-		}
-		
+		// Need to add function to convert miles to meters.
+		double radiusInMeters = Convert.metersToMiles(radiusDouble);
 		//String baseURL = "http://api.yelp.com/v2/search";
 		String _strLoc = loc.getLatitude() + ","
         		+ loc.getLongitude();
@@ -323,7 +313,18 @@ public class MainActivity extends Activity {
 		String builtURL = (baseURL + "?term=" + term + "&ll=" + strloc + "&radius_filter=" + radiusInMeters);
 		Log.i("BUILT URL:", builtURL);
 		String qs = "";
+
 		
+		
+		
+		
+		try{
+			qs = URLEncoder.encode(builtURL, "UTF-8");
+			Log.i("Try QS URL:", qs);
+		} catch (Exception e){
+			Log.e("BAD URL", "ENCODING PROBLEM");
+			qs = "";
+		}
 		URL finalURL;
 		try{
 			finalURL = new URL(qs);
