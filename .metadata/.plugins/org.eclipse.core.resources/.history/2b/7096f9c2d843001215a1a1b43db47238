@@ -294,7 +294,7 @@ public class MainActivity extends Activity {
     };
 
 	 
-	private void getRadiusListing(String term, String radius, Location loc, String baseURL){
+	private void getRadiusListing(String term, String radius, Location strloc, String baseURL){
 		Log.i("CLICK", radius);
 		double radiusDouble = Double.parseDouble(radius);
 		// Need to add function to convert miles to meters.

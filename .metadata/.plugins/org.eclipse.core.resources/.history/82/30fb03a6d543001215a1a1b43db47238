@@ -84,7 +84,7 @@ public class MainActivity extends Activity {
 	int selectedIndex;
 	
 	
-
+	
 	String strloc = "";
 	Location loc;
 	MyLocation myLocation = new MyLocation();
@@ -94,7 +94,7 @@ public class MainActivity extends Activity {
 	 String consumerSecret = "2mTa_1uggZVU2aWoIWQ8VViSC6s";
 	 String token = "BAr8f7RjszQjh3_4A8VrCI1TjDLw5uMt";
 	 String tokenSecret = "mPgSRUOXlheC1c5Zr8I7-I3dVj0";
-	 String baseURL = "http://api.yelp.com/v2/search"; 
+	  
 	
 	// Some example values to pass into the Yelp search service.
 	String lat = "35.667196";
@@ -227,7 +227,7 @@ public class MainActivity extends Activity {
 				}else{
 					// Clear Out the results
 					//_results.reset();
-					getRadiusListing(searchTerm, radius, loc, baseURL);
+					getRadiusListing(searchTerm, radius, strloc);
 				}
 			}
 		});
@@ -279,7 +279,7 @@ public class MainActivity extends Activity {
 	public LocationResult locationResult = new LocationResult() {
 
         @Override
-        public Location gotLocation(Location location) {
+        public String gotLocation(Location location) {
             if (location != null) {
                 strloc  = location.getLatitude() + ","
                 		+ location.getLongitude();
@@ -288,21 +288,19 @@ public class MainActivity extends Activity {
                 Log.i("MY LOCATION", strloc);
                 //Log.e("Loc VAR", loc);
             }
-            //return strloc;
-            return loc;
+            return strloc;
+            //return loc;
         }
     };
 
 	 
-	private void getRadiusListing(String term, String radius, Location loc, String baseURL){
+	private void getRadiusListing(String term, String radius, String strloc){
 		Log.i("CLICK", radius);
 		double radiusDouble = Double.parseDouble(radius);
 		// Need to add function to convert miles to meters.
 		double radiusInMeters = Convert.metersToMiles(radiusDouble);
-		//String baseURL = "http://api.yelp.com/v2/search";
-		String _strLoc = loc.getLatitude() + ","
-        		+ loc.getLongitude();
-		Log.i("STRLOC VALUE:", _strLoc);
+		String baseURL = "http://api.yelp.com/v2/search";
+		Log.i("STRLOC VALUE:", strloc);
 		String builtURL = (baseURL + "?term=" + term + "&ll=" + strloc + "&radius_filter=" + radiusInMeters);
 		Log.i("BUILT URL:", builtURL);
 		String qs = "";
