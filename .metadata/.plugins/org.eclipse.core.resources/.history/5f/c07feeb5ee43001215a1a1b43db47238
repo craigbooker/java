@@ -327,7 +327,7 @@ public class MainActivity extends Activity {
 		
 		URL finalURL;
 		try{
-			finalURL = new URL(builtURL);
+			finalURL = new URL(qs);
 			SearchRequest sr = new SearchRequest();
 			sr.execute(finalURL);
 		} catch (MalformedURLException e){

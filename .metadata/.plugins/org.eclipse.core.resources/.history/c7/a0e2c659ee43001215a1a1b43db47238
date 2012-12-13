@@ -298,19 +298,18 @@ public class MainActivity extends Activity {
 		//int myInt;
 		double radiusDouble = 0.0;
 		
-		//String text = editText123.getText().toString();
-		try {
-		   radiusDouble = Double.parseDouble(radius);
-		   Log.i("",radiusDouble+" is a number");
-		} catch (NumberFormatException e) {
-		   Log.i("",radius+"is not a number");
+		try{
+			radiusDouble = Double.parseDouble(radius);
+			//Log.i("Parse Int results:", myInt);
+		} catch (Exception e){
+			Log.e("BAD INPUT", "PLEASE ENTER AN INTEGER");
+			
 		}
 		
 		double radiusInMeters = Convert.milesToMeters(radiusDouble);
-		String finalRadius = Double.toString(radiusInMeters);
-		String qs = "";
+		
 		try{
-			qs = URLEncoder.encode(finalRadius, "UTF-8");
+			qs = URLEncoder.encode(radiusDouble, "UTF-8");
 			Log.i("Try QS URL:", qs);
 		} catch (Exception e){
 			Log.e("BAD URL", "ENCODING PROBLEM");
@@ -321,13 +320,13 @@ public class MainActivity extends Activity {
 		String _strLoc = loc.getLatitude() + ","
         		+ loc.getLongitude();
 		Log.i("STRLOC VALUE:", _strLoc);
-		String builtURL = (baseURL + "?term=" + term + "&ll=" + strloc + "&radius_filter=" + qs);
+		String builtURL = (baseURL + "?term=" + term + "&ll=" + strloc + "&radius_filter=" + radiusInMeters);
 		Log.i("BUILT URL:", builtURL);
-
+		String qs = "";
 		
 		URL finalURL;
 		try{
-			finalURL = new URL(builtURL);
+			finalURL = new URL(qs);
 			SearchRequest sr = new SearchRequest();
 			sr.execute(finalURL);
 		} catch (MalformedURLException e){

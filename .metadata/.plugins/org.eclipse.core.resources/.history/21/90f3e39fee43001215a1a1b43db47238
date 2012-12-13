@@ -321,13 +321,13 @@ public class MainActivity extends Activity {
 		String _strLoc = loc.getLatitude() + ","
         		+ loc.getLongitude();
 		Log.i("STRLOC VALUE:", _strLoc);
-		String builtURL = (baseURL + "?term=" + term + "&ll=" + strloc + "&radius_filter=" + qs);
+		String builtURL = (baseURL + "?term=" + term + "&ll=" + strloc + "&radius_filter=" + radiusInMeters);
 		Log.i("BUILT URL:", builtURL);
-
+		String qs = "";
 		
 		URL finalURL;
 		try{
-			finalURL = new URL(builtURL);
+			finalURL = new URL(qs);
 			SearchRequest sr = new SearchRequest();
 			sr.execute(finalURL);
 		} catch (MalformedURLException e){
