@@ -10379,3 +10379,9 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/craig
 
 !ENTRY org.eclipse.core.net 1 0 2012-12-13 13:45:25.156
 !MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-12-13 14:48:09.805
+!MESSAGE Failed to load properties file for project 'Java1ProjectWk4'
+
+!ENTRY org.eclipse.ui 2 2 2012-12-13 14:48:18.026
+!MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.wst.xml.ui, propertyPage: org.eclipse.wst.xml.ui.propertyPage.project.validation)
