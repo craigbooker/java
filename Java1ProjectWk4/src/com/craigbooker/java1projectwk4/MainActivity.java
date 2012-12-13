@@ -1,4 +1,4 @@
-package com.craigbooker.java1projectwk3;
+package com.craigbooker.java1projectwk4;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -31,6 +31,8 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.example.java1projectwk4.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.craigbooker.lib.FileStuff;
@@ -100,7 +102,7 @@ public class MainActivity extends Activity {
 	String lat = "35.667196";
 	String lng = "-97.407243";
 	String category = "auto";
-	
+	String rawData = "";
 	
 	
 	@Override
@@ -352,7 +354,7 @@ public class MainActivity extends Activity {
 	private class SearchRequest extends AsyncTask<URL, Void, String>{	
 		@Override
 		protected String doInBackground(URL... urls){
-			String rawData = "";
+			
 			for(URL url: urls){
 			// Execute a signed call to the Yelp service.  
 			OAuthService service = new ServiceBuilder().provider(YelpV2API.class).apiKey(consumerKey).apiSecret(consumerSecret).build();
@@ -369,22 +371,16 @@ public class MainActivity extends Activity {
 			Log.i("RAW DATA:", rawData);
 			return rawData;
 
+		}
 	}
-		
-	
-
-	
-}
-}	
-		/*	
-	@Override
-	protected void onPostExecute(String result){
-		Log.i("URL RESPONSE", result);
+	/*
+	protected void onPostExecute(String rawData){
+		Log.i("URL RESPONSE", rawData);
 		try{
 			
-			JSONObject json = new JSONObject(result);
+			JSONObject json = new JSONObject(rawData);
 			//Log.i("JSON DATA", json);
-			JSONObject results = json.getJSONObject("query").getJSONObject("results").getJSONObject("row");
+			JSONObject results = json.getJSONObject("rawData").getJSONObject("coordinate");
 			if(results.getString("col1").compareTo("N/A")==0){
 				Toast toast = Toast.makeText(_context, "Invalid SOMETHING", Toast.LENGTH_SHORT);
 				toast.show();
@@ -400,6 +396,6 @@ public class MainActivity extends Activity {
 		}
 		 
 	}
-	*/
-
+    */
+}
 

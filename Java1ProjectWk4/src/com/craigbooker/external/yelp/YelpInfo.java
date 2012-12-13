@@ -1,6 +1,6 @@
 package com.craigbooker.external.yelp;
 
-import java.util.HashMap;
+
 
 public enum YelpInfo {
 	CONSUMER_KEY("8hYTZBUuiTxOwmTjQtFnTw"),
