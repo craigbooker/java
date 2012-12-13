@@ -247,19 +247,6 @@ public class MainActivity extends Activity {
 				TextView tv = new TextView(_context);
 				tv.setText("\r\n" + "No Internet Connection" + "\r\n");
 				_appLayout.addView(tv);
-				Button histBtn = new Button(_context);
-				histBtn.setText("Use Cached Data");
-				histBtn.setId(10);
-				_appLayout.addView(histBtn);
-				
-				histBtn.setOnClickListener(new View.OnClickListener() {
-					
-					@Override
-					public void onClick(View arg0) {
-						// TODO Auto-generated method stub
-						
-					}
-				});
 				
 			}
 			
@@ -392,7 +379,6 @@ public class MainActivity extends Activity {
 			JSONObject json = new JSONObject(rawData);
 			//Log.i("JSON DATA", json);
 			JSONObject results = json.getJSONObject("rawData").getJSONObject("coordinate");
-			
 			if(results.getString("col1").compareTo("N/A")==0){
 				Toast toast = Toast.makeText(_context, "Invalid SOMETHING", Toast.LENGTH_SHORT);
 				toast.show();
