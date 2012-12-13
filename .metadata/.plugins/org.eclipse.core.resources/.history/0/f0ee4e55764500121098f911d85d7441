@@ -111,10 +111,6 @@ public class MainActivity extends Activity {
 		// Call function to find current location
 		findCurrentLocation();
 		
-		// Retrieve any history stored
-		_history = getStoredHistory();
-		Log.i("HISTORY READ", _history.toString());
-		
 		// Read in resources data
 		 pidArray = getResources().getStringArray(R.array.pid_string_array);
 	     sensorsArray = getResources().getStringArray(R.array.sensor_string_array);
@@ -127,7 +123,8 @@ public class MainActivity extends Activity {
 		_appLayout = new LinearLayout(_context);
 		_appLayout.setOrientation(LinearLayout.VERTICAL);
 		
-
+		_history = getHistory();
+		Log.i("HISTORY READ", _history.toString());
 		_lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
 		_appLayout.setLayoutParams(_lp);
 		
@@ -164,40 +161,40 @@ public class MainActivity extends Activity {
 		        
 		        _main_spinner.setAdapter(adapter);
 		        _main_spinner.setOnItemSelectedListener (new OnItemSelectedListener() {
-			        	@Override
-			        	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-			        		Log.i("I made it to:", " Start of onItemSelected.");
-			        		int index = arg0.getSelectedItemPosition();
-			        		selectedIndex = index;
-			        		selectedTroubleCode = pidArray[selectedIndex];
-			        		selectedSensor = sensorsArray[selectedIndex];
-			        		correspondingSolution = solutionsArray[selectedIndex];
-			        		
-			    			if(selectedTroubleCode == null){
-			    				Toast.makeText(getBaseContext(),
-			                            "You need to select an item....null ",
-			                            Toast.LENGTH_LONG).show();   				
-			    				
-			    			} else if (selectedTroubleCode == "00") {
-			    				Toast.makeText(getBaseContext(),
-			                            "You need to select an item..00 ",
-			                            Toast.LENGTH_LONG).show();
-			    				
-			    			} else {
-			     				_tcResult.setText("Trouble Code: " + selectedTroubleCode + "\r\n" + 
-			    						"Sensor Type: " + selectedSensor + "\r\n" + 
-			    						"Possible solution: " + correspondingSolution + "\r\n"
-			    						);
-	
-			    	 		}
-			            }
-	
-						@Override
-						public void onNothingSelected(AdapterView<?> arg0) {
-							Toast.makeText(getBaseContext(),
-			                        "You need to select an item. ",
-			                        Toast.LENGTH_LONG).show();
-			            }
+		        	@Override
+		        	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		        		Log.i("I made it to:", " Start of onItemSelected.");
+		        		int index = arg0.getSelectedItemPosition();
+		        		selectedIndex = index;
+		        		selectedTroubleCode = pidArray[selectedIndex];
+		        		selectedSensor = sensorsArray[selectedIndex];
+		        		correspondingSolution = solutionsArray[selectedIndex];
+		        		
+		    			if(selectedTroubleCode == null){
+		    				Toast.makeText(getBaseContext(),
+		                            "You need to select an item....null ",
+		                            Toast.LENGTH_LONG).show();   				
+		    				
+		    			} else if (selectedTroubleCode == "00") {
+		    				Toast.makeText(getBaseContext(),
+		                            "You need to select an item..00 ",
+		                            Toast.LENGTH_LONG).show();
+		    				
+		    			} else {
+		     				_tcResult.setText("Trouble Code: " + selectedTroubleCode + "\r\n" + 
+		    						"Sensor Type: " + selectedSensor + "\r\n" + 
+		    						"Possible solution: " + correspondingSolution + "\r\n"
+		    						);
+
+		    	 		}
+		            }
+
+					@Override
+					public void onNothingSelected(AdapterView<?> arg0) {
+						Toast.makeText(getBaseContext(),
+		                        "You need to select an item. ",
+		                        Toast.LENGTH_LONG).show();
+		            }
 			
 		        });
 		 
@@ -230,7 +227,7 @@ public class MainActivity extends Activity {
 		});
 			
 			
-// ------------------  If No Internet connection found. ---------------------------------------------------  	
+		// If No Internet connection found.	
 		}else{
 			Log.i("NETWORK CONNECTION:", "NO INTERNET CONNECTION FOUND! LOOKING THROUGH HISTORY");
 			File file = new File("history");
@@ -255,7 +252,7 @@ public class MainActivity extends Activity {
 					@Override
 					public void onClick(View arg0) {
 						// TODO Auto-generated method stub
-						String histString = ;
+						
 					}
 				});
 				
@@ -347,17 +344,17 @@ public class MainActivity extends Activity {
 		}
 	}
 	@SuppressWarnings({ "unchecked" })
-	private HashMap<String, String> getStoredHistory() {
-		Object stored = FileStuff.readObjectFile(_context, "historyCache", false);
+	private HashMap<String, String> getHistory() {
+		Object stored = FileStuff.readObjectFile(_context, "history", false);
 		
-		HashMap<String, String> myStoredHistory;
+		HashMap<String, String> history;
 		if(stored == null){
 			Log.i("HISTORY", "NO HISTORY FILE FOUND");
-			myStoredHistory = new HashMap<String, String>();
+			history = new HashMap<String, String>();
 		} else {
-			myStoredHistory = (HashMap<String, String>) stored;
+			history = (HashMap<String, String>) stored;
 		}
-		return myStoredHistory;
+		return history;
 	}
 	
 	private class SearchRequest extends AsyncTask<URL, Void, String>{	
@@ -381,39 +378,15 @@ public class MainActivity extends Activity {
 			return rawData;
 
 	}	
-	protected void onPostExecute(String rawData){
-		// Sample of how to turn that text into Java objects.  
-		try {
-			YelpSearchResult places = new Gson().fromJson(rawData, YelpSearchResult.class);
-			
-			System.out.println("Your search found " + places.getTotal() + " results.");
-			System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
-			System.out.println();
-			
-			for(Business biz : places.getBusinesses()) {
-				System.out.println(biz.getName());
-				for(String address : biz.getLocation().getAddress()) {					
-					System.out.println("  " + address);
-				}
-				System.out.print("  " + biz.getLocation().getCity());
-				System.out.println(biz.getUrl());
-				System.out.println();
-			}
-			
-			
-		} catch(Exception e) {
-			System.out.println("Error, could not parse returned data!");
-			System.out.println(rawData);			
-		}
-	}
+
 	
-	/*
 	protected void onPostExecute(String rawData){
 		Log.i("URL RESPONSE", rawData);
 		try{
 			
 			JSONObject json = new JSONObject(rawData);
-			JSONObject results = json.getJSONObject("region");
+			//Log.i("JSON DATA", json);
+			JSONObject results = json.getJSONObject("rawData").getJSONObject("coordinate");
 			
 			if(results.getString("col1").compareTo("N/A")==0){
 				Toast toast = Toast.makeText(_context, "Invalid SOMETHING", Toast.LENGTH_SHORT);
@@ -430,6 +403,6 @@ public class MainActivity extends Activity {
 		}
 		 
 	}
-    */
+    
 }
 }

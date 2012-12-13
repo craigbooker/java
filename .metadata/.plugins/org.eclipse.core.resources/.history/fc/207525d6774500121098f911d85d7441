@@ -353,11 +353,11 @@ public class MainActivity extends Activity {
 		HashMap<String, String> myStoredHistory;
 		if(stored == null){
 			Log.i("HISTORY", "NO HISTORY FILE FOUND");
-			myStoredHistory = new HashMap<String, String>();
+			history = new HashMap<String, String>();
 		} else {
-			myStoredHistory = (HashMap<String, String>) stored;
+			history = (HashMap<String, String>) stored;
 		}
-		return myStoredHistory;
+		return history;
 	}
 	
 	private class SearchRequest extends AsyncTask<URL, Void, String>{	
@@ -381,39 +381,15 @@ public class MainActivity extends Activity {
 			return rawData;
 
 	}	
-	protected void onPostExecute(String rawData){
-		// Sample of how to turn that text into Java objects.  
-		try {
-			YelpSearchResult places = new Gson().fromJson(rawData, YelpSearchResult.class);
-			
-			System.out.println("Your search found " + places.getTotal() + " results.");
-			System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
-			System.out.println();
-			
-			for(Business biz : places.getBusinesses()) {
-				System.out.println(biz.getName());
-				for(String address : biz.getLocation().getAddress()) {					
-					System.out.println("  " + address);
-				}
-				System.out.print("  " + biz.getLocation().getCity());
-				System.out.println(biz.getUrl());
-				System.out.println();
-			}
-			
-			
-		} catch(Exception e) {
-			System.out.println("Error, could not parse returned data!");
-			System.out.println(rawData);			
-		}
-	}
+
 	
-	/*
 	protected void onPostExecute(String rawData){
 		Log.i("URL RESPONSE", rawData);
 		try{
 			
 			JSONObject json = new JSONObject(rawData);
-			JSONObject results = json.getJSONObject("region");
+			//Log.i("JSON DATA", json);
+			JSONObject results = json.getJSONObject("rawData").getJSONObject("coordinate");
 			
 			if(results.getString("col1").compareTo("N/A")==0){
 				Toast toast = Toast.makeText(_context, "Invalid SOMETHING", Toast.LENGTH_SHORT);
@@ -430,6 +406,6 @@ public class MainActivity extends Activity {
 		}
 		 
 	}
-    */
+    
 }
 }
