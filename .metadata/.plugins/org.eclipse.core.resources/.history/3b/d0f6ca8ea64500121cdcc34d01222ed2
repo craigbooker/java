@@ -347,7 +347,7 @@ public class MainActivity extends Activity {
 			System.out.println(biz.getUrl());
 			myBizURL.setText(biz.getUrl());
 			System.out.println();
-			//ll.addView(child)
+			
 		}
 	}
 
