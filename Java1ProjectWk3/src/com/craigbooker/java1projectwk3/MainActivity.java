@@ -6,6 +6,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 
+import FormStuff.PlacesDisplay;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;

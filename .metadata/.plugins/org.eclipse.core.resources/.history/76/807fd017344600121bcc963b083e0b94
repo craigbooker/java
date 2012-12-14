@@ -1,0 +1,8 @@
+package FormStuff;
+
+public class FormBorder {
+
+	
+	
+	public sttic LinearLayout formBorder();
+}
