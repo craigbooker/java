@@ -233,7 +233,7 @@ public class MainActivity extends Activity {
 // ------------------  If No Internet connection found. ---------------------------------------------------  	
 		}else{
 			Log.i("NETWORK CONNECTION:", "NO INTERNET CONNECTION FOUND! LOOKING THROUGH HISTORY");
-			File file = new File("history");
+			File file = new File("historyCache");
 			
 			if(file == null){
 				Log.i("SEARCHED FOR FILE:", " NONE FOUND.");
@@ -255,7 +255,7 @@ public class MainActivity extends Activity {
 					@Override
 					public void onClick(View arg0) {
 						// TODO Auto-generated method stub
-						String histString = ;
+						//String histString = ;
 					}
 				});
 				
@@ -267,11 +267,11 @@ public class MainActivity extends Activity {
 		//_places = new PlacesDisplay(_context);
 		
 		// Add Favorites display
-		_favorites = new FavDisplay(_context);
+		//_favorites = new FavDisplay(_context);
 		
 		//Add views to main layout
 		//_appLayout.addView(_places);
-		_appLayout.addView(_favorites);
+		//_appLayout.addView(_favorites);
 		
 		
 		setContentView(_appLayout);
@@ -348,7 +348,7 @@ public class MainActivity extends Activity {
 	}
 	@SuppressWarnings({ "unchecked" })
 	private HashMap<String, String> getStoredHistory() {
-		Object stored = FileStuff.readObjectFile(_context, "historyCache", false);
+		Object stored = FileStuff.readObjectFile(_context, "searchHistoryObj", false);
 		
 		HashMap<String, String> myStoredHistory;
 		if(stored == null){
@@ -386,23 +386,32 @@ public class MainActivity extends Activity {
 		try {
 			YelpSearchResult places = new Gson().fromJson(rawData, YelpSearchResult.class);
 			
-			System.out.println("Your search found " + places.getTotal() + " results.");
-			System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
-			System.out.println();
-			
-			for(Business biz : places.getBusinesses()) {
-				System.out.println(biz.getName());
-				for(String address : biz.getLocation().getAddress()) {					
-					System.out.println("  " + address);
-				}
-				System.out.print("  " + biz.getLocation().getCity());
-				System.out.println(biz.getUrl());
+			if(places == null){
+				Log.i("GSON OBJECT", "INVALID");
+				
+				
+			}else{
+				
+				System.out.println("Your search found " + places.getTotal() + " results.");
+				System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
 				System.out.println();
+				
+				for(Business biz : places.getBusinesses()) {
+					System.out.println(biz.getName());
+					for(String address : biz.getLocation().getAddress()) {					
+						System.out.println("  " + address);
+					}
+					System.out.print("  " + biz.getLocation().getCity());
+					System.out.println(biz.getUrl());
+					System.out.println();
+					
+				}
+				_history.put("historyCache", rawData);
+				FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
 			}
 			
-			
 		} catch(Exception e) {
-			System.out.println("Error, could not parse returned data!");
+			System.out.println("GSON Error, could not parse returned data!");
 			System.out.println(rawData);			
 		}
 	}

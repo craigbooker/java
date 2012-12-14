@@ -84,7 +84,7 @@ public class MainActivity extends Activity {
 	int selectedIndex;
 	
 	
-	
+
 	String strloc = "";
 	Location loc;
 	MyLocation myLocation = new MyLocation();
@@ -94,7 +94,7 @@ public class MainActivity extends Activity {
 	 String consumerSecret = "2mTa_1uggZVU2aWoIWQ8VViSC6s";
 	 String token = "BAr8f7RjszQjh3_4A8VrCI1TjDLw5uMt";
 	 String tokenSecret = "mPgSRUOXlheC1c5Zr8I7-I3dVj0";
-	  
+	 String baseURL = "http://api.yelp.com/v2/search"; 
 	
 	// Some example values to pass into the Yelp search service.
 	String lat = "35.667196";
@@ -111,6 +111,10 @@ public class MainActivity extends Activity {
 		// Call function to find current location
 		findCurrentLocation();
 		
+		// Retrieve any history stored
+		_history = getStoredHistory();
+		Log.i("HISTORY READ", _history.toString());
+		
 		// Read in resources data
 		 pidArray = getResources().getStringArray(R.array.pid_string_array);
 	     sensorsArray = getResources().getStringArray(R.array.sensor_string_array);
@@ -123,15 +127,13 @@ public class MainActivity extends Activity {
 		_appLayout = new LinearLayout(_context);
 		_appLayout.setOrientation(LinearLayout.VERTICAL);
 		
-		_history = getHistory();
-		Log.i("HISTORY READ", _history.toString());
+
 		_lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
 		_appLayout.setLayoutParams(_lp);
 		
 		_txtView = new TextView(_context);
 		_txtView.setText("AutoMetrx : Find Help");
 		_txtView.setTextSize(20);
-		_txtView.setGravity(Gravity.CENTER_HORIZONTAL);
 		
 		
 		
@@ -162,45 +164,40 @@ public class MainActivity extends Activity {
 		        
 		        _main_spinner.setAdapter(adapter);
 		        _main_spinner.setOnItemSelectedListener (new OnItemSelectedListener() {
-		        	@Override
-		        	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		        		Log.i("I made it to:", " Start of onItemSelected.");
-		        		int index = arg0.getSelectedItemPosition();
-		        		selectedIndex = index;
-		        		selectedTroubleCode = pidArray[selectedIndex];
-		        		selectedSensor = sensorsArray[selectedIndex];
-		        		correspondingSolution = solutionsArray[selectedIndex];
-		        		
-		    			if(selectedTroubleCode == null){
-		    				Toast.makeText(getBaseContext(),
-		                            "You need to select an item....null ",
-		                            Toast.LENGTH_LONG).show();   				
-		    				
-		    			} else if (selectedTroubleCode == "00") {
-		    				Toast.makeText(getBaseContext(),
-		                            "You need to select an item..00 ",
-		                            Toast.LENGTH_LONG).show();
-		    				
-		    			} else {
-		     				_tcResult.setText("Trouble Code: " + selectedTroubleCode + "\r\n" + 
-		    						"Sensor Type: " + selectedSensor + "\r\n" + 
-		    						"Possible solution: " + correspondingSolution + "\r\n"
-		    						);
-
-		    	 		}
-		        		/*
-		            	Toast.makeText(getBaseContext(),
-		                        "You have selected item : " + sensorsArray[index],
-		                        Toast.LENGTH_LONG).show();
-		                        */
-		            }
-
-					@Override
-					public void onNothingSelected(AdapterView<?> arg0) {
-						Toast.makeText(getBaseContext(),
-		                        "You need to select an item. ",
-		                        Toast.LENGTH_LONG).show();
-		            }
+			        	@Override
+			        	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+			        		Log.i("I made it to:", " Start of onItemSelected.");
+			        		int index = arg0.getSelectedItemPosition();
+			        		selectedIndex = index;
+			        		selectedTroubleCode = pidArray[selectedIndex];
+			        		selectedSensor = sensorsArray[selectedIndex];
+			        		correspondingSolution = solutionsArray[selectedIndex];
+			        		
+			    			if(selectedTroubleCode == null){
+			    				Toast.makeText(getBaseContext(),
+			                            "You need to select an item....null ",
+			                            Toast.LENGTH_LONG).show();   				
+			    				
+			    			} else if (selectedTroubleCode == "00") {
+			    				Toast.makeText(getBaseContext(),
+			                            "You need to select an item..00 ",
+			                            Toast.LENGTH_LONG).show();
+			    				
+			    			} else {
+			     				_tcResult.setText("Trouble Code: " + selectedTroubleCode + "\r\n" + 
+			    						"Sensor Type: " + selectedSensor + "\r\n" + 
+			    						"Possible solution: " + correspondingSolution + "\r\n"
+			    						);
+	
+			    	 		}
+			            }
+	
+						@Override
+						public void onNothingSelected(AdapterView<?> arg0) {
+							Toast.makeText(getBaseContext(),
+			                        "You need to select an item. ",
+			                        Toast.LENGTH_LONG).show();
+			            }
 			
 		        });
 		 
@@ -227,17 +224,13 @@ public class MainActivity extends Activity {
 				}else{
 					// Clear Out the results
 					//_results.reset();
-					getRadiusListing(searchTerm, radius, strloc);
+					getRadiusListing(searchTerm, radius, loc, baseURL);
 				}
 			}
 		});
-		
-
 			
 			
-			
-			
-		// If No Internet connection found.	
+// ------------------  If No Internet connection found. ---------------------------------------------------  	
 		}else{
 			Log.i("NETWORK CONNECTION:", "NO INTERNET CONNECTION FOUND! LOOKING THROUGH HISTORY");
 			File file = new File("history");
@@ -252,19 +245,29 @@ public class MainActivity extends Activity {
 				TextView tv = new TextView(_context);
 				tv.setText("\r\n" + "No Internet Connection" + "\r\n");
 				_appLayout.addView(tv);
+				Button histBtn = new Button(_context);
+				histBtn.setText("Use Cached Data");
+				histBtn.setId(10);
+				_appLayout.addView(histBtn);
+				
+				histBtn.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View arg0) {
+						// TODO Auto-generated method stub
+						//String histString = ;
+					}
+				});
 				
 			}
 			
 		}
 		
-
-		
-		
 		// Add places display
 		//_places = new PlacesDisplay(_context);
 		
 		// Add Favorites display
-		_favorites = new FavDisplay(_context);
+		//_favorites = new FavDisplay(_context);
 		
 		//Add views to main layout
 		//_appLayout.addView(_places);
@@ -286,43 +289,53 @@ public class MainActivity extends Activity {
 	public LocationResult locationResult = new LocationResult() {
 
         @Override
-        public String gotLocation(Location location) {
+        public Location gotLocation(Location location) {
             if (location != null) {
                 strloc  = location.getLatitude() + ","
-                        + location.getLongitude() + "," + location.getTime();
+                		+ location.getLongitude();
+                        //+ location.getLongitude() + "," + location.getTime();
                 loc = location;
                 Log.i("MY LOCATION", strloc);
                 //Log.e("Loc VAR", loc);
             }
-            return strloc;
-            //return loc;
+            //return strloc;
+            return loc;
         }
     };
 
 	 
-	 private class YelpQuery {
-         public Location location;
-         public String term;
-         //public String categoryFilter;
-	 }
-	 
-	private void getRadiusListing(String term, String radius, String strloc){
+	private void getRadiusListing(String term, String radius, Location loc, String baseURL){
 		Log.i("CLICK", radius);
-		double radiusDouble = Double.parseDouble(radius);
-		// Need to add function to convert miles to meters.
-		double radiusInMeters = Convert.metersToMiles(radiusDouble);
-		String baseURL = "http://api.yelp.com/v2/search";
-		String builtURL = (baseURL + "?term=" + term + "&ll=" + strloc + "&radius_filter=" + radiusInMeters);
-		Log.i("BUILT URL:", builtURL);
+		//int myInt;
+		double radiusDouble = 0.0;
+		
+		//String text = editText123.getText().toString();
+		try {
+		   radiusDouble = Double.parseDouble(radius);
+		   Log.i("",radiusDouble+" is a number");
+		} catch (NumberFormatException e) {
+		   Log.i("",radius+"is not a number");
+		}
+		
+		double radiusInMeters = Convert.milesToMeters(radiusDouble);
+		String finalRadius = Double.toString(radiusInMeters);
 		String qs = "";
-
 		try{
-			qs = URLEncoder.encode(builtURL, "UTF-8");
-			
+			qs = URLEncoder.encode(finalRadius, "UTF-8");
+			Log.i("Try QS URL:", qs);
 		} catch (Exception e){
 			Log.e("BAD URL", "ENCODING PROBLEM");
 			qs = "";
 		}
+		
+		//String baseURL = "http://api.yelp.com/v2/search";
+		String _strLoc = loc.getLatitude() + ","
+        		+ loc.getLongitude();
+		Log.i("STRLOC VALUE:", _strLoc);
+		String builtURL = (baseURL + "?term=" + term + "&ll=" + strloc + "&radius_filter=" + qs);
+		Log.i("BUILT URL:", builtURL);
+
+		
 		URL finalURL;
 		try{
 			finalURL = new URL(builtURL);
@@ -333,7 +346,20 @@ public class MainActivity extends Activity {
 			finalURL = null;
 		}
 	}
-
+	@SuppressWarnings({ "unchecked" })
+	private HashMap<String, String> getStoredHistory() {
+		Object stored = FileStuff.readObjectFile(_context, "historyCache", false);
+		
+		HashMap<String, String> myStoredHistory;
+		if(stored == null){
+			Log.i("HISTORY", "NO HISTORY FILE FOUND");
+			myStoredHistory = new HashMap<String, String>();
+		} else {
+			myStoredHistory = (HashMap<String, String>) stored;
+		}
+		return myStoredHistory;
+	}
+	
 	private class SearchRequest extends AsyncTask<URL, Void, String>{	
 		@Override
 		protected String doInBackground(URL... urls){
@@ -351,17 +377,53 @@ public class MainActivity extends Activity {
 			Response response = oaRequest.send();
 			rawData = response.getBody();
 			}
+			Log.i("RAW DATA:", rawData);
 			return rawData;
+
+	}	
+	protected void onPostExecute(String rawData){
+		// Sample of how to turn that text into Java objects.  
+		try {
+			YelpSearchResult places = new Gson().fromJson(rawData, YelpSearchResult.class);
+			
+			if(places == null){
+				Log.i("GSON OBJECT", "INVALID");
+				
+				
+			}else{
+				
+				System.out.println("Your search found " + places.getTotal() + " results.");
+				System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
+				System.out.println();
+				
+				for(Business biz : places.getBusinesses()) {
+					System.out.println(biz.getName());
+					for(String address : biz.getLocation().getAddress()) {					
+						System.out.println("  " + address);
+					}
+					System.out.print("  " + biz.getLocation().getCity());
+					System.out.println(biz.getUrl());
+					System.out.println();
+					
+				}
+				//_history.put("SearchResultsData", places);
+				//FileStuff.storeObjectFile(_context, searchHistoryObj, _history, false);
+			}
+			
+		} catch(Exception e) {
+			System.out.println("GSON Error, could not parse returned data!");
+			System.out.println(rawData);			
+		}
 	}
-		/*	
-	@Override
-	protected void onPostExecute(String result){
-		Log.i("URL RESPONSE", result);
+	
+	/*
+	protected void onPostExecute(String rawData){
+		Log.i("URL RESPONSE", rawData);
 		try{
 			
-			JSONObject json = new JSONObject(result);
-			//Log.i("JSON DATA", json);
-			JSONObject results = json.getJSONObject("query").getJSONObject("results").getJSONObject("row");
+			JSONObject json = new JSONObject(rawData);
+			JSONObject results = json.getJSONObject("region");
+			
 			if(results.getString("col1").compareTo("N/A")==0){
 				Toast toast = Toast.makeText(_context, "Invalid SOMETHING", Toast.LENGTH_SHORT);
 				toast.show();
@@ -377,20 +439,6 @@ public class MainActivity extends Activity {
 		}
 		 
 	}
-		}
-	
-	*/
-	@SuppressWarnings("unchecked")
-	private HashMap<String, String> getHistory() {
-		Object stored = FileStuff.readObjectFile(_context, "history", false);
-		
-		HashMap<String, String> history;
-		if(stored == null){
-			Log.i("HISTORY", "NO HISTORY FILE FOUND");
-			history = new HashMap<String, String>();
-		} else {
-			history = (HashMap<String, String>) stored;
-		}
-		return history;
-	}
+    */
+}
 }
