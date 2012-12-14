@@ -256,9 +256,9 @@ public class MainActivity extends Activity {
 				histBtn.setOnClickListener(new View.OnClickListener() {
 					
 					@Override
-					public void onClick(View V) {
+					public void onClick(View arg0) {
 						// TODO Auto-generated method stub
-						String histString = _history.get(searchHistoryObj);
+						//String histString = ;
 					}
 				});
 				
@@ -302,9 +302,8 @@ public class MainActivity extends Activity {
                 //Log.e("Loc VAR", loc);
             }
             //return strloc;
-            //return loc;
-        
-        return loc;
+            return loc;
+        }
     };
 
 	 
@@ -333,7 +332,8 @@ public class MainActivity extends Activity {
 		}
 		
 		//String baseURL = "http://api.yelp.com/v2/search";
-		String _strLoc = (loc.getLatitude() + "," + loc.getLongitude());
+		String _strLoc = loc.getLatitude() + ","
+        		+ loc.getLongitude();
 		Log.i("STRLOC VALUE:", _strLoc);
 		String builtURL = (baseURL + "?term=" + term + "&ll=" + strloc + "&radius_filter=" + qs);
 		Log.i("BUILT URL:", builtURL);

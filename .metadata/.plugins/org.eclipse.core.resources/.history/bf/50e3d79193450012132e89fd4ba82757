@@ -258,7 +258,7 @@ public class MainActivity extends Activity {
 					@Override
 					public void onClick(View V) {
 						// TODO Auto-generated method stub
-						String histString = _history.get(searchHistoryObj);
+						String histString = _history.get(historyCache);
 					}
 				});
 				

@@ -258,7 +258,7 @@ public class MainActivity extends Activity {
 					@Override
 					public void onClick(View V) {
 						// TODO Auto-generated method stub
-						String histString = _history.get(searchHistoryObj);
+						String histString = _history.get("historyCache");
 					}
 				});
 				
@@ -447,7 +447,7 @@ public class MainActivity extends Activity {
 				toast.show();
 				
 				displayResults(_context);
-				_history.put("historyCache", rawData);
+				_history.put("historyCache", rawData.toString());
 				FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
 			}
 			

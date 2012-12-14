@@ -256,9 +256,9 @@ public class MainActivity extends Activity {
 				histBtn.setOnClickListener(new View.OnClickListener() {
 					
 					@Override
-					public void onClick(View V) {
+					public void onClick(View arg0) {
 						// TODO Auto-generated method stub
-						String histString = _history.get(searchHistoryObj);
+						//String histString = ;
 					}
 				});
 				
@@ -303,7 +303,7 @@ public class MainActivity extends Activity {
             }
             //return strloc;
             //return loc;
-        
+        }
         return loc;
     };
 

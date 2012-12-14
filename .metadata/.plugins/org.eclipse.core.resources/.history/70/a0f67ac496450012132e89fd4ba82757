@@ -217,7 +217,6 @@ public class MainActivity extends Activity {
 		_search.getButton().setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//Log.i("CLICK HANDLER",_search.getField().getText().toString());
 				String radius = _search.getField().getText().toString();
 				
 				if (searchTerm.length() == 0) {
@@ -225,8 +224,6 @@ public class MainActivity extends Activity {
 					toast.show();
 					
 				}else{
-					// Clear Out the results
-					//_results.reset();
 					getRadiusListing(searchTerm, radius, loc, baseURL);
 				}
 			}
@@ -245,48 +242,42 @@ public class MainActivity extends Activity {
 				_appLayout.addView(tv);
 				
 			}else {
-				TextView tv = new TextView(_context);
-				tv.setText("\r\n" + "No Internet Connection" + "\r\n");
-				_appLayout.addView(tv);
-				Button histBtn = new Button(_context);
-				histBtn.setText("Use Cached Data");
-				histBtn.setId(10);
-				_appLayout.addView(histBtn);
-				
-				histBtn.setOnClickListener(new View.OnClickListener() {
+					TextView tv = new TextView(_context);
+					tv.setText("\r\n" + "No Internet Connection" + "\r\n");
+					_appLayout.addView(tv);
+					Button histBtn = new Button(_context);
+					histBtn.setText("Use Cached Data");
+					histBtn.setId(10);
+					_appLayout.addView(histBtn);
 					
-					@Override
-					public void onClick(View V) {
-						// TODO Auto-generated method stub
-						String histString = _history.get(searchHistoryObj);
-					}
-				});
+					histBtn.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View V) {
+							try{
+								String histString = _history.get("historyCache");
+								displayResults(_context);
+							}catch(Exception e){
+								e.printStackTrace();
+							}
+						
+						}
+					});
 				
 			}
 			
-		}
-		
-		// Add places display
-		//_places = new PlacesDisplay(_context);
-		
-		// Add Favorites display
-		//_favorites = new FavDisplay(_context);
-		
-		//Add views to main layout
-		//_appLayout.addView(_places);
-		//_appLayout.addView(_favorites);
-		
-		
 		setContentView(_appLayout);
 	}
+		
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_main, menu);
-		return true;
+			// Inflate the menu; this adds items to the action bar if it is present.
+			getMenuInflater().inflate(R.menu.activity_main, menu);
+			return true;
 	}
+	
 	private void findCurrentLocation() {
-        myLocation.getLocation(_context, locationResult);
+	        myLocation.getLocation(_context, locationResult);
     }
 
 	public LocationResult locationResult = new LocationResult() {
@@ -296,16 +287,12 @@ public class MainActivity extends Activity {
             if (location != null) {
                 strloc  = location.getLatitude() + ","
                 		+ location.getLongitude();
-                        //+ location.getLongitude() + "," + location.getTime();
+
                 loc = location;
                 Log.i("MY LOCATION", strloc);
-                //Log.e("Loc VAR", loc);
             }
-            //return strloc;
-            //return loc;
-        
         return loc;
-    };
+    }
 
 	 
 	private void getRadiusListing(String term, String radius, Location loc, String baseURL){
@@ -403,51 +390,21 @@ public class MainActivity extends Activity {
 
 	}	
 	protected void onPostExecute(String rawData){
-		Log.i("URL RESPONSE", rawData);
-		// Sample of how to turn that text into Java objects.  
+		Log.i("URL RESPONSE", rawData);  
 		try {
 			places = new Gson().fromJson(rawData, YelpSearchResult.class);
 			
-			/*
-			JSONObject json = new JSONObject(rawData);
-			Log.i("GOT to check point", "1");
-			JSONObject results = json.getJSONObject("coordinate");
-			Log.i("GOT to check point", "2");
-			resultsArrayP = results.getJSONArray("coordinate");
-			Log.i("GOT to check point", "3");
-			int rArrayLength = resultsArrayP.length();
-			Log.i("ARRAY LENGTH", Integer.toString(rArrayLength));
-			if(resultsArrayP == null){
-				Log.i("JSON OBJECT", "INVALID");
-			*/	
-			//int numResults = places.getBusinesses().size();
 			if(places == null){
 				Log.i("GSON GET OBJECT", "INVALID");
 				Toast toast = Toast.makeText(_context, "GET GSON FAILED!", Toast.LENGTH_SHORT);
 				toast.show();
 			}else{
 				
-				/*
-				System.out.println("Your search found " + places.getTotal() + " results.");
-				System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
-				System.out.println();
-				
-				for(Business biz : places.getBusinesses()) {
-					System.out.println(biz.getName());
-					for(String address : biz.getLocation().getAddress()) {					
-						System.out.println("  " + address);
-					}
-					System.out.print("  " + biz.getLocation().getCity());
-					System.out.println(biz.getUrl());
-					System.out.println();
-					
-				}
-				*/
 				Toast toast = Toast.makeText(_context, "GET GSON SUCCESS!", Toast.LENGTH_SHORT);
 				toast.show();
 				
 				displayResults(_context);
-				_history.put("historyCache", rawData);
+				_history.put("historyCache", rawData.toString());
 				FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
 			}
 			
@@ -457,6 +414,5 @@ public class MainActivity extends Activity {
 		}
 	}
 }
-}
-
+	}
 

@@ -252,31 +252,20 @@ public class MainActivity extends Activity {
 				histBtn.setText("Use Cached Data");
 				histBtn.setId(10);
 				_appLayout.addView(histBtn);
-				
+				/*
 				histBtn.setOnClickListener(new View.OnClickListener() {
 					
 					@Override
 					public void onClick(View V) {
-						// TODO Auto-generated method stub
-						String histString = _history.get(searchHistoryObj);
+						String histString = _history.get("historyCache");
+						displayResults(_context);
 					}
 				});
-				
+				*/
 			}
 			
 		}
-		
-		// Add places display
-		//_places = new PlacesDisplay(_context);
-		
-		// Add Favorites display
-		//_favorites = new FavDisplay(_context);
-		
-		//Add views to main layout
-		//_appLayout.addView(_places);
-		//_appLayout.addView(_favorites);
-		
-		
+			
 		setContentView(_appLayout);
 	}
 	@Override
@@ -285,6 +274,7 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
+	
 	private void findCurrentLocation() {
         myLocation.getLocation(_context, locationResult);
     }
@@ -296,16 +286,13 @@ public class MainActivity extends Activity {
             if (location != null) {
                 strloc  = location.getLatitude() + ","
                 		+ location.getLongitude();
-                        //+ location.getLongitude() + "," + location.getTime();
+
                 loc = location;
                 Log.i("MY LOCATION", strloc);
-                //Log.e("Loc VAR", loc);
             }
-            //return strloc;
-            //return loc;
-        
+
         return loc;
-    };
+    }
 
 	 
 	private void getRadiusListing(String term, String radius, Location loc, String baseURL){
@@ -447,7 +434,7 @@ public class MainActivity extends Activity {
 				toast.show();
 				
 				displayResults(_context);
-				_history.put("historyCache", rawData);
+				_history.put("historyCache", rawData.toString());
 				FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
 			}
 			
