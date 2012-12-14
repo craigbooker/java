@@ -325,12 +325,6 @@ public class MainActivity extends Activity {
 			finalURL = null;
 		}
 	}
-	
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	getStoredHistory
-	
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */	
-	
 	@SuppressWarnings({ "unchecked" })
 	private HashMap<String, String> getStoredHistory() {
 		Object stored = FileStuff.readObjectFile(_context, "searchHistoryObj", false);

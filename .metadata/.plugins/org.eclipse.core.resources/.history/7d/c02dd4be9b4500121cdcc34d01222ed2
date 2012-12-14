@@ -279,9 +279,11 @@ public class MainActivity extends Activity {
                         //+ location.getLongitude() + "," + location.getTime();
                 loc = location;
                 Log.i("MY LOCATION", strloc);
+                //Log.e("Loc VAR", loc);
             }
+        
         return loc;
-    }
+    };
 
 	 
 	private void getRadiusListing(String term, String radius, Location loc, String baseURL){
@@ -325,12 +327,6 @@ public class MainActivity extends Activity {
 			finalURL = null;
 		}
 	}
-	
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	getStoredHistory
-	
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */	
-	
 	@SuppressWarnings({ "unchecked" })
 	private HashMap<String, String> getStoredHistory() {
 		Object stored = FileStuff.readObjectFile(_context, "searchHistoryObj", false);
@@ -344,11 +340,7 @@ public class MainActivity extends Activity {
 		}
 		return myStoredHistory;
 	}
-
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	displayResults
 	
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */		
 	private void displayResults (Context context){
 		
 		Log.i("RAW DATA FOR RESULTS:", rawData);
@@ -368,10 +360,6 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	SearchRequest
-	
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */	
 	private class SearchRequest extends AsyncTask<URL, Void, String>{	
 		@Override
 		protected String doInBackground(URL... urls){
@@ -390,42 +378,63 @@ public class MainActivity extends Activity {
 			}
 			Log.i("RAW DATA:", rawData);
 			return rawData;
+
 	}	
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		onPostExecute
-		
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */			
 	protected void onPostExecute(String rawData){
-			Log.i("URL RESPONSE", rawData);
-			
+		Log.i("URL RESPONSE", rawData);
+		// Sample of how to turn that text into Java objects.  
 			try {
-					places = new Gson().fromJson(rawData, YelpSearchResult.class);
+				places = new Gson().fromJson(rawData, YelpSearchResult.class);
+				
+				/*
+				JSONObject json = new JSONObject(rawData);
+				Log.i("GOT to check point", "1");
+				JSONObject results = json.getJSONObject("coordinate");
+				Log.i("GOT to check point", "2");
+				resultsArrayP = results.getJSONArray("coordinate");
+				Log.i("GOT to check point", "3");
+				int rArrayLength = resultsArrayP.length();
+				Log.i("ARRAY LENGTH", Integer.toString(rArrayLength));
+				if(resultsArrayP == null){
+					Log.i("JSON OBJECT", "INVALID");
+				*/	
+				//int numResults = places.getBusinesses().size();
+				if(places == null){
+					Log.i("GSON GET OBJECT", "INVALID");
+					Toast toast = Toast.makeText(_context, "GET GSON FAILED!", Toast.LENGTH_SHORT);
+					toast.show();
+				}else{
 					
-					if(places == null){
-							Log.i("GSON GET OBJECT", "INVALID");
-							Toast toast = Toast.makeText(_context, "GET GSON FAILED!", Toast.LENGTH_SHORT);
-							toast.show();
-					}else{
+					/*
+					System.out.println("Your search found " + places.getTotal() + " results.");
+					System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
+					System.out.println();
 					
-							Toast toast = Toast.makeText(_context, "GET GSON SUCCESS!", Toast.LENGTH_SHORT);
-							toast.show();
-							
-							displayResults(_context);
-							_history.put("historyCache", rawData);
-							FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
+					for(Business biz : places.getBusinesses()) {
+						System.out.println(biz.getName());
+						for(String address : biz.getLocation().getAddress()) {					
+							System.out.println("  " + address);
+						}
+						System.out.print("  " + biz.getLocation().getCity());
+						System.out.println(biz.getUrl());
+						System.out.println();
+						
 					}
+					*/
+					Toast toast = Toast.makeText(_context, "GET GSON SUCCESS!", Toast.LENGTH_SHORT);
+					toast.show();
+					
+					displayResults(_context);
+					_history.put("historyCache", rawData);
+					FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
+				}
 				
 			} catch(Exception e) {
-					System.out.println("Error, could not parse returned data!");
-					System.out.println(rawData);			
+				System.out.println("Error, could not parse returned data!");
+				System.out.println(rawData);			
 			}
 	}
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	END OF onPostExecute
-	
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */	
-	
-	
-	}
-	}
+}
+}
+}
 

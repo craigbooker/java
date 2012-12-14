@@ -325,12 +325,6 @@ public class MainActivity extends Activity {
 			finalURL = null;
 		}
 	}
-	
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	getStoredHistory
-	
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */	
-	
 	@SuppressWarnings({ "unchecked" })
 	private HashMap<String, String> getStoredHistory() {
 		Object stored = FileStuff.readObjectFile(_context, "searchHistoryObj", false);
@@ -344,11 +338,7 @@ public class MainActivity extends Activity {
 		}
 		return myStoredHistory;
 	}
-
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	displayResults
 	
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */		
 	private void displayResults (Context context){
 		
 		Log.i("RAW DATA FOR RESULTS:", rawData);
@@ -399,33 +389,28 @@ public class MainActivity extends Activity {
 			Log.i("URL RESPONSE", rawData);
 			
 			try {
-					places = new Gson().fromJson(rawData, YelpSearchResult.class);
-					
-					if(places == null){
-							Log.i("GSON GET OBJECT", "INVALID");
-							Toast toast = Toast.makeText(_context, "GET GSON FAILED!", Toast.LENGTH_SHORT);
-							toast.show();
-					}else{
-					
-							Toast toast = Toast.makeText(_context, "GET GSON SUCCESS!", Toast.LENGTH_SHORT);
-							toast.show();
-							
-							displayResults(_context);
-							_history.put("historyCache", rawData);
-							FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
-					}
+				places = new Gson().fromJson(rawData, YelpSearchResult.class);
+				
+				if(places == null){
+						Log.i("GSON GET OBJECT", "INVALID");
+						Toast toast = Toast.makeText(_context, "GET GSON FAILED!", Toast.LENGTH_SHORT);
+						toast.show();
+				}else{
+				
+						Toast toast = Toast.makeText(_context, "GET GSON SUCCESS!", Toast.LENGTH_SHORT);
+						toast.show();
+						
+						displayResults(_context);
+						_history.put("historyCache", rawData);
+						FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
+				}
 				
 			} catch(Exception e) {
-					System.out.println("Error, could not parse returned data!");
-					System.out.println(rawData);			
+				System.out.println("Error, could not parse returned data!");
+				System.out.println(rawData);			
 			}
 	}
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	END OF onPostExecute
-	
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */	
-	
-	
-	}
-	}
+}
+
+
 
