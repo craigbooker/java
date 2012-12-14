@@ -29,7 +29,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
@@ -75,7 +74,6 @@ public class MainActivity extends Activity {
 	FavDisplay _favorites;
 	Boolean _connected = false;	
 	HashMap<String, String> _history; 
-	JSONArray resultsArrayP;
 	
 	String selectedTroubleCode;
 	String selectedSensor;
@@ -387,20 +385,11 @@ public class MainActivity extends Activity {
 		Log.i("URL RESPONSE", rawData);
 		// Sample of how to turn that text into Java objects.  
 		try {
-			//YelpSearchResult places = new Gson().fromJson(rawData, YelpSearchResult.class);
+			YelpSearchResult places = new Gson().fromJson(rawData, YelpSearchResult.class);
 			
-			/*
-			JSONObject json = new JSONObject(rawData);
-			Log.i("GOT to check point", "1");
-			JSONObject results = json.getJSONObject("coordinate");
-			Log.i("GOT to check point", "2");
-			resultsArrayP = results.getJSONArray("coordinate");
-			Log.i("GOT to check point", "3");
-			int rArrayLength = resultsArrayP.length();
-			Log.i("ARRAY LENGTH", Integer.toString(rArrayLength));
-			if(resultsArrayP == null){
-				Log.i("JSON OBJECT", "INVALID");
-			*/	
+			if(places == null){
+				Log.i("GSON OBJECT", "INVALID");
+				
 				
 			}else{
 				
@@ -424,10 +413,9 @@ public class MainActivity extends Activity {
 				FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
 			}
 			
-		} catch(JSONException e) {
-			Log.e("JSON ERROR","SOME JSON ERROR");
-			//System.out.println("GSON Error, could not parse returned data!");
-			//System.out.println(rawData);			
+		} catch(Exception e) {
+			System.out.println("GSON Error, could not parse returned data!");
+			System.out.println(rawData);			
 		}
 	}
 }

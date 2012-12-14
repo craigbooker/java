@@ -388,19 +388,15 @@ public class MainActivity extends Activity {
 		// Sample of how to turn that text into Java objects.  
 		try {
 			//YelpSearchResult places = new Gson().fromJson(rawData, YelpSearchResult.class);
-			
-			/*
 			JSONObject json = new JSONObject(rawData);
 			Log.i("GOT to check point", "1");
-			JSONObject results = json.getJSONObject("coordinate");
-			Log.i("GOT to check point", "2");
+			JSONObject results = json.getJSONObject("data");
 			resultsArrayP = results.getJSONArray("coordinate");
-			Log.i("GOT to check point", "3");
 			int rArrayLength = resultsArrayP.length();
 			Log.i("ARRAY LENGTH", Integer.toString(rArrayLength));
 			if(resultsArrayP == null){
 				Log.i("JSON OBJECT", "INVALID");
-			*/	
+				
 				
 			}else{
 				
