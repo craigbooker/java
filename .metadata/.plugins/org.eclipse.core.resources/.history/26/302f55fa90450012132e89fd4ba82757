@@ -381,7 +381,6 @@ public class MainActivity extends Activity {
 			
 		}
 	}
-	
 	private class SearchRequest extends AsyncTask<URL, Void, String>{	
 		@Override
 		protected String doInBackground(URL... urls){
@@ -446,7 +445,7 @@ public class MainActivity extends Activity {
 				Toast toast = Toast.makeText(_context, "GET GSON SUCCESS!", Toast.LENGTH_SHORT);
 				toast.show();
 				
-				displayResults(_context);
+				displayResults();
 				_history.put("historyCache", rawData);
 				FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
 			}

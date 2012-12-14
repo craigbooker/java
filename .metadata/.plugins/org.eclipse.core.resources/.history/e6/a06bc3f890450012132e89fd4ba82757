@@ -363,7 +363,7 @@ public class MainActivity extends Activity {
 		return myStoredHistory;
 	}
 	
-	private void displayResults (Context context){
+	private void displayResults(Context context){
 		
 		Log.i("RAW DATA FOR RESULTS:", rawData);
 		System.out.println("Your search found " + places.getTotal() + " results.");
@@ -379,7 +379,6 @@ public class MainActivity extends Activity {
 			System.out.println(biz.getUrl());
 			System.out.println();
 			
-		}
 	}
 	
 	private class SearchRequest extends AsyncTask<URL, Void, String>{	
@@ -446,7 +445,7 @@ public class MainActivity extends Activity {
 				Toast toast = Toast.makeText(_context, "GET GSON SUCCESS!", Toast.LENGTH_SHORT);
 				toast.show();
 				
-				displayResults(_context);
+				displayResults();
 				_history.put("historyCache", rawData);
 				FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
 			}

@@ -90,7 +90,7 @@ public class MainActivity extends Activity {
 	String strloc = "";
 	Location loc;
 	MyLocation myLocation = new MyLocation();
-	
+	YelpSearchResult places = new Gson();
 	OAuthService service;
 	Token accessToken;
 	 String consumerKey = "8hYTZBUuiTxOwmTjQtFnTw";
@@ -363,25 +363,6 @@ public class MainActivity extends Activity {
 		return myStoredHistory;
 	}
 	
-	private void displayResults (Context context){
-		
-		Log.i("RAW DATA FOR RESULTS:", rawData);
-		System.out.println("Your search found " + places.getTotal() + " results.");
-		System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
-		System.out.println();
-		
-		for(Business biz : places.getBusinesses()) {
-			System.out.println(biz.getName());
-			for(String address : biz.getLocation().getAddress()) {					
-				System.out.println("  " + address);
-			}
-			System.out.print("  " + biz.getLocation().getCity());
-			System.out.println(biz.getUrl());
-			System.out.println();
-			
-		}
-	}
-	
 	private class SearchRequest extends AsyncTask<URL, Void, String>{	
 		@Override
 		protected String doInBackground(URL... urls){
@@ -446,7 +427,7 @@ public class MainActivity extends Activity {
 				Toast toast = Toast.makeText(_context, "GET GSON SUCCESS!", Toast.LENGTH_SHORT);
 				toast.show();
 				
-				displayResults(_context);
+				
 				_history.put("historyCache", rawData);
 				FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
 			}
