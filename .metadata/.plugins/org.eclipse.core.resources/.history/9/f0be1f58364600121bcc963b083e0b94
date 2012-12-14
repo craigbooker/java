@@ -20,6 +20,7 @@ import android.os.AsyncTask;
 
 import android.content.Context;
 import android.location.Location;
+import android.view.Gravity;
 
 
 import android.widget.ArrayAdapter;
@@ -117,13 +118,6 @@ public class MainActivity extends Activity {
 		sv = new ScrollView(_context);
 		ll = new LinearLayout(_context);
 		ll.setOrientation(LinearLayout.VERTICAL);		
-		lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-		ll.setLayoutParams(lp);
-
-		// Setup TextView
-		txtView = new TextView(_context);
-		txtView.setText("AutoMetrx : Find Help");
-		txtView.setTextSize(20);
 		
 		// Call function to find current location
 		findCurrentLocation();
@@ -140,14 +134,16 @@ public class MainActivity extends Activity {
 
 		
 
-
-	
+		lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+		ll.setLayoutParams(lp);
 		
-/* ------------------  Detect Network Connection --------------------------------------------------- 
- * 
- * 
------------------------------------------------------------------------------------------------------- */	  
-	     
+		txtView = new TextView(_context);
+		txtView.setText("AutoMetrx : Find Help");
+		txtView.setTextSize(20);
+		
+		
+		
+// ------------------  Detect Network Connection --------------------------------------------------- 
 		_connected = WebStuff.getConnectionStatus(_context);
 		if(_connected == true){
 			Log.i("NETWORK CONNECTION:", "WE ARE CONNECTED TO THE WEB.");
@@ -156,13 +152,12 @@ public class MainActivity extends Activity {
 		       TextView tv = new TextView(this);
 		        tv.setText("Translate trouble code to something useful.");
 		        tv.setTextSize(14);
-		        ll.addView(tv);
 		        
-		        // Layout for Troubl Code Spinner
+		        // Layout for Spinner
 		        spinnerLabel = new TextView(this);
 		        spinnerLabel.setText("Select a trouble code.");
 		        
-
+		        ll.addView(tv);
 		        
 		        LinearLayout form = new LinearLayout(this);
 		        form.setOrientation(LinearLayout.HORIZONTAL);
@@ -171,7 +166,6 @@ public class MainActivity extends Activity {
 		        form.addView(spinnerLabel);
 		        main_spinner = new Spinner(this);
 		      
-		        // Create the adapter for the main spinner.
 		        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.pid_string_array, android.R.layout.simple_spinner_item);
 		        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		        
@@ -220,7 +214,7 @@ public class MainActivity extends Activity {
 		        tcResult = new TextView(_context);
 		        ll.addView(tcResult);
 		        
-				// Add a search form using the public SearchForm class
+				// Add a search form
 				search = new SearchForm(_context, "Enter search radius", "Go");
 				ll.addView(search);
 				
@@ -242,12 +236,9 @@ public class MainActivity extends Activity {
 						}
 					}
 				});
-
-/* ------------------  If No Internet connection found. --------------------------------------------------- 
- * 
- * 
------------------------------------------------------------------------------------------------------- */					
-				
+			
+			
+// ------------------  If No Internet connection found. ---------------------------------------------------  	
 		}else{
 			Log.i("NETWORK CONNECTION:", "NO INTERNET CONNECTION FOUND! LOOKING THROUGH HISTORY");
 			File file = new File("historyCache");

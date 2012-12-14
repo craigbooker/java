@@ -2,7 +2,7 @@ package FormStuff;
 
 import android.content.Context;
 import android.widget.LinearLayout;
-
+import android.widget.LinearLayout.LayoutParams;
 
 public class FormBorder extends LinearLayout {
 	LinearLayout _ll;
@@ -18,5 +18,6 @@ public class FormBorder extends LinearLayout {
 		_ll.setLayoutParams(_lp);
 		
 		this.addView(_ll);
+		//return ll;
 	}
 }

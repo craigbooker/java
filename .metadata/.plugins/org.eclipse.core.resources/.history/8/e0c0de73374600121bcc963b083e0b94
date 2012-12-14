@@ -20,6 +20,7 @@ import android.os.AsyncTask;
 
 import android.content.Context;
 import android.location.Location;
+import android.view.Gravity;
 
 
 import android.widget.ArrayAdapter;
@@ -220,7 +221,7 @@ public class MainActivity extends Activity {
 		        tcResult = new TextView(_context);
 		        ll.addView(tcResult);
 		        
-				// Add a search form using the public SearchForm class
+				// Add a search form
 				search = new SearchForm(_context, "Enter search radius", "Go");
 				ll.addView(search);
 				

@@ -20,6 +20,7 @@ import android.os.AsyncTask;
 
 import android.content.Context;
 import android.location.Location;
+import android.view.Gravity;
 
 
 import android.widget.ArrayAdapter;
