@@ -11,12 +11,11 @@ public class PlacesDisplay extends LinearLayout {
 	TextView _address;
 	TextView _city;
 	TextView _bizURL;
-	LayoutParams lp;
 	
-	String pBizName = "";
-	String pAddress = "";
-	String pCity = "";
-	String pBizURL = "";
+	String pBizName;
+	String pAddress;
+	String pCity;
+	String pBizURL;
 	
 	
 	
@@ -25,9 +24,8 @@ public class PlacesDisplay extends LinearLayout {
 	public PlacesDisplay(Context context) {
 		super(context);
 		
+		
 		this.setOrientation(LinearLayout.VERTICAL);
-		lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-		this.setLayoutParams(lp);
 		_context = context;
 		
 		_bizName = new TextView(_context);
@@ -46,10 +44,26 @@ public class PlacesDisplay extends LinearLayout {
 		_bizURL.setId(33);
 		_bizURL.setText("URL:" + pBizURL);		
 		
-		this.addView(_bizName);
-		this.addView(_address);
-		this.addView(_city);
-		this.addView(_bizURL);	
+		
+		
+		this.addView(symbolLabel);
+		this.addView(_symbol);
+		this.addView(priceLabel);
+		this.addView(_price);
+		this.addView(timeLabel);
+		this.addView(_time);	
+		this.addView(highLabel);
+		this.addView(_high);	
+		this.addView(lowLabel);
+		this.addView(_low);	
+		this.addView(changeLabel);
+		this.addView(_change);
+		this.addView(openLabel);
+		this.addView(_open);	
+		this.addView(closeLabel);
+		this.addView(_close);	
+		this.addView(volumeLabel);
+		this.addView(_volume);			
 	}
 	
 }

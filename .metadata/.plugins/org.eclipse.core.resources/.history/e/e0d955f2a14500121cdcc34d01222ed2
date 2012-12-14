@@ -11,12 +11,11 @@ public class PlacesDisplay extends LinearLayout {
 	TextView _address;
 	TextView _city;
 	TextView _bizURL;
-	LayoutParams lp;
 	
-	String pBizName = "";
-	String pAddress = "";
-	String pCity = "";
-	String pBizURL = "";
+	String pBizName;
+	String pAddress;
+	String pCity;
+	String pBizURL;
 	
 	
 	
@@ -26,8 +25,6 @@ public class PlacesDisplay extends LinearLayout {
 		super(context);
 		
 		this.setOrientation(LinearLayout.VERTICAL);
-		lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-		this.setLayoutParams(lp);
 		_context = context;
 		
 		_bizName = new TextView(_context);
