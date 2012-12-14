@@ -427,7 +427,6 @@ findCurrentLocation
 	            }
 		        return loc;
 		    }
-	};
-}
+	}
 	
 

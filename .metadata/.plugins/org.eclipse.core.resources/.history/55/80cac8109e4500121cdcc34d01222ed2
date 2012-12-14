@@ -265,11 +265,28 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
-	
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	getRadiusListing
-	
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */		 
+	private void findCurrentLocation() {
+        myLocation.getLocation(_context, locationResult);
+    }
+
+	public LocationResult locationResult = new LocationResult() {
+
+        @Override
+        public Location gotLocation(Location location) {
+            if (location != null) {
+                strloc  = location.getLatitude() + ","
+                		+ location.getLongitude();
+                        //+ location.getLongitude() + "," + location.getTime();
+                loc = location;
+                Log.i("MY LOCATION", strloc);
+            }
+        return loc;
+    }
+
+ /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    	getRadiusListing
+    	
+ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */		 
 	private void getRadiusListing(String term, String radius, Location loc, String baseURL){
 			Log.i("CLICK", radius);
 			double radiusDouble = 0.0;
@@ -307,6 +324,25 @@ public class MainActivity extends Activity {
 					finalURL = null;
 				}
 	}
+	
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	getStoredHistory
+	
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */	
+	
+	@SuppressWarnings({ "unchecked" })
+	private HashMap<String, String> getStoredHistory() {
+		Object stored = FileStuff.readObjectFile(_context, "searchHistoryObj", false);
+		
+		HashMap<String, String> myStoredHistory;
+		if(stored == null){
+			Log.i("HISTORY", "NO HISTORY FILE FOUND");
+			myStoredHistory = new HashMap<String, String>();
+		} else {
+			myStoredHistory = (HashMap<String, String>) stored;
+		}
+		return myStoredHistory;
+	}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	displayResults
@@ -321,42 +357,15 @@ public class MainActivity extends Activity {
 		
 		for(Business biz : places.getBusinesses()) {
 			System.out.println(biz.getName());
-				for(String address : biz.getLocation().getAddress()) {					
-					System.out.println("  " + address);
-				}
+			for(String address : biz.getLocation().getAddress()) {					
+				System.out.println("  " + address);
+			}
 			System.out.print("  " + biz.getLocation().getCity());
 			System.out.println(biz.getUrl());
 			System.out.println();
 			
 		}
 	}
-
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-findCurrentLocation
-
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */	
-	private void findCurrentLocation() {
-        myLocation.getLocation(_context, locationResult);
-    }
-
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	getStoredHistory
-	
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */	
-	
-	@SuppressWarnings({ "unchecked" })
-	private HashMap<String, String> getStoredHistory() {
-		Object stored = FileStuff.readObjectFile(_context, "searchHistoryObj", false);
-		
-		HashMap<String, String> myStoredHistory;
-			if(stored == null){
-				Log.i("HISTORY", "NO HISTORY FILE FOUND");
-				myStoredHistory = new HashMap<String, String>();
-			} else {
-				myStoredHistory = (HashMap<String, String>) stored;
-			}
-		return myStoredHistory;
-	}	
 	
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	SearchRequest
@@ -366,17 +375,21 @@ findCurrentLocation
 		@Override
 		protected String doInBackground(URL... urls){
 			for(URL url: urls){
-				// Execute a signed call to the Yelp service.  
-				OAuthService service = new ServiceBuilder().provider(YelpV2API.class).apiKey(consumerKey).apiSecret(consumerSecret).build();
-				Token accessToken = new Token(token, tokenSecret);
-				OAuthRequest oaRequest = new OAuthRequest(Verb.GET, url.toString());
-				service.signRequest(accessToken, oaRequest);
-				Response response = oaRequest.send();
-				rawData = response.getBody();
+			// Execute a signed call to the Yelp service.  
+			OAuthService service = new ServiceBuilder().provider(YelpV2API.class).apiKey(consumerKey).apiSecret(consumerSecret).build();
+			Token accessToken = new Token(token, tokenSecret);
+			OAuthRequest oaRequest = new OAuthRequest(Verb.GET, url.toString());
+			//OAuthRequest oaRequest = new OAuthRequest(Verb.GET, "http://api.yelp.com/v2/search");
+			//oaRequest.addQuerystringParameter("ll", lat + "," + lng);
+			//oaRequest.addQuerystringParameter("category", category);
+			service.signRequest(accessToken, oaRequest);
+			//service.signRequest(accessToken, oaRequest);
+			Response response = oaRequest.send();
+			rawData = response.getBody();
 			}
 			Log.i("RAW DATA:", rawData);
 			return rawData;
-		}		
+	}	
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		onPostExecute
 		
@@ -406,28 +419,12 @@ findCurrentLocation
 					System.out.println(rawData);			
 			}
 	}
-	}
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	END OF onPostExecute
 	
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */		
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */	
 	
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	LocationResult
 	
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-	public LocationResult locationResult = new LocationResult() {
-
-	        @Override
-	        public Location gotLocation(Location location) {
-	            if (location != null) {
-	                strloc  = location.getLatitude() + "," + location.getLongitude();
-	                loc = location;
-	                Log.i("MY LOCATION", strloc);
-	            }
-		        return loc;
-		    }
-	};
-}
-	
+	}
+	}
 

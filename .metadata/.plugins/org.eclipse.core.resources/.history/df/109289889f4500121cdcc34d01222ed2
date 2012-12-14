@@ -418,16 +418,30 @@ findCurrentLocation
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 	public LocationResult locationResult = new LocationResult() {
 
-	        @Override
-	        public Location gotLocation(Location location) {
-	            if (location != null) {
-	                strloc  = location.getLatitude() + "," + location.getLongitude();
-	                loc = location;
-	                Log.i("MY LOCATION", strloc);
-	            }
-		        return loc;
-		    }
-	};
-}
+        @Override
+        public Location gotLocation(Location location) {
+            if (location != null) {
+                strloc  = location.getLatitude() + "," + location.getLongitude();
+                loc = location;
+                Log.i("MY LOCATION", strloc);
+            }
+        return loc;
+    }
+
+ 
 	
+
+
+	
+	
+	
+	
+
+	
+
+
+	
+	
+	}
+	}
 

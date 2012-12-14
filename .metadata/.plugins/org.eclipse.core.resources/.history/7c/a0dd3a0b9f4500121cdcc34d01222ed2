@@ -270,71 +270,44 @@ public class MainActivity extends Activity {
 	getRadiusListing
 	
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */		 
-	private void getRadiusListing(String term, String radius, Location loc, String baseURL){
-			Log.i("CLICK", radius);
-			double radiusDouble = 0.0;
-			
-				try {
-				   radiusDouble = Double.parseDouble(radius);
-				   Log.i("",radiusDouble+" is a number");
-				} catch (NumberFormatException e) {
-				   Log.i("",radius+"is not a number");
-				}
-			
-			double radiusInMeters = Convert.milesToMeters(radiusDouble);
-			String finalRadius = Double.toString(radiusInMeters);
-			String qs = "";
-				try{
-					qs = URLEncoder.encode(finalRadius, "UTF-8");
-					Log.i("Try QS URL:", qs);
-				} catch (Exception e){
-					Log.e("BAD URL", "ENCODING PROBLEM");
-					qs = "";
-				}
-			
-			String _strLoc = (loc.getLatitude() + "," + loc.getLongitude());
-			Log.i("STRLOC VALUE:", _strLoc);
-			String builtURL = (baseURL + "?term=" + term + "&ll=" + strloc + "&radius_filter=" + qs);
-			Log.i("BUILT URL:", builtURL);
-	
-			URL finalURL;
-				try{
-					finalURL = new URL(builtURL);
-					SearchRequest sr = new SearchRequest();
-					sr.execute(finalURL);
-				} catch (MalformedURLException e){
-					Log.e("BAD URL", "MALFORMED URL");
-					finalURL = null;
-				}
-	}
-
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	displayResults
-	
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */		
-	private void displayResults (Context context){
+private void getRadiusListing(String term, String radius, Location loc, String baseURL){
+		Log.i("CLICK", radius);
+		double radiusDouble = 0.0;
 		
-		Log.i("RAW DATA FOR RESULTS:", rawData);
-		System.out.println("Your search found " + places.getTotal() + " results.");
-		System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
-		System.out.println();
+			try {
+			   radiusDouble = Double.parseDouble(radius);
+			   Log.i("",radiusDouble+" is a number");
+			} catch (NumberFormatException e) {
+			   Log.i("",radius+"is not a number");
+			}
 		
-		for(Business biz : places.getBusinesses()) {
-			System.out.println(biz.getName());
-				for(String address : biz.getLocation().getAddress()) {					
-					System.out.println("  " + address);
-				}
-			System.out.print("  " + biz.getLocation().getCity());
-			System.out.println(biz.getUrl());
-			System.out.println();
-			
-		}
-	}
+		double radiusInMeters = Convert.milesToMeters(radiusDouble);
+		String finalRadius = Double.toString(radiusInMeters);
+		String qs = "";
+			try{
+				qs = URLEncoder.encode(finalRadius, "UTF-8");
+				Log.i("Try QS URL:", qs);
+			} catch (Exception e){
+				Log.e("BAD URL", "ENCODING PROBLEM");
+				qs = "";
+			}
+		
+		String _strLoc = (loc.getLatitude() + "," + loc.getLongitude());
+		Log.i("STRLOC VALUE:", _strLoc);
+		String builtURL = (baseURL + "?term=" + term + "&ll=" + strloc + "&radius_filter=" + qs);
+		Log.i("BUILT URL:", builtURL);
 
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-findCurrentLocation
-
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */	
+		URL finalURL;
+			try{
+				finalURL = new URL(builtURL);
+				SearchRequest sr = new SearchRequest();
+				sr.execute(finalURL);
+			} catch (MalformedURLException e){
+				Log.e("BAD URL", "MALFORMED URL");
+				finalURL = null;
+			}
+}
+	
 	private void findCurrentLocation() {
         myLocation.getLocation(_context, locationResult);
     }
@@ -370,7 +343,11 @@ findCurrentLocation
 				OAuthService service = new ServiceBuilder().provider(YelpV2API.class).apiKey(consumerKey).apiSecret(consumerSecret).build();
 				Token accessToken = new Token(token, tokenSecret);
 				OAuthRequest oaRequest = new OAuthRequest(Verb.GET, url.toString());
+				//OAuthRequest oaRequest = new OAuthRequest(Verb.GET, "http://api.yelp.com/v2/search");
+				//oaRequest.addQuerystringParameter("ll", lat + "," + lng);
+				//oaRequest.addQuerystringParameter("category", category);
 				service.signRequest(accessToken, oaRequest);
+				//service.signRequest(accessToken, oaRequest);
 				Response response = oaRequest.send();
 				rawData = response.getBody();
 			}
@@ -418,16 +395,51 @@ findCurrentLocation
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 	public LocationResult locationResult = new LocationResult() {
 
-	        @Override
-	        public Location gotLocation(Location location) {
-	            if (location != null) {
-	                strloc  = location.getLatitude() + "," + location.getLongitude();
-	                loc = location;
-	                Log.i("MY LOCATION", strloc);
-	            }
-		        return loc;
-		    }
-	};
-}
+        @Override
+        public Location gotLocation(Location location) {
+            if (location != null) {
+                strloc  = location.getLatitude() + "," + location.getLongitude();
+                loc = location;
+                Log.i("MY LOCATION", strloc);
+            }
+        return loc;
+    }
+
+ 
 	
+
+
+	
+	
+	
+	
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	displayResults
+	
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */		
+	private void displayResults (Context context){
+		
+		Log.i("RAW DATA FOR RESULTS:", rawData);
+		System.out.println("Your search found " + places.getTotal() + " results.");
+		System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
+		System.out.println();
+		
+		for(Business biz : places.getBusinesses()) {
+			System.out.println(biz.getName());
+			for(String address : biz.getLocation().getAddress()) {					
+				System.out.println("  " + address);
+			}
+			System.out.print("  " + biz.getLocation().getCity());
+			System.out.println(biz.getUrl());
+			System.out.println();
+			
+		}
+	}
+	
+
+
+	
+	
+	}
+	}
 

@@ -308,28 +308,6 @@ public class MainActivity extends Activity {
 				}
 	}
 
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	displayResults
-	
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */		
-	private void displayResults (Context context){
-		
-		Log.i("RAW DATA FOR RESULTS:", rawData);
-		System.out.println("Your search found " + places.getTotal() + " results.");
-		System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
-		System.out.println();
-		
-		for(Business biz : places.getBusinesses()) {
-			System.out.println(biz.getName());
-				for(String address : biz.getLocation().getAddress()) {					
-					System.out.println("  " + address);
-				}
-			System.out.print("  " + biz.getLocation().getCity());
-			System.out.println(biz.getUrl());
-			System.out.println();
-			
-		}
-	}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 findCurrentLocation
@@ -418,16 +396,51 @@ findCurrentLocation
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 	public LocationResult locationResult = new LocationResult() {
 
-	        @Override
-	        public Location gotLocation(Location location) {
-	            if (location != null) {
-	                strloc  = location.getLatitude() + "," + location.getLongitude();
-	                loc = location;
-	                Log.i("MY LOCATION", strloc);
-	            }
-		        return loc;
-		    }
-	};
-}
+        @Override
+        public Location gotLocation(Location location) {
+            if (location != null) {
+                strloc  = location.getLatitude() + "," + location.getLongitude();
+                loc = location;
+                Log.i("MY LOCATION", strloc);
+            }
+        return loc;
+    }
+
+ 
 	
+
+
+	
+	
+	
+	
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	displayResults
+	
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */		
+	private void displayResults (Context context){
+		
+		Log.i("RAW DATA FOR RESULTS:", rawData);
+		System.out.println("Your search found " + places.getTotal() + " results.");
+		System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
+		System.out.println();
+		
+		for(Business biz : places.getBusinesses()) {
+			System.out.println(biz.getName());
+			for(String address : biz.getLocation().getAddress()) {					
+				System.out.println("  " + address);
+			}
+			System.out.print("  " + biz.getLocation().getCity());
+			System.out.println(biz.getUrl());
+			System.out.println();
+			
+		}
+	}
+	
+
+
+	
+	
+	}
+	}
 
