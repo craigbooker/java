@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.craigbooker.lib.FormThings"/>
 <fullyQualifiedTypeName name="com.craigbooker.diags.Location"/>
 <fullyQualifiedTypeName name="android.widget.RadioGroup"/>
 <fullyQualifiedTypeName name="android.widget.EditText"/>
@@ -30,7 +29,6 @@
 <fullyQualifiedTypeName name="com.craigbooker.java1projectwk3.SearchForm"/>
 <fullyQualifiedTypeName name="org.json.JSONObject"/>
 <fullyQualifiedTypeName name="org.json.JSONException"/>
-<fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="com.eatrightapp.android.RestaurantActivity"/>
 <fullyQualifiedTypeName name="android.content.res.Resources"/>
 <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
@@ -60,4 +58,6 @@
 <fullyQualifiedTypeName name="java.text.DecimalFormat"/>
 <fullyQualifiedTypeName name="com.example.java1projectwk4.R"/>
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="org.json.JSONArray"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
 </qualifiedTypeNameHistroy>

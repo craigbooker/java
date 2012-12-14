@@ -1,3 +1,14 @@
+allocPanel.Col0=25
+allocPanel.Col00=65
+allocPanel.Col1=86
+allocPanel.Col2=25
+allocPanel.Col3=35
+allocPanel.Col4=35
+allocPanel.stack.col0=119
+allocPanel.stack.col1=100
+allocPanel.stack.col2=312
+allocPanel.stack.col3=39
+allocPanel.stack.col4=38
 com.android.ide.eclipse.ddms.explorer.data=73
 com.android.ide.eclipse.ddms.explorer.info=71
 com.android.ide.eclipse.ddms.explorer.name=307

@@ -61,15 +61,15 @@ import org.scribe.oauth.OAuthService;
 public class MainActivity extends Activity {
 
 	Context _context;
-	ScrollView _sv;
-	LinearLayout _appLayout;
-	LinearLayout.LayoutParams _lp;
-	TextView _txtView;
-	TextView _spinnerLabel;
-	Spinner _main_spinner;
-	SearchForm _search;
+	ScrollView sv;
+	LinearLayout ll;
+	LinearLayout.LayoutParams lp;
+	TextView txtView;
+	TextView spinnerLabel;
+	Spinner main_spinner;
+	SearchForm search;
 	String searchTerm = "auto";
-	TextView _tcResult;
+	TextView tcResult;
 	SearchResults _results;
 	PlacesDisplay _places; // Was the stock display.
 	FavDisplay _favorites;
@@ -109,8 +109,8 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		_context = this;
 		
+		_context = this;
 		// Call function to find current location
 		findCurrentLocation();
 		
@@ -123,24 +123,22 @@ public class MainActivity extends Activity {
 	     sensorsArray = getResources().getStringArray(R.array.sensor_string_array);
 	     solutionsArray = getResources().getStringArray(R.array.solution_string_array); 
 		
-		
-		
 		// Setup main app layout
-		_sv = new ScrollView(_context);
-		_appLayout = new LinearLayout(_context);
-		_appLayout.setOrientation(LinearLayout.VERTICAL);
+		sv = new ScrollView(_context);
+		ll = new LinearLayout(_context);
+		ll.setOrientation(LinearLayout.VERTICAL);
 		
 
-		_lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-		_appLayout.setLayoutParams(_lp);
+		lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+		ll.setLayoutParams(lp);
 		
-		_txtView = new TextView(_context);
-		_txtView.setText("AutoMetrx : Find Help");
-		_txtView.setTextSize(20);
+		txtView = new TextView(_context);
+		txtView.setText("AutoMetrx : Find Help");
+		txtView.setTextSize(20);
 		
 		
 		
-		// Detect Network Connection
+// ------------------  Detect Network Connection --------------------------------------------------- 
 		_connected = WebStuff.getConnectionStatus(_context);
 		if(_connected == true){
 			Log.i("NETWORK CONNECTION:", "WE ARE CONNECTED TO THE WEB.");
@@ -150,23 +148,25 @@ public class MainActivity extends Activity {
 		        tv.setText("Translate trouble code to something useful.");
 		        tv.setTextSize(14);
 		        
-		        _spinnerLabel = new TextView(this);
-		        _spinnerLabel.setText("Select a trouble code.");
+		        // Layout for Spinner
+		        spinnerLabel = new TextView(this);
+		        spinnerLabel.setText("Select a trouble code.");
 		        
-		        _appLayout.addView(tv);
+		        ll.addView(tv);
+		        
 		        LinearLayout form = new LinearLayout(this);
 		        form.setOrientation(LinearLayout.HORIZONTAL);
-		        _lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-		        form.setLayoutParams(_lp);
-		        form.addView(_spinnerLabel);
-		        _main_spinner = new Spinner(this);
+		        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+		        form.setLayoutParams(lp);
+		        form.addView(spinnerLabel);
+		        main_spinner = new Spinner(this);
 		      
 		        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.pid_string_array, android.R.layout.simple_spinner_item);
 		        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		        
 		        
-		        _main_spinner.setAdapter(adapter);
-		        _main_spinner.setOnItemSelectedListener (new OnItemSelectedListener() {
+		        main_spinner.setAdapter(adapter);
+		        main_spinner.setOnItemSelectedListener (new OnItemSelectedListener() {
 			        	@Override
 			        	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 			        		Log.i("I made it to:", " Start of onItemSelected.");
@@ -187,7 +187,7 @@ public class MainActivity extends Activity {
 			                            Toast.LENGTH_LONG).show();
 			    				
 			    			} else {
-			     				_tcResult.setText("Trouble Code: " + selectedTroubleCode + "\r\n" + 
+			     				tcResult.setText("Trouble Code: " + selectedTroubleCode + "\r\n" + 
 			    						"Sensor Type: " + selectedSensor + "\r\n" + 
 			    						"Possible solution: " + correspondingSolution + "\r\n"
 			    						);
@@ -204,33 +204,33 @@ public class MainActivity extends Activity {
 			
 		        });
 		 
-		        form.addView(_main_spinner);
-		        _appLayout.addView(form);
-		        _tcResult = new TextView(_context);
-		        _appLayout.addView(_tcResult);
+		        form.addView(main_spinner);
+		        ll.addView(form);
+		        tcResult = new TextView(_context);
+		        ll.addView(tcResult);
 		        
 				// Add a search form
-				_search = new SearchForm(_context, "Enter search radius", "Go");
-				_appLayout.addView(_search);
+				search = new SearchForm(_context, "Enter search radius", "Go");
+				ll.addView(search);
 				
-		// Add search handler
-		_search.getButton().setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				//Log.i("CLICK HANDLER",_search.getField().getText().toString());
-				String radius = _search.getField().getText().toString();
-				
-				if (searchTerm.length() == 0) {
-					Toast toast = Toast.makeText(_context,  "Please enter something", Toast.LENGTH_SHORT);
-					toast.show();
-					
-				}else{
-					// Clear Out the results
-					//_results.reset();
-					getRadiusListing(searchTerm, radius, loc, baseURL);
-				}
-			}
-		});
+				// Add search handler
+				search.getButton().setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						//Log.i("CLICK HANDLER",_search.getField().getText().toString());
+						String radius = search.getField().getText().toString();
+						
+						if (searchTerm.length() == 0) {
+							Toast toast = Toast.makeText(_context,  "Please enter something", Toast.LENGTH_SHORT);
+							toast.show();
+							
+						}else{
+							// Clear Out the results
+							//_results.reset();
+							getRadiusListing(searchTerm, radius, loc, baseURL);
+						}
+					}
+				});
 			
 			
 // ------------------  If No Internet connection found. ---------------------------------------------------  	
@@ -242,25 +242,17 @@ public class MainActivity extends Activity {
 				Log.i("SEARCHED FOR FILE:", " NONE FOUND.");
 				TextView tv = new TextView(_context);
 				tv.setText("\r\n" + "No Internet Connection" + "No History Found" + "\r\n");
-				_appLayout.addView(tv);
+				ll.addView(tv);
 				
 			}else {
 				TextView tv = new TextView(_context);
 				tv.setText("\r\n" + "No Internet Connection" + "\r\n");
-				_appLayout.addView(tv);
+				ll.addView(tv);
 				Button histBtn = new Button(_context);
 				histBtn.setText("Use Cached Data");
 				histBtn.setId(10);
-				_appLayout.addView(histBtn);
+				ll.addView(histBtn);
 				
-				histBtn.setOnClickListener(new View.OnClickListener() {
-					
-					@Override
-					public void onClick(View V) {
-						// TODO Auto-generated method stub
-						String histString = _history.get(searchHistoryObj);
-					}
-				});
 				
 			}
 			
@@ -276,8 +268,8 @@ public class MainActivity extends Activity {
 		//_appLayout.addView(_places);
 		//_appLayout.addView(_favorites);
 		
-		
-		setContentView(_appLayout);
+		sv.addView(ll);
+		setContentView(sv);
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -405,58 +397,58 @@ public class MainActivity extends Activity {
 	protected void onPostExecute(String rawData){
 		Log.i("URL RESPONSE", rawData);
 		// Sample of how to turn that text into Java objects.  
-		try {
-			places = new Gson().fromJson(rawData, YelpSearchResult.class);
-			
-			/*
-			JSONObject json = new JSONObject(rawData);
-			Log.i("GOT to check point", "1");
-			JSONObject results = json.getJSONObject("coordinate");
-			Log.i("GOT to check point", "2");
-			resultsArrayP = results.getJSONArray("coordinate");
-			Log.i("GOT to check point", "3");
-			int rArrayLength = resultsArrayP.length();
-			Log.i("ARRAY LENGTH", Integer.toString(rArrayLength));
-			if(resultsArrayP == null){
-				Log.i("JSON OBJECT", "INVALID");
-			*/	
-			//int numResults = places.getBusinesses().size();
-			if(places == null){
-				Log.i("GSON GET OBJECT", "INVALID");
-				Toast toast = Toast.makeText(_context, "GET GSON FAILED!", Toast.LENGTH_SHORT);
-				toast.show();
-			}else{
+			try {
+				places = new Gson().fromJson(rawData, YelpSearchResult.class);
 				
 				/*
-				System.out.println("Your search found " + places.getTotal() + " results.");
-				System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
-				System.out.println();
-				
-				for(Business biz : places.getBusinesses()) {
-					System.out.println(biz.getName());
-					for(String address : biz.getLocation().getAddress()) {					
-						System.out.println("  " + address);
-					}
-					System.out.print("  " + biz.getLocation().getCity());
-					System.out.println(biz.getUrl());
+				JSONObject json = new JSONObject(rawData);
+				Log.i("GOT to check point", "1");
+				JSONObject results = json.getJSONObject("coordinate");
+				Log.i("GOT to check point", "2");
+				resultsArrayP = results.getJSONArray("coordinate");
+				Log.i("GOT to check point", "3");
+				int rArrayLength = resultsArrayP.length();
+				Log.i("ARRAY LENGTH", Integer.toString(rArrayLength));
+				if(resultsArrayP == null){
+					Log.i("JSON OBJECT", "INVALID");
+				*/	
+				//int numResults = places.getBusinesses().size();
+				if(places == null){
+					Log.i("GSON GET OBJECT", "INVALID");
+					Toast toast = Toast.makeText(_context, "GET GSON FAILED!", Toast.LENGTH_SHORT);
+					toast.show();
+				}else{
+					
+					/*
+					System.out.println("Your search found " + places.getTotal() + " results.");
+					System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
 					System.out.println();
 					
+					for(Business biz : places.getBusinesses()) {
+						System.out.println(biz.getName());
+						for(String address : biz.getLocation().getAddress()) {					
+							System.out.println("  " + address);
+						}
+						System.out.print("  " + biz.getLocation().getCity());
+						System.out.println(biz.getUrl());
+						System.out.println();
+						
+					}
+					*/
+					Toast toast = Toast.makeText(_context, "GET GSON SUCCESS!", Toast.LENGTH_SHORT);
+					toast.show();
+					
+					displayResults(_context);
+					_history.put("historyCache", rawData);
+					FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
 				}
-				*/
-				Toast toast = Toast.makeText(_context, "GET GSON SUCCESS!", Toast.LENGTH_SHORT);
-				toast.show();
 				
-				displayResults(_context);
-				_history.put("historyCache", rawData);
-				FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
+			} catch(Exception e) {
+				System.out.println("Error, could not parse returned data!");
+				System.out.println(rawData);			
 			}
-			
-		} catch(Exception e) {
-			System.out.println("Error, could not parse returned data!");
-			System.out.println(rawData);			
-		}
 	}
 }
 }
-
+}
 
