@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.os.AsyncTask;
@@ -320,32 +319,13 @@ public class MainActivity extends Activity {
 		System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
 		System.out.println();
 		
-		LayoutParams resultsLP1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		
 		for(Business biz : places.getBusinesses()) {
-			
-			
-			
-			LinearLayout resultLL = new PlacesDisplay(_context);
-			resultLL.setLayoutParams(resultsLP1);
-			
-			TextView myBizName = (TextView) resultLL.findViewById(30);
-			TextView myBizAddress = (TextView) resultLL.findViewById(31);
-			TextView myBizCity = (TextView) resultLL.findViewById(32);
-			TextView myBizURL = (TextView) resultLL.findViewById(33);
-			
-			
-			
 			System.out.println(biz.getName());
-			myBizName.setText(biz.getName());
-				for(String address : biz.getLocation().getAddress()) {	
-					myBizAddress.setText("  " + address);
+				for(String address : biz.getLocation().getAddress()) {					
 					System.out.println("  " + address);
 				}
 			System.out.print("  " + biz.getLocation().getCity());
-			myBizCity.setText("  " + biz.getLocation().getCity());
 			System.out.println(biz.getUrl());
-			myBizURL.setText(biz.getUrl());
 			System.out.println();
 			
 		}

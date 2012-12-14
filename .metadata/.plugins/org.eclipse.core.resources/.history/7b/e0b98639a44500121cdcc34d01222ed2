@@ -334,18 +334,12 @@ public class MainActivity extends Activity {
 			TextView myBizCity = (TextView) resultLL.findViewById(32);
 			TextView myBizURL = (TextView) resultLL.findViewById(33);
 			
-			
-			
 			System.out.println(biz.getName());
-			myBizName.setText(biz.getName());
-				for(String address : biz.getLocation().getAddress()) {	
-					myBizAddress.setText("  " + address);
+				for(String address : biz.getLocation().getAddress()) {					
 					System.out.println("  " + address);
 				}
 			System.out.print("  " + biz.getLocation().getCity());
-			myBizCity.setText("  " + biz.getLocation().getCity());
 			System.out.println(biz.getUrl());
-			myBizURL.setText(biz.getUrl());
 			System.out.println();
 			
 		}
