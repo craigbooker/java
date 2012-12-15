@@ -585,7 +585,7 @@ findCurrentLocation
 				JSONObject json = new JSONObject(rawData);
 				//JSONObject resultsMetaData = json.getJSONObject("region");
 				JSONObject results = json.getJSONObject("region").getJSONObject("businesses").getJSONObject("coordinate");
-				Log.i("I GOT THIS FAR", "STEP 1");
+				
 				if(results == null){
 					Log.i("JSON GET OBJECT", "INVALID");
 					Toast toast = Toast.makeText(_context, "GET JSON FAILED!", Toast.LENGTH_SHORT);
