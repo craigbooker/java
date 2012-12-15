@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.os.AsyncTask;
@@ -126,7 +125,7 @@ public class MainActivity extends Activity {
 		ll.setLayoutParams(lp);
 		ll.setBackgroundColor(color.holo_blue_light);
 		
-		// Setup Title TextView
+		// Setup TextView
 		txtView = new TextView(_context);
 		txtView.setText("AutoMetrx : Find Help");
 		txtView.setTextSize(20);
@@ -135,7 +134,6 @@ public class MainActivity extends Activity {
 		findCurrentLocation();
 		_history = getStoredHistory();
 		Log.i("HISTORY READ", _history.toString());
-		_connected = WebStuff.getConnectionStatus(_context);
 		
 		// Read in resources data
 		 pidArray = getResources().getStringArray(R.array.pid_string_array);
@@ -149,6 +147,7 @@ public class MainActivity extends Activity {
  * 
 ------------------------------------------------------------------------------------------------------ */	  
 	     
+		_connected = WebStuff.getConnectionStatus(_context);
 		if(_connected == true){
 			Log.i("NETWORK CONNECTION:", "WE ARE CONNECTED TO THE WEB.");
 			Log.i("NETWORK CONNECTION:", WebStuff.getConnectionType(_context));
@@ -158,11 +157,13 @@ public class MainActivity extends Activity {
 		        tv.setTextSize(14);
 		        ll.addView(tv);
 		        
-		        // Layout for Trouble Code Spinner
+		        // Layout for Troubl Code Spinner
 		        spinnerLabel = new TextView(this);
 		        spinnerLabel.setText("Select a trouble code.");
 		        
-		        LinearLayout form = new LinearLayout(_context);
+
+		        
+		        LinearLayout form = new LinearLayout(this);
 		        form.setOrientation(LinearLayout.HORIZONTAL);
 		        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 		        form.setLayoutParams(lp);
@@ -172,6 +173,7 @@ public class MainActivity extends Activity {
 		        // Create the adapter for the main spinner.
 		        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.pid_string_array, android.R.layout.simple_spinner_item);
 		        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		        
 		        
 		        main_spinner.setAdapter(adapter);
 		        main_spinner.setOnItemSelectedListener (new OnItemSelectedListener() {
@@ -237,9 +239,6 @@ public class MainActivity extends Activity {
 							//_results.reset();
 							getRadiusListing(searchTerm, radius, loc, baseURL);
 						}
-						
-						InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-						imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 					}
 				});
 
@@ -441,7 +440,7 @@ findCurrentLocation
 				Response response = oaRequest.send();
 				rawData = response.getBody();
 			}
-			//Log.i("RAW DATA - IN SEARCH REQUEST:", rawData);
+			Log.i("RAW DATA:", rawData);
 			return rawData;
 		}		
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -449,7 +448,7 @@ findCurrentLocation
 		
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */			
 	protected void onPostExecute(String rawData){
-			Log.i("URL RESPONSE - IN POST EXECUTE", rawData);
+			Log.i("URL RESPONSE", rawData);
 			
 			try {
 					places = new Gson().fromJson(rawData, YelpSearchResult.class);
@@ -469,7 +468,7 @@ findCurrentLocation
 					}
 				
 			} catch(Exception e) {
-					System.out.println("Error, could not parse returned data via post execute!");
+					System.out.println("Error, could not parse returned data!");
 					System.out.println(rawData);			
 			}
 	}

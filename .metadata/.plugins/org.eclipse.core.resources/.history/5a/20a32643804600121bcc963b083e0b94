@@ -441,7 +441,7 @@ findCurrentLocation
 				Response response = oaRequest.send();
 				rawData = response.getBody();
 			}
-			//Log.i("RAW DATA - IN SEARCH REQUEST:", rawData);
+			Log.i("RAW DATA:", rawData);
 			return rawData;
 		}		
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -449,7 +449,7 @@ findCurrentLocation
 		
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */			
 	protected void onPostExecute(String rawData){
-			Log.i("URL RESPONSE - IN POST EXECUTE", rawData);
+			Log.i("URL RESPONSE", rawData);
 			
 			try {
 					places = new Gson().fromJson(rawData, YelpSearchResult.class);
@@ -469,7 +469,7 @@ findCurrentLocation
 					}
 				
 			} catch(Exception e) {
-					System.out.println("Error, could not parse returned data via post execute!");
+					System.out.println("Error, could not parse returned data!");
 					System.out.println(rawData);			
 			}
 	}

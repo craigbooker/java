@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.os.AsyncTask;
@@ -173,6 +172,7 @@ public class MainActivity extends Activity {
 		        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.pid_string_array, android.R.layout.simple_spinner_item);
 		        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		        
+		        
 		        main_spinner.setAdapter(adapter);
 		        main_spinner.setOnItemSelectedListener (new OnItemSelectedListener() {
 			        	@Override
@@ -237,9 +237,6 @@ public class MainActivity extends Activity {
 							//_results.reset();
 							getRadiusListing(searchTerm, radius, loc, baseURL);
 						}
-						
-						InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-						imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 					}
 				});
 
@@ -441,7 +438,7 @@ findCurrentLocation
 				Response response = oaRequest.send();
 				rawData = response.getBody();
 			}
-			//Log.i("RAW DATA - IN SEARCH REQUEST:", rawData);
+			Log.i("RAW DATA:", rawData);
 			return rawData;
 		}		
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -449,7 +446,7 @@ findCurrentLocation
 		
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */			
 	protected void onPostExecute(String rawData){
-			Log.i("URL RESPONSE - IN POST EXECUTE", rawData);
+			Log.i("URL RESPONSE", rawData);
 			
 			try {
 					places = new Gson().fromJson(rawData, YelpSearchResult.class);
@@ -469,7 +466,7 @@ findCurrentLocation
 					}
 				
 			} catch(Exception e) {
-					System.out.println("Error, could not parse returned data via post execute!");
+					System.out.println("Error, could not parse returned data!");
 					System.out.println(rawData);			
 			}
 	}

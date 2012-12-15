@@ -14,10 +14,10 @@ public class PlacesDisplay extends LinearLayout implements placeInterface {
 	TextView _bizURL;
 	LayoutParams lp;
 	
-	String pBizName = "Apple Inc";
-	String pBizAddress = "1 Infinite Loop";
-	String pBizCity = "Cupertino, California";
-	String pBizURL = "www.apple.com";
+	String pBizName = "";
+	String pBizAddress = "";
+	String pBizCity = "";
+	String pBizURL = "";
 		
 	Context _context;
 	

@@ -441,7 +441,7 @@ findCurrentLocation
 				Response response = oaRequest.send();
 				rawData = response.getBody();
 			}
-			//Log.i("RAW DATA - IN SEARCH REQUEST:", rawData);
+			Log.i("RAW DATA - IN SEARCH REQUEST:", rawData);
 			return rawData;
 		}		
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -469,7 +469,7 @@ findCurrentLocation
 					}
 				
 			} catch(Exception e) {
-					System.out.println("Error, could not parse returned data via post execute!");
+					System.out.println("Error, could not parse returned data!");
 					System.out.println(rawData);			
 			}
 	}
