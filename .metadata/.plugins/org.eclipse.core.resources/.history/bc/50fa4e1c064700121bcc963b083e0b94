@@ -623,7 +623,6 @@ findCurrentLocation
 			
 				places = new Gson().fromJson(rawData, YelpSearchResult.class);
 				totalNumPlaces = places.getTotal();
-				Log.i("Total Number Places:", Integer.toString(totalNumPlaces));
 				if(places == null){
 						Log.i("GSON GET OBJECT", "INVALID");
 						Toast toast = Toast.makeText(_context, "GET GSON FAILED!", Toast.LENGTH_SHORT);

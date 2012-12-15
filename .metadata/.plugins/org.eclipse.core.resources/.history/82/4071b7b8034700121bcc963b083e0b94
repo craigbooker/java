@@ -79,7 +79,7 @@ public class MainActivity extends Activity {
 	SearchResults _results;
 	PlacesDisplay _places; // Was the stock display.
 	FormBorder _formBorder;
-	int totalNumPlaces;
+	
 	Boolean _connected = false;	
 	HashMap<String, String> _history; 
 	JSONArray resultsArrayP;
@@ -391,7 +391,7 @@ public class MainActivity extends Activity {
 		String _dispBizURL;
 		
 		
-		for(int i=0; i < (results.length()); i++){
+		for(int i=0; i < (resultsArrayP.length()); i++){
 			LinearLayout resultLayoutLeft = new LinearLayout(_context);
 			LayoutParams resultsLP1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 			//LayoutParams resultsLP2 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -456,7 +456,16 @@ public class MainActivity extends Activity {
 		System.out.println();
 		
 
-	
+			
+			
+			
+			
+
+			
+			
+			
+
+		}
 	}
 
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -584,7 +593,7 @@ findCurrentLocation
 		onPostExecute
 		
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */			
-	/*protected void onPostExecute(String rawData){
+	protected void onPostExecute(String rawData){
 			Log.i("URL RESPONSE - IN POST EXECUTE", rawData);
 			
 			try{
@@ -615,15 +624,12 @@ findCurrentLocation
 					
 	}
 }
-	*/
+	/*
 	protected void onPostExecute(String rawData){
 		Log.i("URL RESPONSE - IN POST EXECUTE", rawData);
-		try {
-			//YelpSearchResult places = new Gson().fromJson(rawData, YelpSearchResult.class);
-			
+		
 				places = new Gson().fromJson(rawData, YelpSearchResult.class);
-				totalNumPlaces = places.getTotal();
-				Log.i("Total Number Places:", Integer.toString(totalNumPlaces));
+				
 				if(places == null){
 						Log.i("GSON GET OBJECT", "INVALID");
 						Toast toast = Toast.makeText(_context, "GET GSON FAILED!", Toast.LENGTH_SHORT);
@@ -634,16 +640,12 @@ findCurrentLocation
 						toast.show();
 						
 						displayResults(_context);
-						_history.put("historyCache", rawData.toString());
+						_history.put("historyCache", rawData);
 						FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
 				}
-		}catch(Exception e){
-			System.out.println("Error, could not parse returned data!");
-			System.out.println(rawData);
-		}
-	}
+}
 }	
-	
+	*/
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	END OF onPostExecute
 	
