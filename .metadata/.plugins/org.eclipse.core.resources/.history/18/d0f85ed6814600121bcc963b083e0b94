@@ -32,8 +32,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 //import org.json.JSONException;
 //import org.json.JSONObject;
 import com.google.gson.Gson;
@@ -229,7 +227,6 @@ public class MainActivity extends Activity {
 					public void onClick(View v) {
 						//Log.i("CLICK HANDLER",_search.getField().getText().toString());
 						String radius = search.getField().getText().toString();
-						String limit = search.getField().getText().toString();
 						
 						if (searchTerm.length() == 0) {
 							Toast toast = Toast.makeText(_context,  "Please enter something", Toast.LENGTH_SHORT);
@@ -239,7 +236,6 @@ public class MainActivity extends Activity {
 							// Clear Out the results
 							//_results.reset();
 							getRadiusListing(searchTerm, radius, loc, baseURL);
-							getListingWithLimit(searchTerm, limit, loc, baseURL);
 						}
 						
 						InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -324,47 +320,7 @@ public class MainActivity extends Activity {
 			
 			String _strLoc = (loc.getLatitude() + "," + loc.getLongitude());
 			Log.i("STRLOC VALUE:", _strLoc);
-			String builtURL = (baseURL + "?term=" + term + "&ll=" + strloc + "&radius_filter=" + qs + "&sort=1&offset=20&limit=20");
-			Log.i("BUILT URL:", builtURL);
-	
-			URL finalURL;
-				try{
-					finalURL = new URL(builtURL);
-					SearchRequest sr = new SearchRequest();
-					sr.execute(finalURL);
-				} catch (MalformedURLException e){
-					Log.e("BAD URL", "MALFORMED URL");
-					finalURL = null;
-				}
-	}
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	getListingWithLimit
-	
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */		 
-	private void getListingWithLimit(String term, String limit, Location loc, String baseURL){
-			Log.i("CLICK", limit);
-			int limitInt = 0;
-			
-				try {
-				   limitInt = Integer.parseInt(limit);
-				   Log.i("",limitInt+" is a number");
-				} catch (NumberFormatException e) {
-				   Log.i("",limit+"is not a number");
-				}
-			
-			String finalRadius = Integer.toString(limitInt);
-			String qs = "";
-				try{
-					qs = URLEncoder.encode(finalRadius, "UTF-8");
-					Log.i("Try QS URL:", qs);
-				} catch (Exception e){
-					Log.e("BAD URL", "ENCODING PROBLEM");
-					qs = "";
-				}
-			
-			String _strLoc = (loc.getLatitude() + "," + loc.getLongitude());
-			Log.i("STRLOC VALUE:", _strLoc);
-			String builtURL = (baseURL + "?term=" + term + "&ll=" + strloc + "&limit=" + qs);
+			String builtURL = (baseURL + "?term=" + term + "&ll=" + strloc + "&radius_filter=" + qs);
 			Log.i("BUILT URL:", builtURL);
 	
 			URL finalURL;
@@ -379,91 +335,10 @@ public class MainActivity extends Activity {
 	}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	displayResults 1.1
+	displayResults
 	
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */		
 	private void displayResults (Context context){
-		
-		String _dispBizName;
-		String _dispBizAddress;
-		String _dispBizCity;
-		String _dispBizURL;
-		
-		for(int i=0; i < (resultsArrayP.length()); i++){
-			
-			
-		}
-		
-		// Log out some of the results formatted
-		System.out.println("Your search found " + places.getTotal() + " results.");
-		System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
-		System.out.println();
-		
-		// The biz loop
-		for(Business biz : places.getBusinesses()) {
-			
-			LinearLayout resultLayoutLeft = new LinearLayout(_context);
-			LayoutParams resultsLP1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-			//LayoutParams resultsLP2 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-			resultLayoutLeft.setLayoutParams(resultsLP1);
-			
-			
-			PlacesDisplay myPlacesLL = new PlacesDisplay(_context);
-			myPlacesLL.setLayoutParams(resultsLP1);
-			
-			TextView myBizName = (TextView) resultLayoutLeft.findViewById(1);
-			TextView myBizAddress = (TextView) resultLayoutLeft.findViewById(2);
-			TextView myBizCity = (TextView) resultLayoutLeft.findViewById(3);
-			TextView myBizURL = (TextView) resultLayoutLeft.findViewById(4);
-			
-			
-			
-			System.out.println(biz.getName());
-			_dispBizName = biz.getName().toString();
-			System.out.println(_dispBizName);
-			//Log.i("HERE WE GO:" _dispBizName);
-			myBizName.setText(_dispBizName);
-				for(String address : biz.getLocation().getAddress()) {	
-					myBizAddress.setText(address);
-					System.out.println("  " + address);
-				}
-			
-				// Log out the city
-			System.out.print("  " + biz.getLocation().getCity());
-			
-			// Set the city value
-			myBizCity.setText("  " + biz.getLocation().getCity());
-			
-			// Log out the URL
-			System.out.println(biz.getUrl());
-			
-			// Set the URL value
-			myBizURL.setText(biz.getUrl());
-			
-			System.out.println();
-			
-			
-			FormBorder fb1 = new FormBorder(_context, 10);
-			fb1.setId(50);
-			resultLayoutLeft.setId(51);
-			
-			resultLayoutLeft.addView(myPlacesLL);
-			ll.addView(resultLayoutLeft);
-			Log.i("I am in the biz loop", "Loop IT");
-		}
-	}
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	displayResults version 1.0
-	
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */		
-	private void displayResults1 (Context context){
-		
-		String _dispBizName;
-		String _dispBizAddress;
-		String _dispBizCity;
-		String _dispBizURL;
-		
 		// Log out raw results
 		Log.i("RAW DATA INSIDE DISPLAY RESULTS:", rawData);
 		
@@ -484,18 +359,15 @@ public class MainActivity extends Activity {
 			PlacesDisplay myPlacesLL = new PlacesDisplay(_context);
 			myPlacesLL.setLayoutParams(resultsLP1);
 			
-			TextView myBizName = (TextView) resultLayoutLeft.findViewById(1);
-			TextView myBizAddress = (TextView) resultLayoutLeft.findViewById(2);
-			TextView myBizCity = (TextView) resultLayoutLeft.findViewById(3);
-			TextView myBizURL = (TextView) resultLayoutLeft.findViewById(4);
+			TextView myBizName = (TextView) resultLayoutLeft.findViewById(30);
+			TextView myBizAddress = (TextView) resultLayoutLeft.findViewById(31);
+			TextView myBizCity = (TextView) resultLayoutLeft.findViewById(32);
+			TextView myBizURL = (TextView) resultLayoutLeft.findViewById(33);
 			
 			
 			
 			System.out.println(biz.getName());
-			_dispBizName = biz.getName().toString();
-			System.out.println(_dispBizName);
-			//Log.i("HERE WE GO:" _dispBizName);
-			myBizName.setText(_dispBizName);
+			myBizName.setText(biz.getName().toString());
 				for(String address : biz.getLocation().getAddress()) {	
 					myBizAddress.setText(address);
 					System.out.println("  " + address);
@@ -525,9 +397,7 @@ public class MainActivity extends Activity {
 			Log.i("I am in the biz loop", "Loop IT");
 		}
 	}
-	
-	
-	
+
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 findCurrentLocation
 
@@ -581,57 +451,23 @@ findCurrentLocation
 	protected void onPostExecute(String rawData){
 			Log.i("URL RESPONSE - IN POST EXECUTE", rawData);
 			
-			try{
-				JSONObject json = new JSONObject(rawData);
-				//JSONObject resultsMetaData = json.getJSONObject("region");
-				JSONObject results = json.getJSONObject("region");
-				resultsArrayP = results.getJSONArray("businesses");
-				
-				if(resultsArrayP == null){
-					Log.i("JSON GET OBJECT", "INVALID");
-					Toast toast = Toast.makeText(_context, "GET JSON FAILED!", Toast.LENGTH_SHORT);
-					toast.show();
-				}else{
-				
-						Toast toast = Toast.makeText(_context, "GET JSON SUCCESS!", Toast.LENGTH_SHORT);
-						toast.show();
-						
-						displayResults(_context);
-						_history.put("historyCache", results.toString());
-						//_history.put("historyCache", rawData);
-						FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
-				}
-				
-			}catch (JSONException e){
-				Log.e("JSON ERROR", "JSON ERROR");
-				
-			}
+					places = new Gson().fromJson(rawData, YelpSearchResult.class);
 					
+					if(places == null){
+							Log.i("GSON GET OBJECT", "INVALID");
+							Toast toast = Toast.makeText(_context, "GET GSON FAILED!", Toast.LENGTH_SHORT);
+							toast.show();
+					}else{
 					
+							Toast toast = Toast.makeText(_context, "GET GSON SUCCESS!", Toast.LENGTH_SHORT);
+							toast.show();
+							
+							displayResults(_context);
+							_history.put("historyCache", rawData);
+							FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
+					}
 	}
 }
-	/*
-	protected void onPostExecute(String rawData){
-		Log.i("URL RESPONSE - IN POST EXECUTE", rawData);
-		
-				places = new Gson().fromJson(rawData, YelpSearchResult.class);
-				
-				if(places == null){
-						Log.i("GSON GET OBJECT", "INVALID");
-						Toast toast = Toast.makeText(_context, "GET GSON FAILED!", Toast.LENGTH_SHORT);
-						toast.show();
-				}else{
-				
-						Toast toast = Toast.makeText(_context, "GET GSON SUCCESS!", Toast.LENGTH_SHORT);
-						toast.show();
-						
-						displayResults(_context);
-						_history.put("historyCache", rawData);
-						FileStuff.storeObjectFile(_context, "searchHistoryObj", _history, false);
-				}
-}
-}	
-	*/
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	END OF onPostExecute
 	

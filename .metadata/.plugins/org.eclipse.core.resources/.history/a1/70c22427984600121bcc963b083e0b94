@@ -379,85 +379,10 @@ public class MainActivity extends Activity {
 	}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	displayResults 1.1
+	displayResults
 	
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */		
 	private void displayResults (Context context){
-		
-		String _dispBizName;
-		String _dispBizAddress;
-		String _dispBizCity;
-		String _dispBizURL;
-		
-		for(int i=0; i < (resultsArrayP.length()); i++){
-			
-			
-		}
-		
-		// Log out some of the results formatted
-		System.out.println("Your search found " + places.getTotal() + " results.");
-		System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
-		System.out.println();
-		
-		// The biz loop
-		for(Business biz : places.getBusinesses()) {
-			
-			LinearLayout resultLayoutLeft = new LinearLayout(_context);
-			LayoutParams resultsLP1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-			//LayoutParams resultsLP2 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-			resultLayoutLeft.setLayoutParams(resultsLP1);
-			
-			
-			PlacesDisplay myPlacesLL = new PlacesDisplay(_context);
-			myPlacesLL.setLayoutParams(resultsLP1);
-			
-			TextView myBizName = (TextView) resultLayoutLeft.findViewById(1);
-			TextView myBizAddress = (TextView) resultLayoutLeft.findViewById(2);
-			TextView myBizCity = (TextView) resultLayoutLeft.findViewById(3);
-			TextView myBizURL = (TextView) resultLayoutLeft.findViewById(4);
-			
-			
-			
-			System.out.println(biz.getName());
-			_dispBizName = biz.getName().toString();
-			System.out.println(_dispBizName);
-			//Log.i("HERE WE GO:" _dispBizName);
-			myBizName.setText(_dispBizName);
-				for(String address : biz.getLocation().getAddress()) {	
-					myBizAddress.setText(address);
-					System.out.println("  " + address);
-				}
-			
-				// Log out the city
-			System.out.print("  " + biz.getLocation().getCity());
-			
-			// Set the city value
-			myBizCity.setText("  " + biz.getLocation().getCity());
-			
-			// Log out the URL
-			System.out.println(biz.getUrl());
-			
-			// Set the URL value
-			myBizURL.setText(biz.getUrl());
-			
-			System.out.println();
-			
-			
-			FormBorder fb1 = new FormBorder(_context, 10);
-			fb1.setId(50);
-			resultLayoutLeft.setId(51);
-			
-			resultLayoutLeft.addView(myPlacesLL);
-			ll.addView(resultLayoutLeft);
-			Log.i("I am in the biz loop", "Loop IT");
-		}
-	}
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	displayResults version 1.0
-	
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */		
-	private void displayResults1 (Context context){
 		
 		String _dispBizName;
 		String _dispBizAddress;
@@ -525,9 +450,7 @@ public class MainActivity extends Activity {
 			Log.i("I am in the biz loop", "Loop IT");
 		}
 	}
-	
-	
-	
+
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 findCurrentLocation
 
@@ -586,7 +509,6 @@ findCurrentLocation
 				//JSONObject resultsMetaData = json.getJSONObject("region");
 				JSONObject results = json.getJSONObject("region");
 				resultsArrayP = results.getJSONArray("businesses");
-				
 				if(resultsArrayP == null){
 					Log.i("JSON GET OBJECT", "INVALID");
 					Toast toast = Toast.makeText(_context, "GET JSON FAILED!", Toast.LENGTH_SHORT);
@@ -604,10 +526,7 @@ findCurrentLocation
 				
 			}catch (JSONException e){
 				Log.e("JSON ERROR", "JSON ERROR");
-				
-			}
-					
-					
+			}				
 	}
 }
 	/*
