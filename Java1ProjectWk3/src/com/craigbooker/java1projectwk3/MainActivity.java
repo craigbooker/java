@@ -6,7 +6,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 
-import FormStuff.PlacesDisplay;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,17 +30,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+//import org.json.JSONException;
+//import org.json.JSONObject;
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+//import com.google.gson.JsonSyntaxException;
 import com.craigbooker.lib.FileStuff;
 
+import com.craigbooker.FormStuff.FormBorder;
+import com.craigbooker.FormStuff.PlacesDisplay;
 import com.craigbooker.external.yelp.YelpV2API;
 import com.craigbooker.external.yelp.v2.Business;
 import com.craigbooker.external.yelp.v2.YelpSearchResult;
-import com.craigbooker.external.yelp.Yelp;
-import com.craigbooker.external.yelp.YelpInfo;
+//import com.craigbooker.external.yelp.Yelp;
+//import com.craigbooker.external.yelp.YelpInfo;
 
 import com.craigbooker.lib.Convert;
 import com.craigbooker.lib.MyLocation;
@@ -69,11 +70,12 @@ public class MainActivity extends Activity {
 	TextView spinnerLabel;
 	Spinner main_spinner;
 	SearchForm search;
-	String searchTerm = "auto";
+	
 	TextView tcResult;
 	SearchResults _results;
 	PlacesDisplay _places; // Was the stock display.
-	FavDisplay _favorites;
+	FormBorder _formBorder;
+	
 	Boolean _connected = false;	
 	HashMap<String, String> _history; 
 	JSONArray resultsArrayP;
@@ -103,6 +105,7 @@ public class MainActivity extends Activity {
 	// Some example values to pass into the Yelp search service.
 	String lat = "35.667196";
 	String lng = "-97.407243";
+	String searchTerm = "auto";
 	String category = "auto";
 	YelpSearchResult places;
 	String rawData = "";
@@ -243,6 +246,12 @@ public class MainActivity extends Activity {
 					}
 				});
 
+				
+				// Add FormBorder Display
+				_formBorder = new FormBorder(_context, 10);
+				
+				ll.addView(_formBorder);
+				
 /* ------------------  If No Internet connection found. --------------------------------------------------- 
  * 
  * 
@@ -270,6 +279,12 @@ public class MainActivity extends Activity {
 			}
 		}
 	
+		
+		// Add FormBorder Display
+		_formBorder = new FormBorder(_context, 10);
+		
+		ll.addView(_formBorder);
+		
 		sv.addView(ll);
 		setContentView(sv);
 	}
@@ -327,40 +342,62 @@ public class MainActivity extends Activity {
 	
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */		
 	private void displayResults (Context context){
+		// Log out raw results
+		Log.i("RAW DATA INSIDE DISPLAY RESULTS:", rawData);
 		
-		Log.i("RAW DATA FOR RESULTS:", rawData);
+		// Log out some of the results formatted
 		System.out.println("Your search found " + places.getTotal() + " results.");
 		System.out.println("Yelp returned " + places.getBusinesses().size() + " businesses in this request.");
 		System.out.println();
 		
-		LayoutParams resultsLP1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		
+		// The biz loop
 		for(Business biz : places.getBusinesses()) {
 			
+			LinearLayout resultLayoutLeft = new LinearLayout(_context);
+			LayoutParams resultsLP1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+			//LayoutParams resultsLP2 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+			resultLayoutLeft.setLayoutParams(resultsLP1);
 			
 			
-			LinearLayout resultLL = new PlacesDisplay(_context);
-			resultLL.setLayoutParams(resultsLP1);
+			PlacesDisplay myPlacesLL = new PlacesDisplay(_context);
+			myPlacesLL.setLayoutParams(resultsLP1);
 			
-			TextView myBizName = (TextView) resultLL.findViewById(30);
-			TextView myBizAddress = (TextView) resultLL.findViewById(31);
-			TextView myBizCity = (TextView) resultLL.findViewById(32);
-			TextView myBizURL = (TextView) resultLL.findViewById(33);
+			TextView myBizName = (TextView) resultLayoutLeft.findViewById(30);
+			TextView myBizAddress = (TextView) resultLayoutLeft.findViewById(31);
+			TextView myBizCity = (TextView) resultLayoutLeft.findViewById(32);
+			TextView myBizURL = (TextView) resultLayoutLeft.findViewById(33);
 			
 			
 			
 			System.out.println(biz.getName());
 			myBizName.setText(biz.getName());
 				for(String address : biz.getLocation().getAddress()) {	
-					myBizAddress.setText("  " + address);
+					myBizAddress.setText(address);
 					System.out.println("  " + address);
 				}
+			
+				// Log out the city
 			System.out.print("  " + biz.getLocation().getCity());
+			
+			// Set the city value
 			myBizCity.setText("  " + biz.getLocation().getCity());
+			
+			// Log out the URL
 			System.out.println(biz.getUrl());
+			
+			// Set the URL value
 			myBizURL.setText(biz.getUrl());
+			
 			System.out.println();
-			//ll.addView(child)
+			
+			
+			FormBorder fb1 = new FormBorder(_context, 10);
+			fb1.setId(50);
+			resultLayoutLeft.setId(51);
+			
+			resultLayoutLeft.addView(myPlacesLL);
+			ll.addView(resultLayoutLeft);
+			Log.i("I am in the biz loop", "Loop IT");
 		}
 	}
 
@@ -439,7 +476,7 @@ findCurrentLocation
 					System.out.println(rawData);			
 			}
 	}
-	}
+}
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	END OF onPostExecute
 	
