@@ -1,7 +1,0 @@
-package com.craigbooker.java1projectwk3;
-
-import android.widget.GridLayout;
-
-public class PlacesGridDisplay extends GridLayout {
-
-}
