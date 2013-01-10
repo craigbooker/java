@@ -1,4 +1,4 @@
-package com.craigbooker.java1projectwk3;
+package com.craigbooker.j2project1;
 
 import java.util.ArrayList;
 
