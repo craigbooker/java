@@ -25,24 +25,12 @@ public class DummyContent {
 
 	static {
 		// Add 3 sample items.
-		addItem(new DummyItem("1", "Automotive (auto)", "Description 1"));
-		addItem(new DummyItem("2", "Auto Detailing (auto_detailing)", "Description 2"));
-		addItem(new DummyItem("3", "Auto Glass Services (autoglass)", "Description 3"));
-		addItem(new DummyItem("4", "Auto Parts and Supplies (autopartssupplies)", "Description 4"));
-		addItem(new DummyItem("5", "Auto Repair (autorepair)", "Description 5"));
-		addItem(new DummyItem("6", "Body Shops (bodyshops)", "Description 6"));
-		addItem(new DummyItem("7", "Automotive (auto)", "Description 7"));
-		addItem(new DummyItem("8", "Auto Detailing (auto_detailing)", "Description 8"));
-		addItem(new DummyItem("9", "Auto Glass Services (autoglass)", "Description 9"));
-		addItem(new DummyItem("10", "Auto Parts and Supplies (autopartssupplies)", "Description 10"));
-		addItem(new DummyItem("11", "Auto Repair (autorepair)", "Description 11"));
-		addItem(new DummyItem("12", "Body Shops (bodyshops)", "Description 12"));
-		addItem(new DummyItem("13", "Automotive (auto)", "Description 13"));
-		addItem(new DummyItem("14", "Auto Detailing (auto_detailing)", "Description 14"));
-		addItem(new DummyItem("15", "Auto Glass Services (autoglass)", "Description 15"));
-		addItem(new DummyItem("16", "Auto Parts and Supplies (autopartssupplies)", "Description 16"));
-		addItem(new DummyItem("17", "Auto Repair (autorepair)", "Description 17"));
-		addItem(new DummyItem("18", "Body Shops (bodyshops)", "Description 18"));
+		addItem(new DummyItem("1", "Automotive (auto)"));
+		addItem(new DummyItem("2", "Auto Detailing (auto_detailing)"));
+		addItem(new DummyItem("3", "Auto Glass Services (autoglass)"));
+		addItem(new DummyItem("4", "Auto Parts and Supplies (autopartssupplies)"));
+		addItem(new DummyItem("5", "Auto Repair (autorepair)"));
+		addItem(new DummyItem("6", "Body Shops (bodyshops)"));
 		/*
         <item>Automotive (auto)</item>
         <item>Auto Detailing (auto_detailing)</item>
@@ -79,12 +67,10 @@ public class DummyContent {
 	public static class DummyItem {
 		public String id;
 		public String content;
-		public String description;
 
-		public DummyItem(String id, String content, String description) {
+		public DummyItem(String id, String content) {
 			this.id = id;
 			this.content = content;
-			this.description = description;
 		}
 
 		@Override

@@ -72,7 +72,8 @@ public class ServiceTypeListActivity extends FragmentActivity implements
 		} else {
 			// In single-pane mode, simply start the detail activity
 			// for the selected item ID.
-			Intent detailIntent = new Intent(this, ServiceTypeDetailActivity.class);
+			Intent detailIntent = new Intent(this,
+					ServiceTypeDetailActivity.class);
 			detailIntent.putExtra(ServiceTypeDetailFragment.ARG_ITEM_ID, id);
 			startActivity(detailIntent);
 		}
