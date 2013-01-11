@@ -1,0 +1,95 @@
+package com.craigbooker.j2project1masterdetail.dummy;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Helper class for providing sample content for user interfaces created by
+ * Android template wizards.
+ * <p>
+ * TODO: Replace all uses of this class before publishing your app.
+ */
+public class DummyContent {
+
+	/**
+	 * An array of sample (dummy) items.
+	 */
+	public static List<DummyItem> ITEMS = new ArrayList<DummyItem>();
+
+	/**
+	 * A map of sample (dummy) items, by ID.
+	 */
+	public static Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
+
+	static {
+		// Add 3 sample items.
+		addItem(new DummyItem("1", "Automotive (auto)", "Description 1"));
+		addItem(new DummyItem("2", "Auto Detailing (auto_detailing)", "Description 2"));
+		addItem(new DummyItem("3", "Auto Glass Services (autoglass)", "Description 3"));
+		addItem(new DummyItem("4", "Auto Parts and Supplies (autopartssupplies)", "Description 4"));
+		addItem(new DummyItem("5", "Auto Repair (autorepair)", "Description 5"));
+		addItem(new DummyItem("6", "Body Shops (bodyshops)", "Description 6"));
+		addItem(new DummyItem("7", "Automotive (auto)", "Description 7"));
+		addItem(new DummyItem("8", "Auto Detailing (auto_detailing)", "Description 8"));
+		addItem(new DummyItem("9", "Auto Glass Services (autoglass)", "Description 9"));
+		addItem(new DummyItem("10", "Auto Parts and Supplies (autopartssupplies)", "Description 10"));
+		addItem(new DummyItem("11", "Auto Repair (autorepair)", "Description 11"));
+		addItem(new DummyItem("12", "Body Shops (bodyshops)", "Description 12"));
+		addItem(new DummyItem("13", "Automotive (auto)", "Description 13"));
+		addItem(new DummyItem("14", "Auto Detailing (auto_detailing)", "Description 14"));
+		addItem(new DummyItem("15", "Auto Glass Services (autoglass)", "Description 15"));
+		addItem(new DummyItem("16", "Auto Parts and Supplies (autopartssupplies)", "Description 16"));
+		addItem(new DummyItem("17", "Auto Repair (autorepair)", "Description 17"));
+		addItem(new DummyItem("18", "Body Shops (bodyshops)", "Description 18"));
+		/*
+        <item>Automotive (auto)</item>
+        <item>Auto Detailing (auto_detailing)</item>
+        <item>Auto Glass Services (autoglass)</item>
+		<item>Auto Parts and Supplies (autopartssupplies)</item>
+		<item>Auto Repair (autorepair)</item>
+		<item>Boat Dealers (boatdealers)</item>
+		<item>Body Shops (bodyshops)</item>
+		<item>Car Dealers (car_dealers)</item>
+		<item>Car Stereo Installation (stereo_installation)</item>
+		<item>Car Wash (carwash)</item>
+		<item>Gas and Service Stations (servicestations)</item>
+		<item>Motorcycle Dealers (motorcycledealers)</item>
+		<item>Motorcycle Repair (motorcyclerepair)</item>
+		<item>Oil Change Stations (oilchange)</item>
+		<item>Parking (parking)</item>
+		<item>RV Dealers (rv_dealers)</item>
+		<item>Smog Check Stations (smog_check_stations)</item>
+		<item>Tires (tires)</item>
+		<item>Towing (towing)</item>
+		<item>Truck Rental (truck_rental)</item>
+		<item>Windshield Installation and Repair (windshieldinstallrepair)</item>
+		*/
+	}
+
+	private static void addItem(DummyItem item) {
+		ITEMS.add(item);
+		ITEM_MAP.put(item.id, item);
+	}
+
+	/**
+	 * A dummy item representing a piece of content.
+	 */
+	public static class DummyItem {
+		public String id;
+		public String content;
+		public String description;
+
+		public DummyItem(String id, String content, String description) {
+			this.id = id;
+			this.content = content;
+			this.description = description;
+		}
+
+		@Override
+		public String toString() {
+			return content;
+		}
+	}
+}

@@ -1,0 +1,7 @@
+package com.craigbooker.j2project1;
+
+import android.app.ListActivity;
+
+public class MainListActivity extends ListActivity {
+
+}

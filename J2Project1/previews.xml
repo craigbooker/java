@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<previews>
+
+    <preview
+        name="Nexus 7"
+        activity="com.craigbooker.j2project1.Main"
+        config="layout-sw600dp-w600dp-h961dp-large-notlong-port-notnight-tvdpi-finger-keyssoft-nokeys-navhidden-nonav-1280x800-v17"
+        device="Nexus 7"
+        devicestate="Portrait"
+        target="Android 4.2"
+        theme="@style/AppTheme" >
+    </preview>
+    <preview
+        name="Landscape"
+        activity="com.craigbooker.j2project1.MainListActivity"
+        config="layout-sw600dp-w600dp-h961dp-large-notlong-port-notnight-tvdpi-finger-keyssoft-nokeys-navhidden-nonav-1280x800-v17"
+        device="Nexus 7"
+        devicestate="Portrait"
+        target="Android 4.2"
+        theme="@style/AppTheme" >
+    </preview>
+
+</previews>

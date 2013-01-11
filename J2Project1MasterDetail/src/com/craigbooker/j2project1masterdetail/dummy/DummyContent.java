@@ -31,18 +31,20 @@ public class DummyContent {
 		addItem(new DummyItem("4", "Auto Parts and Supplies (autopartssupplies)", "Description 4"));
 		addItem(new DummyItem("5", "Auto Repair (autorepair)", "Description 5"));
 		addItem(new DummyItem("6", "Body Shops (bodyshops)", "Description 6"));
-		addItem(new DummyItem("7", "Automotive (auto)", "Description 7"));
-		addItem(new DummyItem("8", "Auto Detailing (auto_detailing)", "Description 8"));
-		addItem(new DummyItem("9", "Auto Glass Services (autoglass)", "Description 9"));
-		addItem(new DummyItem("10", "Auto Parts and Supplies (autopartssupplies)", "Description 10"));
-		addItem(new DummyItem("11", "Auto Repair (autorepair)", "Description 11"));
-		addItem(new DummyItem("12", "Body Shops (bodyshops)", "Description 12"));
-		addItem(new DummyItem("13", "Automotive (auto)", "Description 13"));
-		addItem(new DummyItem("14", "Auto Detailing (auto_detailing)", "Description 14"));
-		addItem(new DummyItem("15", "Auto Glass Services (autoglass)", "Description 15"));
-		addItem(new DummyItem("16", "Auto Parts and Supplies (autopartssupplies)", "Description 16"));
-		addItem(new DummyItem("17", "Auto Repair (autorepair)", "Description 17"));
-		addItem(new DummyItem("18", "Body Shops (bodyshops)", "Description 18"));
+		addItem(new DummyItem("7", "Car Dealers (car_dealers)", "Description 7"));
+		addItem(new DummyItem("8", "Car Stereo Installation (stereo_installation)", "Description 8"));
+		addItem(new DummyItem("9", "Car Wash (carwash)", "Description 9"));
+		addItem(new DummyItem("10", "Gas and Service Stations (servicestations)", "Description 10"));
+		addItem(new DummyItem("11", "Motorcycle Dealers (motorcycledealers)", "Description 11"));
+		addItem(new DummyItem("12", "Motorcycle Repair (motorcyclerepair)", "Description 12"));
+		addItem(new DummyItem("13", "Oil Change Stations (oilchange)", "Description 13"));
+		addItem(new DummyItem("14", "Parking (parking)", "Description 14"));
+		addItem(new DummyItem("15", "RV Dealers (rv_dealers)", "Description 15"));
+		addItem(new DummyItem("16", "Smog Check Stations (smog_check_stations)", "Description 16"));
+		addItem(new DummyItem("17", "Tires (tires)", "Description 17"));
+		addItem(new DummyItem("18", "Towing (towing)", "Description 18"));
+		addItem(new DummyItem("19", "Truck Rental (truck_rental)", "Description 19"));
+		addItem(new DummyItem("20", "Windshield Installation and Repair (windshieldinstallrepair)", "Description 20"));
 		/*
         <item>Automotive (auto)</item>
         <item>Auto Detailing (auto_detailing)</item>
