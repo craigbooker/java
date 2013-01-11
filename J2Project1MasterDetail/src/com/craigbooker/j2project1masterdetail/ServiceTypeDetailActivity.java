@@ -44,8 +44,7 @@ public class ServiceTypeDetailActivity extends FragmentActivity {
 							ServiceTypeDetailFragment.ARG_ITEM_ID));
 			ServiceTypeDetailFragment fragment = new ServiceTypeDetailFragment();
 			fragment.setArguments(arguments);
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.servicetype_detail_container, fragment).commit();
+			getSupportFragmentManager().beginTransaction().add(R.id.servicetype_detail_container, fragment).commit();
 		}
 	}
 

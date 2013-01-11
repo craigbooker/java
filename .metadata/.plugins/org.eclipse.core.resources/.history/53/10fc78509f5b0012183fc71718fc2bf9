@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Auto Service Finder</string>
+    <string name="title_servicetype_detail">ServiceType Detail</string>
+
+      <string-array name="businessNames">
+         <item>Kennedy Tire \u0026 Auto Service</item>   
+         <item>Dwain's Automotive</item> 
+         <item>Jimmy's Auto Service</item> 
+     </string-array>    
+     <string-array name="phoneNumbers">
+         <item>4053418767</item> 
+         <item>4053415612</item> 
+         <item>4053411484</item>   
+     </string-array>   
+</resources>

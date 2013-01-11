@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;ServiceTypeContent.java&apos; to &apos;J2Project1MasterDetail/src/com.craigbooker.j2project1masterdetail.dummy&apos;&#x0A;- Original project: &apos;J2Project1MasterDetail&apos;&#x0A;- Destination element: &apos;J2Project1MasterDetail/src/com.craigbooker.j2project1masterdetail.dummy&apos;&#x0A;- Original element: &apos;com.craigbooker.j2project1masterdetail.dummy.ServiceTypeContent.java&apos;" description="Copy compilation unit" destination="/src&lt;com.craigbooker.j2project1masterdetail.dummy" element1="/src&lt;com.craigbooker.j2project1masterdetail.dummy{ServiceTypeContent.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1357870083460" units="1" version="1.0"/>
+</session>

@@ -1,10 +1,12 @@
 package com.craigbooker.j2project1masterdetail;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.craigbooker.j2project1masterdetail.dummy.DummyContent;
@@ -15,6 +17,9 @@ import com.craigbooker.j2project1masterdetail.dummy.DummyContent;
  * tablets) or a {@link ServiceTypeDetailActivity} on handsets.
  */
 public class ServiceTypeDetailFragment extends Fragment {
+	protected String[] mBusinessNames;
+	protected String[] mBusinessPhone;
+	
 	/**
 	 * The fragment argument representing the item ID that this fragment
 	 * represents.
@@ -36,7 +41,13 @@ public class ServiceTypeDetailFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
+		Resources resources = getResources();
+		//mBusinessNames = resources.getStringArray(R.array.businessNames);
+		mBusinessPhone = resources.getStringArray(R.array.businessNumbers);
+		
+		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mBusinessPhone);
+		//setListAdapter(adapter);
 		if (getArguments().containsKey(ARG_ITEM_ID)) {
 			// Load the dummy content specified by the fragment
 			// arguments. In a real-world scenario, use a Loader
