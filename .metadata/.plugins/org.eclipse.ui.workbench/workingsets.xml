@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workingSetManager>
 <workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1357686389922_30" label="J2Project1" name="J2Project1">
-<item elementID="=Java1ProjectWk3/\/Users\/Craig\/Desktop\/TmpWork\/java\/Java1ProjectWk3\/libs\/scribe-1.1.0.jar" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
-<item elementID="=Java1ProjectWk3/\/Users\/Craig\/Desktop\/TmpWork\/java\/Java1ProjectWk3\/libs\/apache-mime4j-0.6.jar" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
-<item elementID="=Java1ProjectWk3/src&lt;com.craigbooker.external.yelp.v2" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item elementID="=Java1ProjectWk3/src&lt;com.craigbooker.lib" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
-<item elementID="=Java1ProjectWk3/\/Users\/Craig\/Desktop\/TmpWork\/java\/Java1ProjectWk3\/libs\/httpcore-4.0.1.jar" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
-<item elementID="=Java1ProjectWk3/\/Users\/Craig\/Desktop\/TmpWork\/java\/Java1ProjectWk3\/libs\/gson-1.6.jar" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item elementID="=Java1ProjectWk3/src&lt;com.craigbooker.FormStuff" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=Java1ProjectWk3/src&lt;com.craigbooker.external.yelp.v2" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSet>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1353366731000_0" label="Window Working Set" name="Aggregate for window 1353366730999"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1353366753731_1" label="Window Working Set" name="Aggregate for window 1353366753731"/>
@@ -39,5 +35,6 @@
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1357577252756_27" label="Window Working Set" name="Aggregate for window 1357577252756"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1357612112150_28" label="Window Working Set" name="Aggregate for window 1357612112150"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1357618305303_29" label="Window Working Set" name="Aggregate for window 1357618305303"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1357937056655_31" label="Window Working Set" name="Aggregate for window 1357937056655"/>
 <mruList name="J2Project1"/>
 </workingSetManager>

@@ -11,6 +11,7 @@ public final class R {
     public static final class array {
         public static final int businessNames=0x7f050000;
         public static final int businessNumbers=0x7f050001;
+        public static final int serviceTypes=0x7f050002;
     }
     public static final class attr {
     }

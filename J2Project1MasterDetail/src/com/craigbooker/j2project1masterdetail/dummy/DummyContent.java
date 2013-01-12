@@ -45,29 +45,6 @@ public class DummyContent {
 		addItem(new DummyItem("18", "Towing (towing)", "Description 18"));
 		addItem(new DummyItem("19", "Truck Rental (truck_rental)", "Description 19"));
 		addItem(new DummyItem("20", "Windshield Installation and Repair (windshieldinstallrepair)", "Description 20"));
-		/*
-        <item>Automotive (auto)</item>
-        <item>Auto Detailing (auto_detailing)</item>
-        <item>Auto Glass Services (autoglass)</item>
-		<item>Auto Parts and Supplies (autopartssupplies)</item>
-		<item>Auto Repair (autorepair)</item>
-		<item>Boat Dealers (boatdealers)</item>
-		<item>Body Shops (bodyshops)</item>
-		<item>Car Dealers (car_dealers)</item>
-		<item>Car Stereo Installation (stereo_installation)</item>
-		<item>Car Wash (carwash)</item>
-		<item>Gas and Service Stations (servicestations)</item>
-		<item>Motorcycle Dealers (motorcycledealers)</item>
-		<item>Motorcycle Repair (motorcyclerepair)</item>
-		<item>Oil Change Stations (oilchange)</item>
-		<item>Parking (parking)</item>
-		<item>RV Dealers (rv_dealers)</item>
-		<item>Smog Check Stations (smog_check_stations)</item>
-		<item>Tires (tires)</item>
-		<item>Towing (towing)</item>
-		<item>Truck Rental (truck_rental)</item>
-		<item>Windshield Installation and Repair (windshieldinstallrepair)</item>
-		*/
 	}
 
 	private static void addItem(DummyItem item) {
