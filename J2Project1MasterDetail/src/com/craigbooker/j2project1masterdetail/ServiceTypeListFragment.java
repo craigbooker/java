@@ -20,39 +20,22 @@ import com.craigbooker.j2project1masterdetail.dummy.DummyContent;
  */
 public class ServiceTypeListFragment extends ListFragment {
 
-	/**
-	 * The serialization (saved instance state) Bundle key representing the
-	 * activated item position. Only used on tablets.
-	 */
+	/* The serialization (saved instance state) Bundle key representing the activated item position. Only used on tablets.*/
 	private static final String STATE_ACTIVATED_POSITION = "activated_position";
 
-	/**
-	 * The fragment's current callback object, which is notified of list item
-	 * clicks.
-	 */
+	/* The fragment's current callback object, which is notified of list item clicks. */
 	private Callbacks mCallbacks = sDummyCallbacks;
 
-	/**
-	 * The current activated item position. Only used on tablets.
-	 */
+	/* The current activated item position. Only used on tablets. */
 	private int mActivatedPosition = ListView.INVALID_POSITION;
 
-	/**
-	 * A callback interface that all activities containing this fragment must
-	 * implement. This mechanism allows activities to be notified of item
-	 * selections.
-	 */
+	/* callback interface, all activities containing this fragment must implement. This mechanism allows activities to be notified of item selections. */
 	public interface Callbacks {
-		/**
-		 * Callback for when an item has been selected.
-		 */
+		/* Callback for when an item has been selected. */
 		public void onItemSelected(String id);
 	}
 
-	/**
-	 * A dummy implementation of the {@link Callbacks} interface that does
-	 * nothing. Used only when this fragment is not attached to an activity.
-	 */
+	/*  A dummy implementation of the {@link Callbacks} interface that does nothing. Used only when this fragment is not attached to an activity.*/
 	private static Callbacks sDummyCallbacks = new Callbacks() {
 		@Override
 		public void onItemSelected(String id) {
