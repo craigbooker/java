@@ -39,9 +39,7 @@ public class ServiceTypeDetailActivity extends FragmentActivity {
 			// using a fragment transaction.
 			Bundle arguments = new Bundle();
 			arguments.putString(
-					ServiceTypeDetailFragment.ARG_ITEM_ID,
-					getIntent().getStringExtra(
-							ServiceTypeDetailFragment.ARG_ITEM_ID));
+					ServiceTypeDetailFragment.ARG_ITEM_ID,getIntent().getStringExtra(ServiceTypeDetailFragment.ARG_ITEM_ID));
 			ServiceTypeDetailFragment fragment = new ServiceTypeDetailFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction().add(R.id.servicetype_detail_container, fragment).commit();
