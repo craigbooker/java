@@ -42,10 +42,7 @@ public class ServiceTypeListFragment extends ListFragment {
 		}
 	};
 
-	/**
-	 * Mandatory empty constructor for the fragment manager to instantiate the
-	 * fragment (e.g. upon screen orientation changes).
-	 */
+	/* Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon screen orientation changes).*/
 	public ServiceTypeListFragment() {
 	}
 
