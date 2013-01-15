@@ -1,9 +1,10 @@
 package com.craigbooker.java2;
 
 import com.craigbooker.java2.R;
-import com.craigbooker.java2.ServiceTypeDetailActivity;
-import com.craigbooker.java2.ServiceTypeDetailFragment;
 import com.craigbooker.java2.MainListFragment;
+import com.craigbooker.java2.MainDetailActivity;
+import com.craigbooker.java2.MainDetailFragment;
+
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -18,14 +19,14 @@ public class Main extends FragmentActivity implements MainListFragment.Callbacks
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_main_list);
 		
-		if (findViewById(R.id.servicetype_detail_container) != null) {
+		if (findViewById(R.id.main_detail_container) != null) {
 			mTwoPane = true;
 			
 			// In two-pane mode, list items should be given the 'activated' state when touched.
 			((MainListFragment) getSupportFragmentManager()
-								.findFragmentById(R.id.servicetype_list))
+								.findFragmentById(R.id.main_list))
 								.setActivateOnItemClick(true);
 		}	
 	}
@@ -38,10 +39,7 @@ public class Main extends FragmentActivity implements MainListFragment.Callbacks
 	}
 
 
-	/**
-	 * Callback method from {@link ServiceTypeListFragment.Callbacks} indicating
-	 * that the item with the given ID was selected.
-	 */
+	/** Callback method from {@link MainListFragment.Callbacks} indicating that the item with the given ID was selected. */
 	@Override
 	public void onItemSelected(String id) {
 		if (mTwoPane) {
@@ -49,18 +47,17 @@ public class Main extends FragmentActivity implements MainListFragment.Callbacks
 		// adding or replacing the detail fragment using a
 		// fragment transaction.
 		Bundle arguments = new Bundle();
-		arguments.putString(ServiceTypeDetailFragment.ARG_ITEM_ID, id);
-		ServiceTypeDetailFragment fragment = new ServiceTypeDetailFragment();
+		arguments.putString(MainDetailFragment.ARG_ITEM_ID, id);
+		MainDetailFragment fragment = new MainDetailFragment();
 		fragment.setArguments(arguments);
 		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.servicetype_detail_container, fragment)
+				.replace(R.id.main_detail_container, fragment)
 				.commit();
 
 	} else {
-		// In single-pane mode, simply start the detail activity
-		// for the selected item ID.
-		Intent detailIntent = new Intent(this, ServiceTypeDetailActivity.class);
-		detailIntent.putExtra(ServiceTypeDetailFragment.ARG_ITEM_ID, id);
+		// In single-pane mode, simply start the detail activity for the selected item ID.
+		Intent detailIntent = new Intent(this, MainDetailActivity.class);
+		detailIntent.putExtra(MainDetailFragment.ARG_ITEM_ID, id);
 		startActivity(detailIntent);
 		}
 	}
