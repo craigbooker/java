@@ -1,7 +1,9 @@
 package com.craigbooker.autoservicefinder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,11 +40,16 @@ public class ServiceCategoryDetailFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 
 		if (getArguments().containsKey(ARG_ITEM_ID)) {
-			// Load the dummy content specified by the fragment
-			// arguments. In a real-world scenario, use a Loader
-			// to load content from a content provider.
-			mItem = DummyContent.ITEM_MAP.get(getArguments().getString(
-					ARG_ITEM_ID));
+			// Load the dummy content specified by the fragment arguments. In a real-world scenario, use a Loader to load content from a content provider.
+			mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+			String argString = mItem.toString();
+			Log.e("TEST OUTPUT:", argString);
+			
+			// In single-pane mode, simply start the detail activity for the selected item ID.
+						Intent yelpIntent = new Intent(this, ServiceCategoryDetailActivity.class);
+						yelpIntent.putExtra(ServiceCategoryDetailFragment.ARG_ITEM_ID, argString);
+						startActivity(yelpIntent);
+			
 		}
 	}
 

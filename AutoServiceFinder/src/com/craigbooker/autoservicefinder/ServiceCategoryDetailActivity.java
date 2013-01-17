@@ -33,8 +33,7 @@ public class ServiceCategoryDetailActivity extends FragmentActivity {
 			ServiceCategoryDetailFragment fragment = new ServiceCategoryDetailFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.servicecategory_detail_container, fragment)
-					.commit();
+					.add(R.id.servicecategory_detail_container, fragment).commit();
 		}
 	}
 

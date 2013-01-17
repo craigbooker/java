@@ -114,8 +114,7 @@ public class ServiceCategoryListFragment extends ListFragment {
 			long id) {
 		super.onListItemClick(listView, view, position, id);
 
-		// Notify the active callbacks interface (the activity, if the
-		// fragment is attached to one) that an item has been selected.
+		// Notify the active callbacks interface (the activity, if the fragment is attached to one) that an item has been selected.
 		mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
 	}
 
@@ -132,8 +131,7 @@ public class ServiceCategoryListFragment extends ListFragment {
 	public void setActivateOnItemClick(boolean activateOnItemClick) {
 		// When setting CHOICE_MODE_SINGLE, ListView will automatically give items the 'activated' state when touched.
 		getListView().setChoiceMode(
-				activateOnItemClick ? ListView.CHOICE_MODE_SINGLE
-						: ListView.CHOICE_MODE_NONE);
+				activateOnItemClick ? ListView.CHOICE_MODE_SINGLE: ListView.CHOICE_MODE_NONE);
 	}
 
 	private void setActivatedPosition(int position) {
