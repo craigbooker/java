@@ -12,7 +12,7 @@ import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 
-import com.craigbooker.external.yelp.YelpV2API;
+import com.craigbooker.external.yelp.v2.YelpV2API;
 import com.craigbooker.external.yelp.v2.YelpSearchResult;
 import com.craigbooker.lib.FileStuff;
 
@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
@@ -50,7 +51,9 @@ public class Main  extends Activity {
 	 String token = "BAr8f7RjszQjh3_4A8VrCI1TjDLw5uMt";
 	 String tokenSecret = "mPgSRUOXlheC1c5Zr8I7-I3dVj0";
 	 String baseURL = "http://api.yelp.com/v2/search"; 
-	
+
+	 
+	 
 	// Some example values to pass into the Yelp search service.
 	String lat = "35.667196";
 	String lng = "-97.407243";
@@ -60,7 +63,7 @@ public class Main  extends Activity {
 	String rawData = "";
 	
 	
-	
+	//ADD SEARCH HANDLER
 	private Handler searchHandler = new Handler(){
 		public void handleMessage(Message message){
 			Object path = message.obj;
@@ -81,8 +84,18 @@ public class Main  extends Activity {
 		} catch(JSONException e){
 			Log.e("JSON ERROR", e.toString());
 		}
-	}
+	};
 	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.formfrag);
+		
+		_context = this;
+		_favorites = FileStuff.readStringFile(this, "favorites", true);
+		_history = getHistory();
+		Log.i("HISTORY READ", _history.toString());
+		
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
@@ -97,25 +110,18 @@ public class Main  extends Activity {
 			data = null;
 		}
 		return data;
-	}
+	};
 	
 	Button favButton = (Button) findViewById(R.id.favButton);
-		// ADD FAVORITE BUTTON
-		Button addFav = (Button) findViewById(R.id.addFavsButton);
-		addFav.setOnClickListener(new OnClickListener() {
-			@Overrride
-			public void onClick(View v){
-				String currentCategory = ((TextView) findViewById(R.id.searchField)).getText().toString();
-				if(currentCategory != null){
-					if(_favorites.length() > 0){
-						_favorites = _favorites.concat("," +currentCategory);
-					} else {
-						_favorites = currentCategory;
-					}
-					FileStuff.storeStringFile(_context, "favorites", _favorites, true);
-				}
-			}
-		});
+	favButton.setOnClickListener(new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Intent i = new Intent(_context, Favorites.class);
+			startActivityForResult(i, REQUEST_CODE);
+		}
+	});
+	
+
 	}
 	@SuppressWarnings("unchecked")
 	private HashMap<String, String> getHistory(){

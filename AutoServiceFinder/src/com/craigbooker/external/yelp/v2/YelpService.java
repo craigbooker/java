@@ -8,17 +8,17 @@ import org.scribe.oauth.OAuthService;
 
 import android.util.Log;
 
-import com.craigbooker.external.yelp.YelpV2API;
+import com.craigbooker.external.yelp.v2.YelpV2API;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
 public class YelpService {
-        public final static String CONSUMER_KEY = "8hYTZBUuiTxOwmTjQtFnTw";
-        public final static String CONSUMER_SECRET = "2mTa_1uggZVU2aWoIWQ8VViSC6s";
-        public final static String TOKEN = "BAr8f7RjszQjh3_4A8VrCI1TjDLw5uMt";
-        public final static String TOKEN_SECRET = "mPgSRUOXlheC1c5Zr8I7-I3dVj0";
+    public final static String CONSUMER_KEY = "8hYTZBUuiTxOwmTjQtFnTw";
+    public final static String CONSUMER_SECRET = "2mTa_1uggZVU2aWoIWQ8VViSC6s";
+    public final static String TOKEN = "BAr8f7RjszQjh3_4A8VrCI1TjDLw5uMt";
+    public final static String TOKEN_SECRET = "mPgSRUOXlheC1c5Zr8I7-I3dVj0";
 
         
         public final static int SEARCH_RADIUS = 2500;

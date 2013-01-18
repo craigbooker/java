@@ -1,6 +1,9 @@
 package com.craigbooker.autoservicefinder;
 
+import com.craigbooker.lib.FileStuff;
+
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,20 +24,22 @@ public class FormFragment extends Fragment {
 		
 		LinearLayout view = (LinearLayout) inflater.inflate(R.layout.form, container, false);
 		
-		Button searchButton = (Button) findViewById(R.id.searchButton);
+		//ADD SEARCH HANDLER
+		Button searchButton = (Button) getActivity().findViewById(R.id.searchButton);
 		searchButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				EditText field = (EditText) findViewById(R.id.searchField);
-				String radius = field.getText().toString();
-				field.setText(radius);
-				InputMethodManager imm = (InputMethodManager)getSystemSErvice(Context.INPUT_METHOD_SERVICE);
+				EditText field = (EditText) getActivity().findViewById(R.id.searchField);
+				String term = field.getText().toString();
+				field.setText(term);
+				InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(field.getWindowToken(), 0);
-				doSearch(radius);
+				getSearch(term);
 			}
 		});
 		
-		Button favButton = (Button) findViewById(R.id.favButton);
+		//GO TO FAVORITES BUTTON
+		Button favButton = (Button) getActivity().findViewById(R.id.favButton);
 		favButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -43,6 +48,23 @@ public class FormFragment extends Fragment {
 			}
 		});
 		
+		// ADD FAVORITE BUTTON
+		Button addFav = (Button) getActivity().findViewById(R.id.addFavsButton);
+		addFav.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v){
+				String currentCategory = ((TextView) getActivity().findViewById(R.id.searchField)).getText().toString();
+				if(currentCategory != null){
+					if(_favorites.length() > 0){
+						_favorites = _favorites.concat("," +currentCategory);
+					} else {
+						_favorites = currentCategory;
+					}
+					FileStuff.storeStringFile(_context, "favorites", _favorites, true);
+				}
+			}
+		});
+		
 		return view;
-	}
+	};
 }

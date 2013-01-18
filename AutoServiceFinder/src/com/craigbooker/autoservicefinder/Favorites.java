@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,7 +24,7 @@ import android.widget.Spinner;
 public class Favorites extends Activity {
 
 	Context _context;
-	ArrayList<String> _categories = new ArrayList<String>();
+	ArrayList<String> _terms = new ArrayList<String>();
 	String _selected;
 	
 	public void onCreate(Bundle savedInstance){
@@ -32,14 +33,14 @@ public class Favorites extends Activity {
 		
 		_context = this;
 		
-		//Get categories FROM FILE
+		//Get TERMS FROM FILE
 		String favString = FileStuff.readStringFile(this, "favorites", true);
 		String[] favArray = favString.split(",");
-		_categories = new ArrayList<String>Arrays.asList(favArray);_
+		_terms = new ArrayList<String>Arrays.asList(favArray);_
 		
 		//CREATE LISTVIEW
 		ListView list = (ListView) findViewById(R.id.favlist);
-		ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(_context, android.R.layout.simple_expandable_list_item_1, _categories);
+		ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(_context, android.R.layout.simple_expandable_list_item_1, _terms);
 		listAdapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
 		list.setAdapter(listAdapter);
 		
@@ -52,7 +53,6 @@ public class Favorites extends Activity {
 			};
 		});
 		
-	
 		// Cancel Button
 		Button cancel = (Button) findViewById(R.id.cancelButton);
 		cancel.setOnClickListener(new OnClickListener() {
@@ -63,6 +63,7 @@ public class Favorites extends Activity {
 			}	
 		});
 	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_favorites, menu);
@@ -72,7 +73,7 @@ public class Favorites extends Activity {
 	@Override
 	public void finish(){
 		Intent data = new Intent();
-		data.putExtra("category", _selected);
+		data.putExtra("term", _selected);
 		setResult(RESULT_OK, data);
 		super.finish();	
 	}
