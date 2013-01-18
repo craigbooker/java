@@ -8,5 +8,33 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:orientation="horizontal">
-	</LinearLayout>    
+	    <EditText 
+	        android:id="@+id/searchField"
+	        android:layout_width="fill_parent"
+	        android:layout_weight="1"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/category_code"/>
+	    <Button 
+	        android:id="@+id/searchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/go"/>
+        <Button 
+            android:id="@+id/favButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/favs"/>	    
+	</LinearLayout>
+	
+	<GridLayout 
+	    android:id="@+id/searchdata">
+	    <TextView 
+	        android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+	    
+	</GridLayout> 
+	<Button 
+	    android:id="@+id/addFavsButton"  
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content" />	    
 </LinearLayout>

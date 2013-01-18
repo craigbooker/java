@@ -10,9 +10,11 @@ import com.craigbooker.lib.FileStuff;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
+import android.view.Menu;
 
 public class Main  extends Activity {
 
@@ -58,6 +60,8 @@ public class Main  extends Activity {
 		}
 		return data;
 	}
+	
+	Button favButton = (Button) findViewById(R.id.favButton);
 		// ADD FAVORITE BUTTON
 		Button addFav = (Button) findViewById(R.id.addFavsButton);
 		addFav.setOnClickListener(new OnClickListener() {
