@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.craigbooker.autoservicefinder.YelpFragment;
 
 import com.craigbooker.autoservicefinder.dummy.DummyContent;
 
@@ -16,7 +17,7 @@ import com.craigbooker.autoservicefinder.dummy.DummyContent;
  * is either contained in a {@link ServiceCategoryListActivity} in two-pane mode
  * (on tablets) or a {@link ServiceCategoryDetailActivity} on handsets.
  */
-public class ServiceCategoryDetailFragment extends Fragment {
+public class ServiceCategoryDetailFragment extends ListFragment {
 	/**
 	 * The fragment argument representing the item ID that this fragment
 	 * represents.
@@ -46,7 +47,7 @@ public class ServiceCategoryDetailFragment extends Fragment {
 			Log.e("TEST OUTPUT:", argString);
 			
 			// In single-pane mode, simply start the detail activity for the selected item ID.
-						Intent yelpIntent = new Intent(this, ServiceCategoryDetailActivity.class);
+						Intent yelpIntent = new Intent(this, YelpFragment.class);
 						yelpIntent.putExtra(ServiceCategoryDetailFragment.ARG_ITEM_ID, argString);
 						startActivity(yelpIntent);
 			

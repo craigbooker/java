@@ -124,7 +124,7 @@ public class ServiceCategoryListFragment extends ListFragment {
 		if (mActivatedPosition != ListView.INVALID_POSITION) {
 			// Serialize and persist the activated item position.
 			outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
-		}
+		} 
 	}
 
 	/* Turns on activate-on-click mode. When this mode is on, list items will be given the 'activated' state when touched.*/
