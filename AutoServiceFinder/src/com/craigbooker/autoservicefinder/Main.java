@@ -26,6 +26,15 @@ import android.os.Messenger;
 import android.util.Log;
 import android.view.Menu;
 
+//OAuth and Scribe
+import org.scribe.builder.ServiceBuilder;
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
+import org.scribe.model.Token;
+import org.scribe.model.Verb;
+import org.scribe.oauth.OAuthService;
+
+
 public class Main  extends Activity {
 
 	Context _context;
