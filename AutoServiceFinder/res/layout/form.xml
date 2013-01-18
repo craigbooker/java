@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="@string/searchButtonText"/>
         <Button 
-            android:id="@+id/historyButton"
+            android:id="@+id/goLogButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/favs"/>	    
@@ -59,8 +59,8 @@
             android:layout_height="wrap_content"/>
     </GridLayout> 
 	<Button 
-	    android:id="@+id/addHistoryButton"  
+	    android:id="@+id/addToLogButton"  
 	    android:layout_width="match_parent"
         android:layout_height="wrap_content" 
-        android:text="Add To Search History"/>	    
+        android:text="Add To Search Log"/>	    
 </LinearLayout>

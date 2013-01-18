@@ -1,5 +1,5 @@
 package com.craigbooker.autoservicefinder;
 
-public class SearchHistoryFragment {
+public class SearchLogFragment {
 
 }

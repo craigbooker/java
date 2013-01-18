@@ -21,26 +21,27 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-public class SearchHistory extends Activity {
+public class SearchLog extends Activity {
 
 	Context _context;
-	ArrayList<String> _terms = new ArrayList<String>();
+	ArrayList<String> _searchTerms = new ArrayList<String>();
 	String _selected;
 	
+	@Override
 	public void onCreate(Bundle savedInstance){
 		super.onCreate(savedInstance);
-		setContextView(R.layout.search_history);
+		setContextView(R.layout.searchloglist);
 		
 		_context = this;
 		
-		//Get TERMS FROM FILE
-		String searchTermHistoryString = FileStuff.readStringFile(this, "searchTermHistory", true);
-		String[] searchTermArray = searchTermHistoryString.split(",");
-		_terms = new ArrayList<String>Arrays.asList(searchTermArray);_
+		//GET TERMS FROM FILE
+		String searchLogString = FileStuff.readStringFile(this, "searchLog", true);
+		String[] searchLogArray = searchLogString.split(",");
+		_searchTerms = new ArrayList<String>Arrays.asList(searchLogArray);
 		
 		//CREATE LISTVIEW
-		ListView list = (ListView) findViewById(R.id.searchhistorylist);
-		ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(_context, android.R.layout.simple_expandable_list_item_1, _terms);
+		ListView list = (ListView) findViewById(R.id.searchloglist);
+		ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(_context, android.R.layout.simple_expandable_list_item_1, _searchTerms);
 		listAdapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
 		list.setAdapter(listAdapter);
 		

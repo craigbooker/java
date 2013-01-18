@@ -66,91 +66,6 @@ public class Main extends Activity implements FormFragment.FormListener {
 	String rawData = "";
 	
 	
-	//ADD SEARCH HANDLER
-	private Handler searchHandler = new Handler(){
-		public void handleMessage(Message message){
-			Object path = message.obj;
-			if(message.arg1 == RESULT_OK && path != null) {
-				JSONObject json = buildJSON((String) message.obj);
-				try{
-					JSONObject results = json.getJSONObject("query").getJSONObject("results").getJSONObject("row");
-				} catch (JSONException e){
-					Log.e("JSON Exception", "Error parsing repsonse");
-				}
-			}
-		}
-	};
-	
-	public void updateData(JSONObject data){
-		try{
-			((TextView) findViewById(R.id.data_searchTerm)).setText(data.getString("searchTerm"));
-			((TextView) findViewById(R.id.data_numberResults)).setText(data.getString("numberResults"));
-			((TextView) findViewById(R.id.data_searchRadius)).setText(data.getString("searchRadius"));
-			((TextView) findViewById(R.id.data_longitude)).setText(data.getString("longitude"));
-			((TextView) findViewById(R.id.data_latitude)).setText(data.getString("latitude"));
-		} catch(JSONException e){
-			Log.e("JSON ERROR", e.toString());
-		}
-	};
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.formfrag);
-		
-		_context = this;
-		_searchLog = FileStuff.readStringFile(this, "searchLog", true);
-		_history = getHistory();
-		Log.i("HISTORY READ", _history.toString());
-		
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_main, menu);
-		return true;
-	}
-	
-	private JSONObject buildJSON(String jsonString){
-		JSONObject data;
-		try{
-			
-		} catch (JSONException e){
-			data = null;
-		}
-		return data;
-	};
-	
-	Button historyButton = (Button) findViewById(R.id.historyButton);
-	historyButton.setOnClickListener(new OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			Intent i = new Intent(_context, SearchHistory.class);
-			startActivityForResult(i, REQUEST_CODE);
-		}
-	});
-	
-
-	}
-	@SuppressWarnings("unchecked")
-	private HashMap<String, String> getHistory(){
-		Object stored = FileStuff.readObjectFile(_context, "history", false);
-		
-		HashMap<String, String> history;
-		if(stored == null){
-			Log.i("HISTORY", "NO HISTORY FILE FOUND");
-			history = new HashMap<String, String>();
-		} else {
-			history = (HashMap<String, String>) stored;
-		}
-		return history;
-	}
-	
-	private void getSearch(String category){
-		Messenger messenger = new Messenger(searchHandler);
-		Intent intent = new Intent(_context, GetYelpSearch.class);
-		intent.putExtra("searchTerm", searchTerm);
-		intent.putExtra("messenger", messenger);
-		startService(intent);
-	}
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	SearchRequest
 	
@@ -170,33 +85,99 @@ public class Main extends Activity implements FormFragment.FormListener {
 			//Log.i("RAW DATA - IN SEARCH REQUEST:", rawData);
 			return rawData;
 		}	
+	};
+
+
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.formfrag);
+		
+		_context = this;
+		_searchLog = FileStuff.readStringFile(this, "searchLog", true);
+		_history = getHistory();
+		Log.i("HISTORY READ", _history.toString());
+		
+		public void updateData(JSONObject data){
+			try{
+				((TextView) findViewById(R.id.data_searchTerm)).setText(data.getString("searchTerm"));
+				((TextView) findViewById(R.id.data_numberResults)).setText(data.getString("numberResults"));
+				((TextView) findViewById(R.id.data_searchRadius)).setText(data.getString("searchRadius"));
+				((TextView) findViewById(R.id.data_longitude)).setText(data.getString("longitude"));
+				((TextView) findViewById(R.id.data_latitude)).setText(data.getString("latitude"));
+			} catch(JSONException e){
+				Log.e("JSON ERROR", e.toString());
+			}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_main, menu);
+		return true;
+	}
+	
+
+	
+	Button historyButton = (Button) findViewById(R.id.historyButton);
+	historyButton.setOnClickListener(new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Intent i = new Intent(_context, SearchHistory.class);
+			startActivityForResult(i, REQUEST_CODE);
+		}
+	});
+	
+
+	}
+	@SuppressWarnings("unchecked")
+	private HashMap<String, String> getHistory(){
+		Object stored = FileStuff.readObjectFile(_context, "storedHistory", false);
+		
+		HashMap<String, String> history;
+		if(stored == null){
+			Log.i("HISTORY", "NO HISTORY FILE FOUND");
+			history = new HashMap<String, String>();
+		} else {
+			history = (HashMap<String, String>) stored;
+		}
+		return history;
+	}
+	
+	private void getSearch(String searchTerm){
+		Messenger messenger = new Messenger(searchHandler);
+		Intent intent = new Intent(_context, GetYelpSearch.class);
+		intent.putExtra("searchTerm", searchTerm);
+		intent.putExtra("messenger", messenger);
+		startService(intent);
+	}
+
 		
 	@Override
 	protected void onActivityResult(){
-		if(resultCode == RESULT_OK && requestCode = REQUEST_CODE){
-			if(data.hasExtra("term")){
-				String category = data.getExtras().getString("term");
-				((EditText) findViewById(R.id.searchTermField)).setText(searchTerm);
-				getSearch(category);
+		if(resultCode == RESULT_OK && requestCode == REQUEST_CODE){
+			if(data.hasExtra("searchTerm")){
+				String sTerm = data.getExtras().getString("searchTerm");
+				((EditText) findViewById(R.id.searchTermField)).setText(sTerm);
+				getSearch(sTerm);
 			}
 		}
-	};
-}
+	}
+
 	//FORM FRAGMENT METHODS
-	
 	@Override
-	public void onSearchTerm(String searchTerm) {
+	public void onSearch(String searchTerm) {
 		getSearch(searchTerm);
 	}
 
 	@Override
-	public void onSearchTermList() {
-		Intent i = new Intent(_context, SearchHistory.class);
+	public void onSearchLogList() {
+		Intent i = new Intent(_context, SearchLog.class);
 		startActivityForResult(i, REQUEST_CODE);
 	}
 
 	@Override
-	public void onAddSearchTerm() {
+	public void onAddToSearchLog() {
 		String currentSearchTerm = ((TextView) findViewById(R.id.searchTermField)).getText().toString();
 		if(currentSearchTerm != null){
 			if(_searchLog.length() > 0){
@@ -204,7 +185,7 @@ public class Main extends Activity implements FormFragment.FormListener {
 			} else {
 				_searchLog = currentSearchTerm;
 			}
-			FileStuff.storeStringFile(_context, "history", _searchLog, true);
+			FileStuff.storeStringFile(_context, "storedHistory", _searchLog, true);
 		}
 	};
 	

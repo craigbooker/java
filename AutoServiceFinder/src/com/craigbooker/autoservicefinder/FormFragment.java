@@ -21,9 +21,9 @@ public class FormFragment extends Fragment {
 	private FormListener listener;
 	
 	public interface FormListener{
-		public void onSearchTerm(String term);
-		public void onSearchTermList();
-		public void onAddSearchTerm();
+		public void onSearch(String searchTerm);
+		public void onSearchLog();
+		public void onAddToLog();
 		
 	}
 	@Override
@@ -42,26 +42,25 @@ public class FormFragment extends Fragment {
 				field.setText(searchTerm);
 				InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(field.getWindowToken(), 0);
-				listener.onSearchTerm(searchTerm);
+				listener.onSearch(searchTerm);
 			}
 		});
 		
-		//GO TO HISTORY BUTTON
-		Button goHistoryButton = (Button) view.findViewById(R.id.historyButton);
+		//GO TO LOG BUTTON
+		Button goLogButton = (Button) view.findViewById(R.id.goLogButton);
 		goHistoryButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				listener.onSearchTermList();
+				listener.onSearchLog();
 			}
 		});
 		
-		// ADD HISTORY BUTTON
-		Button addHistoryButton = (Button) view.findViewById(R.id.addHistoryButton);
+		// ADD TO LOG BUTTON
+		Button addLogButton = (Button) view.findViewById(R.id.addToLogButton);
 		addHistoryButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v){
-				listener.onAddSearchTerm();
-
+				listener.onAddToLog();
 			}
 		});
 		
