@@ -58,7 +58,23 @@ public class Main  extends Activity {
 		}
 		return data;
 	}
-	
+		// ADD FAVORITE BUTTON
+		Button addFav = (Button) findViewById(R.id.addFavsButton);
+		addFav.setOnClickListener(new OnClickListener() {
+			@Overrride
+			public void onClick(View v){
+				String currentCategory = ((TextView) findViewById(R.id.searchField)).getText().toString();
+				if(currentCategory != null){
+					if(_favorites.length() > 0){
+						_favorites = _favorites.concat("," +currentCategory);
+					} else {
+						_favorites = currentCategory;
+					}
+					FileStuff.storeStringFile(_context, "favorites", _favorites, true);
+				}
+			}
+		});
+	}
 	@SuppressWarnings("unchecked")
 	private HashMap<String, String> getHistory(){
 		Object stored = FileStuff.readObjectFile(_context, "history", false);
