@@ -9,33 +9,58 @@
 	    android:layout_height="wrap_content"
 	    android:orientation="horizontal">
 	    <EditText 
-	        android:id="@+id/searchField"
+	        android:id="@+id/searchTermField"
 	        android:layout_width="fill_parent"
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content"
-	        android:hint="@string/category_code"/>
+	        android:hint="@string/search_term"/>
 	    <Button 
 	        android:id="@+id/searchButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/go"/>
+            android:text="@string/searchButtonText"/>
         <Button 
-            android:id="@+id/favButton"
+            android:id="@+id/historyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/favs"/>	    
 	</LinearLayout>
 	
 	<GridLayout 
-	    android:id="@+id/searchdata">
+	    android:id="@+id/searchdata"
+	    android:layout_width="match_parent"
+	    android:layout_height="0dip"
+        android:layout_weight="1"
+        android:columnCount="2">
 	    <TextView 
 	        android:layout_width="wrap_content"
-			android:layout_height="wrap_content"/>
-	    
-	</GridLayout> 
+			android:layout_height="wrap_content"
+			android:text="Search Term"
+			/>
+	    <TextView
+	        android:id="@+id/data_searchTerm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+	    <TextView
+            android:id="@+id/data_numberResults"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/data_searchRadius"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/data_longitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>	           
+        <TextView
+            android:id="@+id/data_latitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </GridLayout> 
 	<Button 
-	    android:id="@+id/addFavsButton"  
+	    android:id="@+id/addHistoryButton"  
 	    android:layout_width="match_parent"
         android:layout_height="wrap_content" 
-        android:text="Add Favorite"/>	    
+        android:text="Add To Search History"/>	    
 </LinearLayout>

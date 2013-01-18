@@ -21,7 +21,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-public class Favorites extends Activity {
+public class SearchHistory extends Activity {
 
 	Context _context;
 	ArrayList<String> _terms = new ArrayList<String>();
@@ -29,17 +29,17 @@ public class Favorites extends Activity {
 	
 	public void onCreate(Bundle savedInstance){
 		super.onCreate(savedInstance);
-		setContextView(R.layout.favorites);
+		setContextView(R.layout.search_history);
 		
 		_context = this;
 		
 		//Get TERMS FROM FILE
-		String favString = FileStuff.readStringFile(this, "favorites", true);
-		String[] favArray = favString.split(",");
-		_terms = new ArrayList<String>Arrays.asList(favArray);_
+		String searchTermHistoryString = FileStuff.readStringFile(this, "searchTermHistory", true);
+		String[] searchTermArray = searchTermHistoryString.split(",");
+		_terms = new ArrayList<String>Arrays.asList(searchTermArray);_
 		
 		//CREATE LISTVIEW
-		ListView list = (ListView) findViewById(R.id.favlist);
+		ListView list = (ListView) findViewById(R.id.searchhistorylist);
 		ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(_context, android.R.layout.simple_expandable_list_item_1, _terms);
 		listAdapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
 		list.setAdapter(listAdapter);
@@ -66,7 +66,7 @@ public class Favorites extends Activity {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_favorites, menu);
+		getMenuInflater().inflate(R.menu.activity_searchhistory, menu);
 		return true;
 	}
 	

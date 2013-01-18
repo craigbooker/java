@@ -26,6 +26,9 @@ import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 //OAuth and Scribe
 import org.scribe.builder.ServiceBuilder;
@@ -36,11 +39,11 @@ import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 
 
-public class Main  extends Activity {
+public class Main extends Activity implements FormFragment.FormListener {
 
 	Context _context;
 	HashMap<String, String> _history;
-	String _favorites;
+	String _searchLog;
 	static final int REQUEST_CODE = 0;
 	
 	// OAuth Stuff
@@ -80,7 +83,11 @@ public class Main  extends Activity {
 	
 	public void updateData(JSONObject data){
 		try{
-			
+			((TextView) findViewById(R.id.data_searchTerm)).setText(data.getString("searchTerm"));
+			((TextView) findViewById(R.id.data_numberResults)).setText(data.getString("numberResults"));
+			((TextView) findViewById(R.id.data_searchRadius)).setText(data.getString("searchRadius"));
+			((TextView) findViewById(R.id.data_longitude)).setText(data.getString("longitude"));
+			((TextView) findViewById(R.id.data_latitude)).setText(data.getString("latitude"));
 		} catch(JSONException e){
 			Log.e("JSON ERROR", e.toString());
 		}
@@ -92,7 +99,7 @@ public class Main  extends Activity {
 		setContentView(R.layout.formfrag);
 		
 		_context = this;
-		_favorites = FileStuff.readStringFile(this, "favorites", true);
+		_searchLog = FileStuff.readStringFile(this, "searchLog", true);
 		_history = getHistory();
 		Log.i("HISTORY READ", _history.toString());
 		
@@ -112,11 +119,11 @@ public class Main  extends Activity {
 		return data;
 	};
 	
-	Button favButton = (Button) findViewById(R.id.favButton);
-	favButton.setOnClickListener(new OnClickListener() {
+	Button historyButton = (Button) findViewById(R.id.historyButton);
+	historyButton.setOnClickListener(new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			Intent i = new Intent(_context, Favorites.class);
+			Intent i = new Intent(_context, SearchHistory.class);
 			startActivityForResult(i, REQUEST_CODE);
 		}
 	});
@@ -138,9 +145,9 @@ public class Main  extends Activity {
 	}
 	
 	private void getSearch(String category){
-		Messenger messenger = new Messenger(quoteHandler);
+		Messenger messenger = new Messenger(searchHandler);
 		Intent intent = new Intent(_context, GetYelpSearch.class);
-		intent.putExtra("category", category);
+		intent.putExtra("searchTerm", searchTerm);
 		intent.putExtra("messenger", messenger);
 		startService(intent);
 	}
@@ -166,12 +173,39 @@ public class Main  extends Activity {
 		
 	@Override
 	protected void onActivityResult(){
-		if(resultCode == RESULT_OK && requestCode = REQUEST CODE){
-			if(data.hasExtra("category")){
-				String category = data.getExtras().getString("category");
-				((EditText) findViewById(R.id.searchField)).setText(category);
+		if(resultCode == RESULT_OK && requestCode = REQUEST_CODE){
+			if(data.hasExtra("term")){
+				String category = data.getExtras().getString("term");
+				((EditText) findViewById(R.id.searchTermField)).setText(searchTerm);
 				getSearch(category);
 			}
 		}
 	};
+}
+	//FORM FRAGMENT METHODS
+	
+	@Override
+	public void onSearchTerm(String searchTerm) {
+		getSearch(searchTerm);
+	}
+
+	@Override
+	public void onSearchTermList() {
+		Intent i = new Intent(_context, SearchHistory.class);
+		startActivityForResult(i, REQUEST_CODE);
+	}
+
+	@Override
+	public void onAddSearchTerm() {
+		String currentSearchTerm = ((TextView) findViewById(R.id.searchTermField)).getText().toString();
+		if(currentSearchTerm != null){
+			if(_searchLog.length() > 0){
+				_searchLog = _searchLog.concat("," +currentSearchTerm);
+			} else {
+				_searchLog = currentSearchTerm;
+			}
+			FileStuff.storeStringFile(_context, "history", _searchLog, true);
+		}
+	};
+	
 }

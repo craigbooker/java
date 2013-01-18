@@ -2,9 +2,10 @@
 <resources>
     <string name="app_name">Auto Service Finder</string>
     <string name="title_servicecategory_detail">ServiceCategory Detail</string>
-    <string name="category_code"></string>
-    <string name="go">Go</string>
+    <string name="search_term">Enter Term</string>
+    <string name="searchButtonText">Go</string>
     <string name="favs">Favorites</string>
+    
     <string-array name="businessNames">
         <item>Kennedy Tire \u0026 Auto Service</item>
         <item>Dwains Automotive</item>
