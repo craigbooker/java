@@ -4,9 +4,14 @@ import java.util.HashMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.craigbooker.lib.FileStuff;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Message;
+import android.os.Messenger;
 import android.util.Log;
 
 public class Main  extends Activity {
@@ -44,8 +49,36 @@ public class Main  extends Activity {
 		return true;
 	}
 	
-	private void getSearch(String category){
+	private JSONObject buildJSON(String jsonString){
+		JSONObject data;
+		try{
+			
+		} catch (JSONException e){
+			data = null;
+		}
+		return data;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private HashMap<String, String> getHistory(){
+		Object stored = FileStuff.readObjectFile(_context, "history", false);
 		
+		HashMap<String, String> history;
+		if(stored == null){
+			Log.i("HISTORY", "NO HISTORY FILE FOUND");
+			history = new HashMap<String, String>();
+		} else {
+			history = (HashMap<String, String>) stored;
+		}
+		return history;
+	}
+	
+	private void getSearch(String category){
+		Messenger messenger = new Messenger(quoteHandler);
+		Intent intent = new Intent(_context, GetYelpSearch.class);
+		intent.putExtra("category", category);
+		intent.putExtra("messenger", messenger);
+		startService(intent);
 	}
 	
 	@Override
