@@ -1,9 +1,13 @@
 package com.craigbooker.autoservicefinder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import com.craigbooker.lib.FileStuff;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,15 +16,14 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.LinearLayout;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 public class Favorites extends Activity {
 
-	Button _add;
-	Button _remove;
-	Spinner _list;
 	Context _context;
-	ArrayList<String> _locations = new ArrayList<String>();
+	ArrayList<String> _categories = new ArrayList<String>();
+	String _selected;
 	
 	public void onCreate(Bundle savedInstance){
 		super.onCreate(savedInstance);
@@ -28,56 +31,49 @@ public class Favorites extends Activity {
 		
 		_context = this;
 		
-		
-		//Get ___ FROM FILE
+		//Get categories FROM FILE
+		String favString = FileStuff.readStringFile(this, "favorites", true);
+		String[] favArray = favString.split(",");
+		_categories = new ArrayList<String>Arrays.asList(favArray);_
 		
 		//CREATE LISTVIEW
+		ListView list = (ListView) findViewById(R.id.favlist);
+		ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(_context, android.R.layout.simple_expandable_list_item_1, _categories);
+		listAdapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+		list.setAdapter(listAdapter);
 		
 		//LIST INTERACTION
-		
-		LayoutParams lp;
-		
-		_locations.add("Select Saved Location");
-		_list = new Spinner(context);
-		lp = new LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f);
-		_list.setLayoutParams(lp);
-		ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(_context, android.R.layout.simple_spinner_item, _locations);
-		listAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-		_list.setAdapter(listAdapter);
-		_list.setOnItemSelectedListener(new OnItemSelectedListener() {
+		list.setOnItemClickListener(new AdapterView.onItemClickListener() {
 			@Override
-        	public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
-				Log.i("LOCATION SELECTED", parent.getItemAtPosition(pos).toString());
-			}
-			
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				
-				Log.i("LOCATION SELECTED", "NONE");
-            }
-			
+			public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
+				_selected = ((TextView) v).getText().toString();
+				finish();
+			};
 		});
-		updateFavorites();
 		
-		_add = new Button(_context);
-		_add.setText("+");
-		_remove = new Button(_context);
-		_remove.setText("-");
-		
-		this.addView(_list);
-		this.addView(_add);
-		this.addView(_remove);
-		
-		lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		this.setLayoutParams(lp);
+	
+		// Cancel Button
+		Button cancel = (Button) findViewById(R.id.cancelButton);
+		cancel.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				_selected = null;
+				finish();
+			}	
+		});
+	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_favorites, menu);
+		return true;
 	}
 	
-	private void updateFavorites(){
-		_locations.add("AAPL");
-		_locations.add("GOOG");
-		_locations.add("MSFT");
-		
-		
+	@Override
+	public void finish(){
+		Intent data = new Intent();
+		data.putExtra("category", _selected);
+		setResult(RESULT_OK, data);
+		super.finish();	
 	}
 }
 	

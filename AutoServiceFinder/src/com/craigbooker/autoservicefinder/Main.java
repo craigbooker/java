@@ -37,4 +37,25 @@ public class Main  extends Activity {
 			Log.e("JSON ERROR", e.toString());
 		}
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_main, menu);
+		return true;
+	}
+	
+	private void getSearch(String category){
+		
+	}
+	
+	@Override
+	protected void onActivityResult(){
+		if(resultCode == RESULT_OK && requestCode = REQUEST CODE){
+			if(data.hasExtra("category")){
+				String category = data.getExtras().getString("category");
+				((EditText) findViewById(R.id.searchField)).setText(category);
+				getSearch(category);
+			}
+		}
+	};
 }
