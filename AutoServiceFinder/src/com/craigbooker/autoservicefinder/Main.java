@@ -1,15 +1,25 @@
 package com.craigbooker.autoservicefinder;
 
+import java.net.URL;
 import java.util.HashMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.scribe.builder.ServiceBuilder;
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
+import org.scribe.model.Token;
+import org.scribe.model.Verb;
+import org.scribe.oauth.OAuthService;
 
+import com.craigbooker.external.yelp.YelpV2API;
+import com.craigbooker.external.yelp.v2.YelpSearchResult;
 import com.craigbooker.lib.FileStuff;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
@@ -22,6 +32,25 @@ public class Main  extends Activity {
 	HashMap<String, String> _history;
 	String _favorites;
 	static final int REQUEST_CODE = 0;
+	
+	// OAuth Stuff
+	OAuthService service;
+	Token accessToken;
+	 String consumerKey = "8hYTZBUuiTxOwmTjQtFnTw";
+	 String consumerSecret = "2mTa_1uggZVU2aWoIWQ8VViSC6s";
+	 String token = "BAr8f7RjszQjh3_4A8VrCI1TjDLw5uMt";
+	 String tokenSecret = "mPgSRUOXlheC1c5Zr8I7-I3dVj0";
+	 String baseURL = "http://api.yelp.com/v2/search"; 
+	
+	// Some example values to pass into the Yelp search service.
+	String lat = "35.667196";
+	String lng = "-97.407243";
+	String searchTerm = "auto";
+	String category = "auto";
+	YelpSearchResult places;
+	String rawData = "";
+	
+	
 	
 	private Handler searchHandler = new Handler(){
 		public void handleMessage(Message message){
@@ -100,7 +129,26 @@ public class Main  extends Activity {
 		intent.putExtra("messenger", messenger);
 		startService(intent);
 	}
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	SearchRequest
 	
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */	
+	private class SearchRequest extends AsyncTask<URL, Void, String>{	
+		@Override
+		protected String doInBackground(URL... urls){
+			for(URL url: urls){
+				// Execute a signed call to the Yelp service.  
+				OAuthService service = new ServiceBuilder().provider(YelpV2API.class).apiKey(consumerKey).apiSecret(consumerSecret).build();
+				Token accessToken = new Token(token, tokenSecret);
+				OAuthRequest oaRequest = new OAuthRequest(Verb.GET, url.toString());
+				service.signRequest(accessToken, oaRequest);
+				Response response = oaRequest.send();
+				rawData = response.getBody();
+			}
+			//Log.i("RAW DATA - IN SEARCH REQUEST:", rawData);
+			return rawData;
+		}	
+		
 	@Override
 	protected void onActivityResult(){
 		if(resultCode == RESULT_OK && requestCode = REQUEST CODE){
