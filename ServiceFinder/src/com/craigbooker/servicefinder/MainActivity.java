@@ -16,7 +16,7 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 
 	Context _context;
 	HashMap<String, String> _storedHistory;
-	String _searchLog;
+	String _log;
 	final static int REQUEST_CODE = 0;
 	
 	@Override
@@ -52,12 +52,12 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 	public void onAddToLog() {
 		String currentSearchTerm = ((TextView) findViewById(R.id.searchTermField)).getText().toString();
 			if(currentSearchTerm != null){
-				if(_searchLog.length() > 0){
-					_searchLog = _searchLog.concat("," +currentSearchTerm);
+				if(_log.length() > 0){
+					_log = _log.concat("," +currentSearchTerm);
 				} else {
-					_searchLog = currentSearchTerm;
+					_log = currentSearchTerm;
 				}
-				FileStuff.storeStringFile(_context, "storedHistory", _searchLog, true);
+				FileStuff.storeStringFile(_context, "storedHistory", _log, true);
 			}
 	};
 
