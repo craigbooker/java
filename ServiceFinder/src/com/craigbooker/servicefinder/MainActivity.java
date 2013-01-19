@@ -2,18 +2,22 @@ package com.craigbooker.servicefinder;
 
 import java.util.HashMap;
 
+import com.craigbooker.lib.FileStuff;
 import com.craigbooker.servicefinder.FormFragment;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Menu;
+import android.widget.TextView;
 
 public class MainActivity extends Activity implements FormFragment.FormListener {
 
 	Context _context;
 	HashMap<String, String> _storedHistory;
 	String _searchLog;
+	final static int REQUEST_CODE = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,22 +31,34 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 		return true;
 	}
 
+	private void getSearch(String searchTerm){
+		
+	}
+	
+	// FORM FRAGMENT METHODS
+	
 	@Override
 	public void onSearch(String searchTerm) {
-		// TODO Auto-generated method stub
-		
+		getSearch(searchTerm);
 	}
 
 	@Override
-	public void onSearchLog() {
-		// TODO Auto-generated method stub
-		
+	public void onGoToSearchLog() {
+		Intent i = new Intent(_context, SearchLog.class);
+		startActivityForResult(i, REQUEST_CODE);
 	}
 
 	@Override
 	public void onAddToLog() {
-		// TODO Auto-generated method stub
-		
-	}
+		String currentSearchTerm = ((TextView) findViewById(R.id.searchTermField)).getText().toString();
+			if(currentSearchTerm != null){
+				if(_searchLog.length() > 0){
+					_searchLog = _searchLog.concat("," +currentSearchTerm);
+				} else {
+					_searchLog = currentSearchTerm;
+				}
+				FileStuff.storeStringFile(_context, "storedHistory", _searchLog, true);
+			}
+	};
 
 }
