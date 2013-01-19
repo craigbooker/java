@@ -24,6 +24,10 @@ public class FormFragment extends Fragment {
 		
 	}
 	
+	public FormFragment() {
+		
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		super.onCreateView(inflater, container, savedInstanceState);
@@ -63,6 +67,9 @@ public class FormFragment extends Fragment {
 		
 		return view;
 	};
+	
+
+	
 	@Override
 	public void onAttach(Activity activity){
 		super.onAttach(activity);

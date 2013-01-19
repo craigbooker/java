@@ -69,7 +69,7 @@ public class SearchLog extends Activity {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_main, menu);
+		getMenuInflater().inflate(R.menu.searchlog, menu);
 		return true;
 	}
 	
