@@ -6,5 +6,7 @@
     <string name="search_term">Enter Search Term</string>
     <string name="searchTitleText">Search Term</string>
     <string name="searchButtonText">Search</string>
+    <string name="addSearchButtonText">Add To Search Log</string>
     <string name="goLogButtonText">Log</string>
+    <string name="cancelButtonText">Cancel</string>
 </resources>

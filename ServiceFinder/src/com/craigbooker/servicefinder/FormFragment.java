@@ -39,10 +39,11 @@ public class FormFragment extends Fragment {
 		searchButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v){
-				EditText field = (EditText) getActivity().findViewById(R.id.searchTermField);
+				EditText field = (EditText) getActivity().findViewById(R.id.searchField);
 				String searchTerm = field.getText().toString();
 				//field.setText(searchTerm);
 				InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(field.getWindowToken(), 0);
 				listener.onSearch(searchTerm);
 			}
 		});
