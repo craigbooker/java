@@ -207,7 +207,7 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 			resultLayoutLeft.setId(51);
 			
 			resultLayoutLeft.addView(myPlacesLL);
-			ll.addView(resultLayoutLeft);
+			//ll.addView(resultLayoutLeft);
 			Log.i("I am in the biz loop", "Loop IT");
 		}
 	}
@@ -242,7 +242,7 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 	}		
 
 	
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	SearchRequest
 	
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */	
@@ -261,8 +261,15 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 			//Log.i("RAW DATA - IN SEARCH REQUEST:", rawData);
 			return rawData;
 		}		
-	
-
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+END OF 	SearchRequest
+		
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */	
+		
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+onPostExecute
+		
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */	
 	protected void onPostExecute(String rawData){
 		Log.i("URL RESPONSE - IN POST EXECUTE", rawData);
 		try {
@@ -312,5 +319,11 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 		        return loc;
 		    }
 	};
+	
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	End of - LocationResult
+	
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */	
+	
 }
-}
+
