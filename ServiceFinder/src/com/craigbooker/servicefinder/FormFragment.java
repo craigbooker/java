@@ -23,11 +23,10 @@ public class FormFragment extends Fragment {
 		public void onAddToLog();
 		
 	}
-	
+	/*
 	public FormFragment() {
-		
 	}
-	
+	*/
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		super.onCreateView(inflater, container, savedInstanceState);

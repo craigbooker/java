@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 
 public class MyLocation {
     Timer timer1;
@@ -19,7 +20,10 @@ public class MyLocation {
     {
         //I use LocationResult callback class to pass location value from MyLocation to user code.
         locationResult=result;
-        if(lm==null)
+        //String check = locationResult.toString();
+        //Log.v("CHECKING VALUE FOR LM", check);
+        if(lm == null)
+        	//Log.v("CHECKING VALUE FOR LM", context.toString());
             lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
         //exceptions will be thrown if provider is not permitted.
