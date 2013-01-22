@@ -21,7 +21,7 @@ public class ASFinderActivity extends MapActivity {
 	private LocationManager locationManager;
 	private GeoPoint currentPoint;
 	private Location currentLocation = null;
-	private MallOverlay currPos;
+	private ASOverlay currPos;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
