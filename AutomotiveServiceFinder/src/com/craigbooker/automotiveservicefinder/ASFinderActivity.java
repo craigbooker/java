@@ -1,5 +1,7 @@
 package com.craigbooker.automotiveservicefinder;
 
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -10,21 +12,28 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+import com.craigbooker.automotiveservicefinder.ASOverlay;
 
 public class ASFinderActivity extends MapActivity {
 
+	private MapController mapController;
+	private MapView mapView;
+	private LocationManager locationManager;
+	private GeoPoint currentPoint;
+	private Location currentLocation = null;
+	private MallOverlay currPos;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		private MapController mapController;
-		private MapView mapView;
+
 		
 		mapView = (MapView)findViewById(R.id.mapView);
 		mapView.setBuiltInZoomControls(true);
 		mapView.setSatellite(false);
-		mapView.setStreetView(true);
+		//mapView.setStreetView(true);
 		mapController = mapView.getController();
 		mapController.setZoom(13);
 		
