@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="app_name">AutoHelp</string>
+    <string name="latitude">Latitude : </string>
+    <string name="longitude">Longitude : </string>
+    <string name="accuracy">Accuracy : </string>
+    <string name="provider">Provider : </string>
+</resources>
